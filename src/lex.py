@@ -42,7 +42,7 @@ tokens = (
     'TEXT',
 )
 
-literals = '+-*/%'
+literals = '+-*/%!@.'
 
 # ESTADO INITIAL
 
@@ -93,11 +93,6 @@ def t_LOOP(t):
     r'LOOP'
     return t
 
-
-def t_DOT(t):
-    r'\.'
-    return t
-
 def t_PRINT(t):
     r'\."\s*'
     return t
@@ -105,14 +100,6 @@ def t_PRINT(t):
 def t_STRING(t): # isto ta straight up errado chatgpt mal ve strings borra-se todo, este token nao tem nada a ver com string é para tratar o comando ." "
     r'"[^"]*"'
     t.value = t.value[1:-1]  # Remover as aspas
-    return t
-
-def t_STORE(t):
-    r'!'
-    return t
-
-def t_UNSTORE(t):
-    r'@'
     return t
 
 def t_COMMENT_START(t):
@@ -164,10 +151,6 @@ def t_function_EMIT(t):
     r'\d{1,3}\s+EMIT'
     return t
 
-def t_function_DOT(t):
-    r'\.'
-    return t
-
 def t_function_PRINT(t):
     r'\."\s*'
     return t
@@ -175,14 +158,6 @@ def t_function_PRINT(t):
 def t_function_STRING(t): # isto ta straight up errado 
     r'"[^"]*"'
     t.value = t.value[1:-1]  # Remover as aspas
-    return t
-
-def t_function_STORE(t):
-    r'!'
-    return t
-
-def t_function_UNSTORE(t):
-    r'@'
     return t
 
 def t_function_COMMENT_START(t):
