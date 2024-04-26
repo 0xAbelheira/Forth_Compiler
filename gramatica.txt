@@ -26,7 +26,6 @@ Comando -> Comentario
 Expressao -> Expressao Fator +
 Expressao -> Expressao Fator -
 Expressao -> Expressao Termo *
-Expressao -> Expressao Termo */
 Expressao -> Expressao Termo /
 Expressao -> Expressao Termo MOD
 Expressao -> Termo
@@ -37,7 +36,7 @@ Termo -> Unstore
 Deteta Prints:
 
 Imprime -> Expressao '.'
-Imprime -> ." Texto" Comandos
+Imprime -> ." Texto " Comandos
 Imprime -> ASCII EMIT Comandos
 Imprime -> ε
 

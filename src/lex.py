@@ -17,7 +17,7 @@ from ply import lex
 
 states = (
     ('comment', 'exclusive'),
-    ('function', 'inclusive')
+    ('function', 'exclusive')
 )
 
 tokens = (
@@ -33,16 +33,12 @@ tokens = (
     'LOOP',
     'EMIT',
     'DOT',
-    'PRINT',
     'STRING',
-    'STORE',
-    'UNSTORE',
     'COMMENT_START',
-    'COMMENT_END',
-    'TEXT',
+    'COMMENT_END'
 )
 
-literals = '+-*/%!@.'
+literals = '+-*/%!@><='
 
 # ESTADO INITIAL
 
@@ -56,8 +52,8 @@ def t_function_FUNC_END(t):
     t.lexer.begin('INITIAL')
     return t
 
-def t_EMIT(t): # faz sentido capturar aqui o inteiro antes do EMIT? assim fazemos a conversao direta para ASCII
-    r'\d{1,3}\s+EMIT'
+def t_EMIT(t): 
+    r'\bEMIT\b'
     return t
 
 def t_NUMBER(t):
@@ -69,37 +65,37 @@ def t_VARIABLE(t):
     r'VARIABLE'
     return t
 
+def t_IF(t):
+    r'\bIF\b'
+    return t
+
+def t_THEN(t):
+    r'\bTHEN\b'
+    return t
+
+def t_ELSE(t):
+    r'\bELSE\b'
+    return t
+
+def t_DO(t):
+    r'\bDO\b'
+    return t
+
+def t_LOOP(t):
+    r'\bLOOP\b'
+    return t
+
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
     return t
 
-def t_IF(t):
-    r'IF'
+def t_DOT(t):
+    r'\.'
     return t
 
-def t_THEN(t):
-    r'THEN'
-    return t
-
-def t_ELSE(t):
-    r'ELSE'
-    return t
-
-def t_DO(t):
-    r'DO'
-    return t
-
-def t_LOOP(t):
-    r'LOOP'
-    return t
-
-def t_PRINT(t):
-    r'\."\s*'
-    return t
-
-def t_STRING(t): # isto ta straight up errado chatgpt mal ve strings borra-se todo, este token nao tem nada a ver com string é para tratar o comando ." "
-    r'"[^"]*"'
-    t.value = t.value[1:-1]  # Remover as aspas
+def t_STRING(t): 
+    r'" [^"]* "'
+    t.value = t.value[1:-1] 
     return t
 
 def t_COMMENT_START(t):
@@ -120,44 +116,44 @@ def t_function_NUMBER(t):
     return t
 
 def t_function_VARIABLE(t):
-    r'VARIABLE'
+    r'\bVARIABLE\b'
+    return t
+
+def t_function_IF(t):
+    r'\bIF\b'
+    return t
+
+def t_function_THEN(t):
+    r'\bTHEN\b'
+    return t
+
+def t_function_ELSE(t):
+    r'\bELSE\b'
+    return t
+
+def t_function_DO(t):
+    r'\bDO\b'
+    return t
+
+def t_function_LOOP(t):
+    r'\bLOOP\b'
+    return t
+
+def t_function_EMIT(t):
+    r'\bEMIT\b'
     return t
 
 def t_function_ID(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
     return t
 
-def t_function_IF(t):
-    r'IF'
+def t_function_DOT(t):
+    r'\.'
     return t
 
-def t_function_THEN(t):
-    r'THEN'
-    return t
-
-def t_function_ELSE(t):
-    r'ELSE'
-    return t
-
-def t_function_DO(t):
-    r'DO'
-    return t
-
-def t_function_LOOP(t):
-    r'LOOP'
-    return t
-
-def t_function_EMIT(t):
-    r'\d{1,3}\s+EMIT'
-    return t
-
-def t_function_PRINT(t):
-    r'\."\s*'
-    return t
-
-def t_function_STRING(t): # isto ta straight up errado 
-    r'"[^"]*"'
-    t.value = t.value[1:-1]  # Remover as aspas
+def t_function_STRING(t):
+    r'" [^"]* "'
+    t.value = t.value[1:-1]  
     return t
 
 def t_function_COMMENT_START(t):
