@@ -197,18 +197,34 @@ lexer = lex.lex()
 
 lexer.begin('INITIAL')
 
-try:
-    while True:
-        line = input("> Digite uma linha (Ctrl+C para sair):\n")
+exemplo = """
+2 3 + .
+"""
 
-        # inserir a linha no lexer
-        lexer.input(line)
+def debug_lexer(exemplo):
+    lexer.input(exemplo)
 
-        for token in lexer:
-            print(token)
-            
-        print() # linha extra para cada comando
+    while tok := lexer.token():
+        print(tok)
+    
+debug_lexer(exemplo)
 
-except KeyboardInterrupt:
-    # Ctrl+c para sair
-    print("\nPrograma terminado!")
+
+#def parse_input():
+#    print("Enter your code (end with 'END' on a new line):")
+#    lines = []
+#    while True:
+#        line = input()
+#        if line == "END":
+#            break
+#        lines.append(line)
+#    code = "\n".join(lines)
+#    lexer.input(code)
+#    for token in lexer:
+#        print(token)
+#
+#try:
+#    parse_input()
+#except KeyboardInterrupt:
+#    print("\nProgram terminated!")
+
