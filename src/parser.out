@@ -19,29 +19,32 @@ Unused terminals:
 Grammar
 
 Rule 0     S' -> Comandos
-Rule 1     Comandos -> Comandos Expressao
+Rule 1     Comandos -> Comandos Comando
 Rule 2     Comandos -> <empty>
 Rule 3     Comando -> Expressao
-Rule 4     Expressao -> Expressao Termo +
-Rule 5     Expressao -> Expressao Termo -
-Rule 6     Expressao -> Expressao Termo *
-Rule 7     Expressao -> Expressao Termo /
-Rule 8     Expressao -> Expressao Termo %
-Rule 9     Expressao -> Termo
-Rule 10    Termo -> NUMBER
-Rule 11    Termo -> NUMBER DOT
+Rule 4     Comando -> Imprime
+Rule 5     Expressao -> Expressao Termo +
+Rule 6     Expressao -> Expressao Termo -
+Rule 7     Expressao -> Expressao Termo *
+Rule 8     Expressao -> Expressao Termo /
+Rule 9     Expressao -> Expressao Termo %
+Rule 10    Expressao -> Termo
+Rule 11    Imprime -> Expressao DOT
+Rule 12    Imprime -> DOTSTRING
+Rule 13    Termo -> NUMBER
 
 Terminals, with rules where they appear
 
-%                    : 8
-*                    : 6
-+                    : 4
--                    : 5
-/                    : 7
+%                    : 9
+*                    : 7
++                    : 5
+-                    : 6
+/                    : 8
 COMMENT_END          : 
 COMMENT_START        : 
 DO                   : 
 DOT                  : 11
+DOTSTRING            : 12
 ELSE                 : 
 EMIT                 : 
 FUNC_END             : 
@@ -49,7 +52,7 @@ FUNC_START           :
 ID                   : 
 IF                   : 
 LOOP                 : 
-NUMBER               : 10 11
+NUMBER               : 13
 STRING               : 
 THEN                 : 
 VARIABLE             : 
@@ -57,19 +60,21 @@ error                :
 
 Nonterminals, with rules where they appear
 
-Comando              : 
+Comando              : 1
 Comandos             : 1 0
-Expressao            : 1 3 4 5 6 7 8
-Termo                : 4 5 6 7 8 9
+Expressao            : 3 5 6 7 8 9 11
+Imprime              : 4
+Termo                : 5 6 7 8 9 10
 
 Parsing method: LALR
 
 state 0
 
     (0) S' -> . Comandos
-    (1) Comandos -> . Comandos Expressao
+    (1) Comandos -> . Comandos Comando
     (2) Comandos -> .
 
+    DOTSTRING       reduce using rule 2 (Comandos -> .)
     NUMBER          reduce using rule 2 (Comandos -> .)
     $end            reduce using rule 2 (Comandos -> .)
 
@@ -78,131 +83,174 @@ state 0
 state 1
 
     (0) S' -> Comandos .
-    (1) Comandos -> Comandos . Expressao
-    (4) Expressao -> . Expressao Termo +
-    (5) Expressao -> . Expressao Termo -
-    (6) Expressao -> . Expressao Termo *
-    (7) Expressao -> . Expressao Termo /
-    (8) Expressao -> . Expressao Termo %
-    (9) Expressao -> . Termo
-    (10) Termo -> . NUMBER
-    (11) Termo -> . NUMBER DOT
+    (1) Comandos -> Comandos . Comando
+    (3) Comando -> . Expressao
+    (4) Comando -> . Imprime
+    (5) Expressao -> . Expressao Termo +
+    (6) Expressao -> . Expressao Termo -
+    (7) Expressao -> . Expressao Termo *
+    (8) Expressao -> . Expressao Termo /
+    (9) Expressao -> . Expressao Termo %
+    (10) Expressao -> . Termo
+    (11) Imprime -> . Expressao DOT
+    (12) Imprime -> . DOTSTRING
+    (13) Termo -> . NUMBER
 
-    NUMBER          shift and go to state 4
+    DOTSTRING       shift and go to state 6
+    NUMBER          shift and go to state 7
 
-    Expressao                      shift and go to state 2
-    Termo                          shift and go to state 3
+    Comando                        shift and go to state 2
+    Expressao                      shift and go to state 3
+    Imprime                        shift and go to state 4
+    Termo                          shift and go to state 5
 
 state 2
 
-    (1) Comandos -> Comandos Expressao .
-    (4) Expressao -> Expressao . Termo +
-    (5) Expressao -> Expressao . Termo -
-    (6) Expressao -> Expressao . Termo *
-    (7) Expressao -> Expressao . Termo /
-    (8) Expressao -> Expressao . Termo %
-    (10) Termo -> . NUMBER
-    (11) Termo -> . NUMBER DOT
+    (1) Comandos -> Comandos Comando .
 
-  ! shift/reduce conflict for NUMBER resolved as shift
-    $end            reduce using rule 1 (Comandos -> Comandos Expressao .)
-    NUMBER          shift and go to state 4
+    DOTSTRING       reduce using rule 1 (Comandos -> Comandos Comando .)
+    NUMBER          reduce using rule 1 (Comandos -> Comandos Comando .)
+    $end            reduce using rule 1 (Comandos -> Comandos Comando .)
 
-  ! NUMBER          [ reduce using rule 1 (Comandos -> Comandos Expressao .) ]
-
-    Termo                          shift and go to state 5
 
 state 3
 
-    (9) Expressao -> Termo .
+    (3) Comando -> Expressao .
+    (5) Expressao -> Expressao . Termo +
+    (6) Expressao -> Expressao . Termo -
+    (7) Expressao -> Expressao . Termo *
+    (8) Expressao -> Expressao . Termo /
+    (9) Expressao -> Expressao . Termo %
+    (11) Imprime -> Expressao . DOT
+    (13) Termo -> . NUMBER
 
-    NUMBER          reduce using rule 9 (Expressao -> Termo .)
-    $end            reduce using rule 9 (Expressao -> Termo .)
+  ! shift/reduce conflict for NUMBER resolved as shift
+    DOTSTRING       reduce using rule 3 (Comando -> Expressao .)
+    $end            reduce using rule 3 (Comando -> Expressao .)
+    DOT             shift and go to state 9
+    NUMBER          shift and go to state 7
 
+  ! NUMBER          [ reduce using rule 3 (Comando -> Expressao .) ]
+
+    Termo                          shift and go to state 8
 
 state 4
 
-    (10) Termo -> NUMBER .
-    (11) Termo -> NUMBER . DOT
+    (4) Comando -> Imprime .
 
-    NUMBER          reduce using rule 10 (Termo -> NUMBER .)
-    $end            reduce using rule 10 (Termo -> NUMBER .)
-    +               reduce using rule 10 (Termo -> NUMBER .)
-    -               reduce using rule 10 (Termo -> NUMBER .)
-    *               reduce using rule 10 (Termo -> NUMBER .)
-    /               reduce using rule 10 (Termo -> NUMBER .)
-    %               reduce using rule 10 (Termo -> NUMBER .)
-    DOT             shift and go to state 6
+    DOTSTRING       reduce using rule 4 (Comando -> Imprime .)
+    NUMBER          reduce using rule 4 (Comando -> Imprime .)
+    $end            reduce using rule 4 (Comando -> Imprime .)
 
 
 state 5
 
-    (4) Expressao -> Expressao Termo . +
-    (5) Expressao -> Expressao Termo . -
-    (6) Expressao -> Expressao Termo . *
-    (7) Expressao -> Expressao Termo . /
-    (8) Expressao -> Expressao Termo . %
+    (10) Expressao -> Termo .
 
-    +               shift and go to state 7
-    -               shift and go to state 8
-    *               shift and go to state 9
-    /               shift and go to state 10
-    %               shift and go to state 11
+    DOT             reduce using rule 10 (Expressao -> Termo .)
+    NUMBER          reduce using rule 10 (Expressao -> Termo .)
+    DOTSTRING       reduce using rule 10 (Expressao -> Termo .)
+    $end            reduce using rule 10 (Expressao -> Termo .)
 
 
 state 6
 
-    (11) Termo -> NUMBER DOT .
+    (12) Imprime -> DOTSTRING .
 
-    NUMBER          reduce using rule 11 (Termo -> NUMBER DOT .)
-    $end            reduce using rule 11 (Termo -> NUMBER DOT .)
-    +               reduce using rule 11 (Termo -> NUMBER DOT .)
-    -               reduce using rule 11 (Termo -> NUMBER DOT .)
-    *               reduce using rule 11 (Termo -> NUMBER DOT .)
-    /               reduce using rule 11 (Termo -> NUMBER DOT .)
-    %               reduce using rule 11 (Termo -> NUMBER DOT .)
+    DOTSTRING       reduce using rule 12 (Imprime -> DOTSTRING .)
+    NUMBER          reduce using rule 12 (Imprime -> DOTSTRING .)
+    $end            reduce using rule 12 (Imprime -> DOTSTRING .)
 
 
 state 7
 
-    (4) Expressao -> Expressao Termo + .
+    (13) Termo -> NUMBER .
 
-    NUMBER          reduce using rule 4 (Expressao -> Expressao Termo + .)
-    $end            reduce using rule 4 (Expressao -> Expressao Termo + .)
+    DOT             reduce using rule 13 (Termo -> NUMBER .)
+    NUMBER          reduce using rule 13 (Termo -> NUMBER .)
+    DOTSTRING       reduce using rule 13 (Termo -> NUMBER .)
+    $end            reduce using rule 13 (Termo -> NUMBER .)
+    +               reduce using rule 13 (Termo -> NUMBER .)
+    -               reduce using rule 13 (Termo -> NUMBER .)
+    *               reduce using rule 13 (Termo -> NUMBER .)
+    /               reduce using rule 13 (Termo -> NUMBER .)
+    %               reduce using rule 13 (Termo -> NUMBER .)
 
 
 state 8
 
-    (5) Expressao -> Expressao Termo - .
+    (5) Expressao -> Expressao Termo . +
+    (6) Expressao -> Expressao Termo . -
+    (7) Expressao -> Expressao Termo . *
+    (8) Expressao -> Expressao Termo . /
+    (9) Expressao -> Expressao Termo . %
 
-    NUMBER          reduce using rule 5 (Expressao -> Expressao Termo - .)
-    $end            reduce using rule 5 (Expressao -> Expressao Termo - .)
+    +               shift and go to state 10
+    -               shift and go to state 11
+    *               shift and go to state 12
+    /               shift and go to state 13
+    %               shift and go to state 14
 
 
 state 9
 
-    (6) Expressao -> Expressao Termo * .
+    (11) Imprime -> Expressao DOT .
 
-    NUMBER          reduce using rule 6 (Expressao -> Expressao Termo * .)
-    $end            reduce using rule 6 (Expressao -> Expressao Termo * .)
+    DOTSTRING       reduce using rule 11 (Imprime -> Expressao DOT .)
+    NUMBER          reduce using rule 11 (Imprime -> Expressao DOT .)
+    $end            reduce using rule 11 (Imprime -> Expressao DOT .)
 
 
 state 10
 
-    (7) Expressao -> Expressao Termo / .
+    (5) Expressao -> Expressao Termo + .
 
-    NUMBER          reduce using rule 7 (Expressao -> Expressao Termo / .)
-    $end            reduce using rule 7 (Expressao -> Expressao Termo / .)
+    DOT             reduce using rule 5 (Expressao -> Expressao Termo + .)
+    NUMBER          reduce using rule 5 (Expressao -> Expressao Termo + .)
+    DOTSTRING       reduce using rule 5 (Expressao -> Expressao Termo + .)
+    $end            reduce using rule 5 (Expressao -> Expressao Termo + .)
 
 
 state 11
 
-    (8) Expressao -> Expressao Termo % .
+    (6) Expressao -> Expressao Termo - .
 
-    NUMBER          reduce using rule 8 (Expressao -> Expressao Termo % .)
-    $end            reduce using rule 8 (Expressao -> Expressao Termo % .)
+    DOT             reduce using rule 6 (Expressao -> Expressao Termo - .)
+    NUMBER          reduce using rule 6 (Expressao -> Expressao Termo - .)
+    DOTSTRING       reduce using rule 6 (Expressao -> Expressao Termo - .)
+    $end            reduce using rule 6 (Expressao -> Expressao Termo - .)
+
+
+state 12
+
+    (7) Expressao -> Expressao Termo * .
+
+    DOT             reduce using rule 7 (Expressao -> Expressao Termo * .)
+    NUMBER          reduce using rule 7 (Expressao -> Expressao Termo * .)
+    DOTSTRING       reduce using rule 7 (Expressao -> Expressao Termo * .)
+    $end            reduce using rule 7 (Expressao -> Expressao Termo * .)
+
+
+state 13
+
+    (8) Expressao -> Expressao Termo / .
+
+    DOT             reduce using rule 8 (Expressao -> Expressao Termo / .)
+    NUMBER          reduce using rule 8 (Expressao -> Expressao Termo / .)
+    DOTSTRING       reduce using rule 8 (Expressao -> Expressao Termo / .)
+    $end            reduce using rule 8 (Expressao -> Expressao Termo / .)
+
+
+state 14
+
+    (9) Expressao -> Expressao Termo % .
+
+    DOT             reduce using rule 9 (Expressao -> Expressao Termo % .)
+    NUMBER          reduce using rule 9 (Expressao -> Expressao Termo % .)
+    DOTSTRING       reduce using rule 9 (Expressao -> Expressao Termo % .)
+    $end            reduce using rule 9 (Expressao -> Expressao Termo % .)
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for NUMBER in state 2 resolved as shift
+WARNING: shift/reduce conflict for NUMBER in state 3 resolved as shift

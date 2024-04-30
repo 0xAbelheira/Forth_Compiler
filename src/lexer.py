@@ -33,6 +33,7 @@ tokens = (
     'LOOP',
     'EMIT',
     'DOT',
+    'DOTSTRING',
     'STRING',
     'COMMENT_START',
     'COMMENT_END'
@@ -89,12 +90,17 @@ def t_ID(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
     return t
 
+def t_DOTSTRING(t):
+    r'\."\s[^"]*? "'
+    t.value = t.value[2:-1]
+    return t
+
 def t_DOT(t):
     r'\.'
     return t
 
 def t_STRING(t): 
-    r'" [^"]* "'
+    r'"\s[^"]*? "'
     t.value = t.value[1:-1] 
     return t
 
@@ -147,12 +153,17 @@ def t_function_ID(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
     return t
 
+def t_function_DOTSTRING(t):
+    r'\."\s[^"]*? "'
+    t.value = t.value[2:-1]
+    return t
+
 def t_function_DOT(t):
     r'\.'
     return t
 
 def t_function_STRING(t):
-    r'" [^"]* "'
+    r'"\s[^"]*? "'
     t.value = t.value[1:-1]  
     return t
 
@@ -198,7 +209,7 @@ lexer = lex.lex()
 lexer.begin('INITIAL')
 
 exemplo = """
-2 3 + .
+." ola"
 """
 
 def debug_lexer(exemplo):

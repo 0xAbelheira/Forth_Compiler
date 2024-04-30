@@ -17,7 +17,7 @@ from ply.yacc import yacc
 
 
 def p_Comandos1(t):
-    "Comandos : Comandos Expressao"
+    "Comandos : Comandos Comando"
     t[0] = t[1] + t[2]
 
 def p_Comandos2(t):
@@ -26,6 +26,10 @@ def p_Comandos2(t):
 
 def p_Comando1(t):
     "Comando : Expressao"
+    t[0] = t[1]
+
+def p_Comando2(t):
+    "Comando : Imprime"
     t[0] = t[1]
 
 def p_Expressao1(t):
@@ -52,13 +56,21 @@ def p_Expressao6(t):
     "Expressao : Termo"
     t[0] = t[1]
 
+def p_Expressao_Print(t):
+    "Imprime : Expressao DOT"
+    t[0] = f'{t[1]} writei\n'
+
+def p_Expressao_Print2(t):
+    "Imprime : DOTSTRING"
+    t[0] = f'pushs "{t[1]}"\n writes\n'
+
 def p_Termo1(t):
     "Termo : NUMBER"
-    t[0] = f'pushi {t[1]}\n'
+    t[0] = f'pushg {t[1]}\n'
 
-def p_Termo2(t):
-    "Termo : NUMBER DOT"
-    t[0]=f'{t[1]}\nwritei\n'
+#def p_Termo2(t):
+#    "Termo : NUMBER DOT"
+#   t[0]=f'pushg {t[1]}\nwritei\n'
 
 #def p_Imprime2(t): "Imprime : DOT STRING Comandos"; t[0] = 
 #def p_Imprime3(t): "Imprime : NUMBER EMIT Comandos"; t[0] = 
