@@ -56,7 +56,11 @@ def p_Expressao5(t):
     t[0] = f'{t[1]}mod\n'
 
 def p_Expressao6(t):
-    "Expressao : NUMBER"
+    "Expressao : Termo"
+    t[0] = t[1]
+
+def p_Termo(t):
+    "Termo : NUMBER"
     t[0] = f'pushg {t[1]}\n'
 
 def p_Expressao_Print(t):

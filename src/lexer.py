@@ -155,10 +155,6 @@ def t_COMMENT_START(t):
     t.lexer.begin('comment')
     return None
 
-def t_COMMENT_END(t):
-    r'\)'
-    return None
-
 # Comment state functions
 def t_comment_TEXT(t):
     r'[^)]+'
@@ -186,7 +182,7 @@ lexer.begin('INITIAL')
 
 # Testing the lexer
 exemplo = """
-( (ola) )
+( ola )
 """
 
 def debug_lexer(exemplo):

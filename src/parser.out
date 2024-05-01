@@ -27,10 +27,11 @@ Rule 7     Expressao -> Expressao -
 Rule 8     Expressao -> Expressao *
 Rule 9     Expressao -> Expressao /
 Rule 10    Expressao -> Expressao %
-Rule 11    Expressao -> NUMBER
-Rule 12    Imprime -> Expressao DOT
-Rule 13    Imprime -> DOTSTRING
-Rule 14    Comment -> COMMENT_START Comandos COMMENT_END
+Rule 11    Expressao -> Termo
+Rule 12    Termo -> NUMBER
+Rule 13    Imprime -> Expressao DOT
+Rule 14    Imprime -> DOTSTRING
+Rule 15    Comment -> COMMENT_START Comandos COMMENT_END
 
 Terminals, with rules where they appear
 
@@ -39,11 +40,11 @@ Terminals, with rules where they appear
 +                    : 6
 -                    : 7
 /                    : 9
-COMMENT_END          : 14
-COMMENT_START        : 14
+COMMENT_END          : 15
+COMMENT_START        : 15
 DO                   : 
-DOT                  : 12
-DOTSTRING            : 13
+DOT                  : 13
+DOTSTRING            : 14
 ELSE                 : 
 EMIT                 : 
 FUNC_END             : 
@@ -51,7 +52,7 @@ FUNC_START           :
 ID                   : 
 IF                   : 
 LOOP                 : 
-NUMBER               : 11
+NUMBER               : 12
 STRING               : 
 THEN                 : 
 VARIABLE             : 
@@ -60,10 +61,11 @@ error                :
 Nonterminals, with rules where they appear
 
 Comando              : 1
-Comandos             : 1 14 0
+Comandos             : 1 15 0
 Comment              : 5
-Expressao            : 3 6 7 8 9 10 12
+Expressao            : 3 6 7 8 9 10 13
 Imprime              : 4
+Termo                : 11
 
 Parsing method: LALR
 
@@ -73,9 +75,9 @@ state 0
     (1) Comandos -> . Comandos Comando
     (2) Comandos -> .
 
-    NUMBER          reduce using rule 2 (Comandos -> .)
     DOTSTRING       reduce using rule 2 (Comandos -> .)
     COMMENT_START   reduce using rule 2 (Comandos -> .)
+    NUMBER          reduce using rule 2 (Comandos -> .)
     $end            reduce using rule 2 (Comandos -> .)
 
     Comandos                       shift and go to state 1
@@ -92,27 +94,29 @@ state 1
     (8) Expressao -> . Expressao *
     (9) Expressao -> . Expressao /
     (10) Expressao -> . Expressao %
-    (11) Expressao -> . NUMBER
-    (12) Imprime -> . Expressao DOT
-    (13) Imprime -> . DOTSTRING
-    (14) Comment -> . COMMENT_START Comandos COMMENT_END
+    (11) Expressao -> . Termo
+    (13) Imprime -> . Expressao DOT
+    (14) Imprime -> . DOTSTRING
+    (15) Comment -> . COMMENT_START Comandos COMMENT_END
+    (12) Termo -> . NUMBER
 
-    NUMBER          shift and go to state 6
     DOTSTRING       shift and go to state 7
     COMMENT_START   shift and go to state 8
+    NUMBER          shift and go to state 9
 
     Comando                        shift and go to state 2
     Expressao                      shift and go to state 3
     Imprime                        shift and go to state 4
     Comment                        shift and go to state 5
+    Termo                          shift and go to state 6
 
 state 2
 
     (1) Comandos -> Comandos Comando .
 
-    NUMBER          reduce using rule 1 (Comandos -> Comandos Comando .)
     DOTSTRING       reduce using rule 1 (Comandos -> Comandos Comando .)
     COMMENT_START   reduce using rule 1 (Comandos -> Comandos Comando .)
+    NUMBER          reduce using rule 1 (Comandos -> Comandos Comando .)
     $end            reduce using rule 1 (Comandos -> Comandos Comando .)
     COMMENT_END     reduce using rule 1 (Comandos -> Comandos Comando .)
 
@@ -125,28 +129,28 @@ state 3
     (8) Expressao -> Expressao . *
     (9) Expressao -> Expressao . /
     (10) Expressao -> Expressao . %
-    (12) Imprime -> Expressao . DOT
+    (13) Imprime -> Expressao . DOT
 
-    NUMBER          reduce using rule 3 (Comando -> Expressao .)
     DOTSTRING       reduce using rule 3 (Comando -> Expressao .)
     COMMENT_START   reduce using rule 3 (Comando -> Expressao .)
+    NUMBER          reduce using rule 3 (Comando -> Expressao .)
     $end            reduce using rule 3 (Comando -> Expressao .)
     COMMENT_END     reduce using rule 3 (Comando -> Expressao .)
-    +               shift and go to state 9
-    -               shift and go to state 10
-    *               shift and go to state 11
-    /               shift and go to state 12
-    %               shift and go to state 13
-    DOT             shift and go to state 14
+    +               shift and go to state 10
+    -               shift and go to state 11
+    *               shift and go to state 12
+    /               shift and go to state 13
+    %               shift and go to state 14
+    DOT             shift and go to state 15
 
 
 state 4
 
     (4) Comando -> Imprime .
 
-    NUMBER          reduce using rule 4 (Comando -> Imprime .)
     DOTSTRING       reduce using rule 4 (Comando -> Imprime .)
     COMMENT_START   reduce using rule 4 (Comando -> Imprime .)
+    NUMBER          reduce using rule 4 (Comando -> Imprime .)
     $end            reduce using rule 4 (Comando -> Imprime .)
     COMMENT_END     reduce using rule 4 (Comando -> Imprime .)
 
@@ -155,55 +159,72 @@ state 5
 
     (5) Comando -> Comment .
 
-    NUMBER          reduce using rule 5 (Comando -> Comment .)
     DOTSTRING       reduce using rule 5 (Comando -> Comment .)
     COMMENT_START   reduce using rule 5 (Comando -> Comment .)
+    NUMBER          reduce using rule 5 (Comando -> Comment .)
     $end            reduce using rule 5 (Comando -> Comment .)
     COMMENT_END     reduce using rule 5 (Comando -> Comment .)
 
 
 state 6
 
-    (11) Expressao -> NUMBER .
+    (11) Expressao -> Termo .
 
-    +               reduce using rule 11 (Expressao -> NUMBER .)
-    -               reduce using rule 11 (Expressao -> NUMBER .)
-    *               reduce using rule 11 (Expressao -> NUMBER .)
-    /               reduce using rule 11 (Expressao -> NUMBER .)
-    %               reduce using rule 11 (Expressao -> NUMBER .)
-    DOT             reduce using rule 11 (Expressao -> NUMBER .)
-    NUMBER          reduce using rule 11 (Expressao -> NUMBER .)
-    DOTSTRING       reduce using rule 11 (Expressao -> NUMBER .)
-    COMMENT_START   reduce using rule 11 (Expressao -> NUMBER .)
-    $end            reduce using rule 11 (Expressao -> NUMBER .)
-    COMMENT_END     reduce using rule 11 (Expressao -> NUMBER .)
+    +               reduce using rule 11 (Expressao -> Termo .)
+    -               reduce using rule 11 (Expressao -> Termo .)
+    *               reduce using rule 11 (Expressao -> Termo .)
+    /               reduce using rule 11 (Expressao -> Termo .)
+    %               reduce using rule 11 (Expressao -> Termo .)
+    DOT             reduce using rule 11 (Expressao -> Termo .)
+    DOTSTRING       reduce using rule 11 (Expressao -> Termo .)
+    COMMENT_START   reduce using rule 11 (Expressao -> Termo .)
+    NUMBER          reduce using rule 11 (Expressao -> Termo .)
+    $end            reduce using rule 11 (Expressao -> Termo .)
+    COMMENT_END     reduce using rule 11 (Expressao -> Termo .)
 
 
 state 7
 
-    (13) Imprime -> DOTSTRING .
+    (14) Imprime -> DOTSTRING .
 
-    NUMBER          reduce using rule 13 (Imprime -> DOTSTRING .)
-    DOTSTRING       reduce using rule 13 (Imprime -> DOTSTRING .)
-    COMMENT_START   reduce using rule 13 (Imprime -> DOTSTRING .)
-    $end            reduce using rule 13 (Imprime -> DOTSTRING .)
-    COMMENT_END     reduce using rule 13 (Imprime -> DOTSTRING .)
+    DOTSTRING       reduce using rule 14 (Imprime -> DOTSTRING .)
+    COMMENT_START   reduce using rule 14 (Imprime -> DOTSTRING .)
+    NUMBER          reduce using rule 14 (Imprime -> DOTSTRING .)
+    $end            reduce using rule 14 (Imprime -> DOTSTRING .)
+    COMMENT_END     reduce using rule 14 (Imprime -> DOTSTRING .)
 
 
 state 8
 
-    (14) Comment -> COMMENT_START . Comandos COMMENT_END
+    (15) Comment -> COMMENT_START . Comandos COMMENT_END
     (1) Comandos -> . Comandos Comando
     (2) Comandos -> .
 
     COMMENT_END     reduce using rule 2 (Comandos -> .)
-    NUMBER          reduce using rule 2 (Comandos -> .)
     DOTSTRING       reduce using rule 2 (Comandos -> .)
     COMMENT_START   reduce using rule 2 (Comandos -> .)
+    NUMBER          reduce using rule 2 (Comandos -> .)
 
-    Comandos                       shift and go to state 15
+    Comandos                       shift and go to state 16
 
 state 9
+
+    (12) Termo -> NUMBER .
+
+    +               reduce using rule 12 (Termo -> NUMBER .)
+    -               reduce using rule 12 (Termo -> NUMBER .)
+    *               reduce using rule 12 (Termo -> NUMBER .)
+    /               reduce using rule 12 (Termo -> NUMBER .)
+    %               reduce using rule 12 (Termo -> NUMBER .)
+    DOT             reduce using rule 12 (Termo -> NUMBER .)
+    DOTSTRING       reduce using rule 12 (Termo -> NUMBER .)
+    COMMENT_START   reduce using rule 12 (Termo -> NUMBER .)
+    NUMBER          reduce using rule 12 (Termo -> NUMBER .)
+    $end            reduce using rule 12 (Termo -> NUMBER .)
+    COMMENT_END     reduce using rule 12 (Termo -> NUMBER .)
+
+
+state 10
 
     (6) Expressao -> Expressao + .
 
@@ -213,14 +234,14 @@ state 9
     /               reduce using rule 6 (Expressao -> Expressao + .)
     %               reduce using rule 6 (Expressao -> Expressao + .)
     DOT             reduce using rule 6 (Expressao -> Expressao + .)
-    NUMBER          reduce using rule 6 (Expressao -> Expressao + .)
     DOTSTRING       reduce using rule 6 (Expressao -> Expressao + .)
     COMMENT_START   reduce using rule 6 (Expressao -> Expressao + .)
+    NUMBER          reduce using rule 6 (Expressao -> Expressao + .)
     $end            reduce using rule 6 (Expressao -> Expressao + .)
     COMMENT_END     reduce using rule 6 (Expressao -> Expressao + .)
 
 
-state 10
+state 11
 
     (7) Expressao -> Expressao - .
 
@@ -230,14 +251,14 @@ state 10
     /               reduce using rule 7 (Expressao -> Expressao - .)
     %               reduce using rule 7 (Expressao -> Expressao - .)
     DOT             reduce using rule 7 (Expressao -> Expressao - .)
-    NUMBER          reduce using rule 7 (Expressao -> Expressao - .)
     DOTSTRING       reduce using rule 7 (Expressao -> Expressao - .)
     COMMENT_START   reduce using rule 7 (Expressao -> Expressao - .)
+    NUMBER          reduce using rule 7 (Expressao -> Expressao - .)
     $end            reduce using rule 7 (Expressao -> Expressao - .)
     COMMENT_END     reduce using rule 7 (Expressao -> Expressao - .)
 
 
-state 11
+state 12
 
     (8) Expressao -> Expressao * .
 
@@ -247,14 +268,14 @@ state 11
     /               reduce using rule 8 (Expressao -> Expressao * .)
     %               reduce using rule 8 (Expressao -> Expressao * .)
     DOT             reduce using rule 8 (Expressao -> Expressao * .)
-    NUMBER          reduce using rule 8 (Expressao -> Expressao * .)
     DOTSTRING       reduce using rule 8 (Expressao -> Expressao * .)
     COMMENT_START   reduce using rule 8 (Expressao -> Expressao * .)
+    NUMBER          reduce using rule 8 (Expressao -> Expressao * .)
     $end            reduce using rule 8 (Expressao -> Expressao * .)
     COMMENT_END     reduce using rule 8 (Expressao -> Expressao * .)
 
 
-state 12
+state 13
 
     (9) Expressao -> Expressao / .
 
@@ -264,14 +285,14 @@ state 12
     /               reduce using rule 9 (Expressao -> Expressao / .)
     %               reduce using rule 9 (Expressao -> Expressao / .)
     DOT             reduce using rule 9 (Expressao -> Expressao / .)
-    NUMBER          reduce using rule 9 (Expressao -> Expressao / .)
     DOTSTRING       reduce using rule 9 (Expressao -> Expressao / .)
     COMMENT_START   reduce using rule 9 (Expressao -> Expressao / .)
+    NUMBER          reduce using rule 9 (Expressao -> Expressao / .)
     $end            reduce using rule 9 (Expressao -> Expressao / .)
     COMMENT_END     reduce using rule 9 (Expressao -> Expressao / .)
 
 
-state 13
+state 14
 
     (10) Expressao -> Expressao % .
 
@@ -281,27 +302,27 @@ state 13
     /               reduce using rule 10 (Expressao -> Expressao % .)
     %               reduce using rule 10 (Expressao -> Expressao % .)
     DOT             reduce using rule 10 (Expressao -> Expressao % .)
-    NUMBER          reduce using rule 10 (Expressao -> Expressao % .)
     DOTSTRING       reduce using rule 10 (Expressao -> Expressao % .)
     COMMENT_START   reduce using rule 10 (Expressao -> Expressao % .)
+    NUMBER          reduce using rule 10 (Expressao -> Expressao % .)
     $end            reduce using rule 10 (Expressao -> Expressao % .)
     COMMENT_END     reduce using rule 10 (Expressao -> Expressao % .)
 
 
-state 14
-
-    (12) Imprime -> Expressao DOT .
-
-    NUMBER          reduce using rule 12 (Imprime -> Expressao DOT .)
-    DOTSTRING       reduce using rule 12 (Imprime -> Expressao DOT .)
-    COMMENT_START   reduce using rule 12 (Imprime -> Expressao DOT .)
-    $end            reduce using rule 12 (Imprime -> Expressao DOT .)
-    COMMENT_END     reduce using rule 12 (Imprime -> Expressao DOT .)
-
-
 state 15
 
-    (14) Comment -> COMMENT_START Comandos . COMMENT_END
+    (13) Imprime -> Expressao DOT .
+
+    DOTSTRING       reduce using rule 13 (Imprime -> Expressao DOT .)
+    COMMENT_START   reduce using rule 13 (Imprime -> Expressao DOT .)
+    NUMBER          reduce using rule 13 (Imprime -> Expressao DOT .)
+    $end            reduce using rule 13 (Imprime -> Expressao DOT .)
+    COMMENT_END     reduce using rule 13 (Imprime -> Expressao DOT .)
+
+
+state 16
+
+    (15) Comment -> COMMENT_START Comandos . COMMENT_END
     (1) Comandos -> Comandos . Comando
     (3) Comando -> . Expressao
     (4) Comando -> . Imprime
@@ -311,28 +332,30 @@ state 15
     (8) Expressao -> . Expressao *
     (9) Expressao -> . Expressao /
     (10) Expressao -> . Expressao %
-    (11) Expressao -> . NUMBER
-    (12) Imprime -> . Expressao DOT
-    (13) Imprime -> . DOTSTRING
-    (14) Comment -> . COMMENT_START Comandos COMMENT_END
+    (11) Expressao -> . Termo
+    (13) Imprime -> . Expressao DOT
+    (14) Imprime -> . DOTSTRING
+    (15) Comment -> . COMMENT_START Comandos COMMENT_END
+    (12) Termo -> . NUMBER
 
-    COMMENT_END     shift and go to state 16
-    NUMBER          shift and go to state 6
+    COMMENT_END     shift and go to state 17
     DOTSTRING       shift and go to state 7
     COMMENT_START   shift and go to state 8
+    NUMBER          shift and go to state 9
 
     Comando                        shift and go to state 2
     Expressao                      shift and go to state 3
     Imprime                        shift and go to state 4
     Comment                        shift and go to state 5
+    Termo                          shift and go to state 6
 
-state 16
+state 17
 
-    (14) Comment -> COMMENT_START Comandos COMMENT_END .
+    (15) Comment -> COMMENT_START Comandos COMMENT_END .
 
-    NUMBER          reduce using rule 14 (Comment -> COMMENT_START Comandos COMMENT_END .)
-    DOTSTRING       reduce using rule 14 (Comment -> COMMENT_START Comandos COMMENT_END .)
-    COMMENT_START   reduce using rule 14 (Comment -> COMMENT_START Comandos COMMENT_END .)
-    $end            reduce using rule 14 (Comment -> COMMENT_START Comandos COMMENT_END .)
-    COMMENT_END     reduce using rule 14 (Comment -> COMMENT_START Comandos COMMENT_END .)
+    DOTSTRING       reduce using rule 15 (Comment -> COMMENT_START Comandos COMMENT_END .)
+    COMMENT_START   reduce using rule 15 (Comment -> COMMENT_START Comandos COMMENT_END .)
+    NUMBER          reduce using rule 15 (Comment -> COMMENT_START Comandos COMMENT_END .)
+    $end            reduce using rule 15 (Comment -> COMMENT_START Comandos COMMENT_END .)
+    COMMENT_END     reduce using rule 15 (Comment -> COMMENT_START Comandos COMMENT_END .)
 
