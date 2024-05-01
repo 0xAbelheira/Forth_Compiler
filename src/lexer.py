@@ -182,6 +182,8 @@ def t_ANY_lineno(t):
 
 lexer = lex.lex()
 
+lexer.begin('INITIAL')
+
 # Testing the lexer
 exemplo = """
 2 3 +
