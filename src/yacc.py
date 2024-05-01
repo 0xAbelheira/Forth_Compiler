@@ -15,7 +15,6 @@ from ply import lex
 from lexer import tokens
 from ply.yacc import yacc
 
-
 def p_Comandos1(t):
     "Comandos : Comandos Comando"
     t[0] = t[1] + t[2]
@@ -37,28 +36,28 @@ def p_Comando3(t):
     t[0] = t[1]
 
 def p_Expressao1(t):
-    "Expressao : Expressao Termo '+'"
+    "Expressao : Expressao '+'"
     t[0] = f'{t[1]} {t[2]} add\n'
 
 def p_Expressao2(t):
-    "Expressao : Expressao Termo '-'"
+    "Expressao : Expressao '-'"
     t[0] = f'{t[1]} {t[2]} sub\n'
 
 def p_Expressao3(t):
-    "Expressao : Expressao Termo '*'"
+    "Expressao : Expressao '*'"
     t[0] = f'{t[1]} {t[2]} mul\n'
 
 def p_Expressao4(t):
-    "Expressao : Expressao Termo '/'"
+    "Expressao : Expressao '/'"
     t[0] = f'{t[1]} {t[2]} div\n'
 
 def p_Expressao5(t):
-    "Expressao : Expressao Termo '%'"
+    "Expressao : Expressao '%'"
     t[0] = f'{t[1]} {t[2]} mod\n'
 
 def p_Expressao6(t):
-    "Expressao : Termo"
-    t[0] = t[1]
+    "Expressao : NUMBER"
+    t[0] = f'pushg {t[1]}\n'
 
 def p_Expressao_Print(t):
     "Imprime : Expressao DOT"

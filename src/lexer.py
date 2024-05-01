@@ -186,8 +186,7 @@ lexer.begin('INITIAL')
 
 # Testing the lexer
 exemplo = """
-2 3 +
-( 2 3 + (1 2131pna)) 2 3 +
+( (ola) )
 """
 
 def debug_lexer(exemplo):
