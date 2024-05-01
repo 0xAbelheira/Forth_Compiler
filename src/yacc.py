@@ -32,6 +32,10 @@ def p_Comando2(t):
     "Comando : Imprime"
     t[0] = t[1]
 
+def p_Comando3(t):
+    "Comando : Comment"
+    t[0] = t[1]
+
 def p_Expressao1(t):
     "Expressao : Expressao Termo '+'"
     t[0] = f'{t[1]} {t[2]} add\n'
@@ -67,6 +71,10 @@ def p_Expressao_Print2(t):
 def p_Termo1(t):
     "Termo : NUMBER"
     t[0] = f'pushg {t[1]}\n'
+
+def p_Comment(t):
+    "Comment : COMMENT_START Comandos COMMENT_END"
+    t[0] = ""
 
 #def p_Termo2(t):
 #    "Termo : NUMBER DOT"
