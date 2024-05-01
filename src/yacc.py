@@ -37,23 +37,23 @@ def p_Comando3(t):
 
 def p_Expressao1(t):
     "Expressao : Expressao '+'"
-    t[0] = f'{t[1]} {t[2]} add\n'
+    t[0] = f'{t[1]}add\n'
 
 def p_Expressao2(t):
     "Expressao : Expressao '-'"
-    t[0] = f'{t[1]} {t[2]} sub\n'
+    t[0] = f'{t[1]}sub\n'
 
 def p_Expressao3(t):
     "Expressao : Expressao '*'"
-    t[0] = f'{t[1]} {t[2]} mul\n'
+    t[0] = f'{t[1]}mul\n'
 
 def p_Expressao4(t):
     "Expressao : Expressao '/'"
-    t[0] = f'{t[1]} {t[2]} div\n'
+    t[0] = f'{t[1]}div\n'
 
 def p_Expressao5(t):
     "Expressao : Expressao '%'"
-    t[0] = f'{t[1]} {t[2]} mod\n'
+    t[0] = f'{t[1]}mod\n'
 
 def p_Expressao6(t):
     "Expressao : NUMBER"
@@ -61,15 +61,11 @@ def p_Expressao6(t):
 
 def p_Expressao_Print(t):
     "Imprime : Expressao DOT"
-    t[0] = f'{t[1]} writei\n'
+    t[0] = f'{t[1]}writei\n'
 
 def p_Expressao_Print2(t):
     "Imprime : DOTSTRING"
-    t[0] = f'pushs "{t[1]}"\n writes\n'
-
-def p_Termo1(t):
-    "Termo : NUMBER"
-    t[0] = f'pushg {t[1]}\n'
+    t[0] = f'pushs "{t[1]}"\nwrites\n'
 
 def p_Comment(t):
     "Comment : COMMENT_START Comandos COMMENT_END"

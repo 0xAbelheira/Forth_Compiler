@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "COMMENT_END COMMENT_START DO DOT DOTSTRING ELSE EMIT FUNC_END FUNC_START ID IF LOOP NUMBER STRING THEN VARIABLEComandos : Comandos ComandoComandos : Comando : ExpressaoComando : ImprimeComando : CommentExpressao : Expressao '+'Expressao : Expressao '-'Expressao : Expressao '*'Expressao : Expressao '/'Expressao : Expressao '%'Expressao : NUMBERImprime : Expressao DOTImprime : DOTSTRINGTermo : NUMBERComment : COMMENT_START Comandos COMMENT_END"
+_lr_signature = "COMMENT_END COMMENT_START DO DOT DOTSTRING ELSE EMIT FUNC_END FUNC_START ID IF LOOP NUMBER STRING THEN VARIABLEComandos : Comandos ComandoComandos : Comando : ExpressaoComando : ImprimeComando : CommentExpressao : Expressao '+'Expressao : Expressao '-'Expressao : Expressao '*'Expressao : Expressao '/'Expressao : Expressao '%'Expressao : NUMBERImprime : Expressao DOTImprime : DOTSTRINGComment : COMMENT_START Comandos COMMENT_END"
     
-_lr_action_items = {'NUMBER':([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,],[-2,6,-1,-3,-4,-5,-11,-13,-2,-6,-7,-8,-9,-10,-12,6,-15,]),'DOTSTRING':([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,],[-2,7,-1,-3,-4,-5,-11,-13,-2,-6,-7,-8,-9,-10,-12,7,-15,]),'COMMENT_START':([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,],[-2,8,-1,-3,-4,-5,-11,-13,-2,-6,-7,-8,-9,-10,-12,8,-15,]),'$end':([0,1,2,3,4,5,6,7,9,10,11,12,13,14,16,],[-2,0,-1,-3,-4,-5,-11,-13,-6,-7,-8,-9,-10,-12,-15,]),'COMMENT_END':([2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,],[-1,-3,-4,-5,-11,-13,-2,-6,-7,-8,-9,-10,-12,16,-15,]),'+':([3,6,9,10,11,12,13,],[9,-11,-6,-7,-8,-9,-10,]),'-':([3,6,9,10,11,12,13,],[10,-11,-6,-7,-8,-9,-10,]),'*':([3,6,9,10,11,12,13,],[11,-11,-6,-7,-8,-9,-10,]),'/':([3,6,9,10,11,12,13,],[12,-11,-6,-7,-8,-9,-10,]),'%':([3,6,9,10,11,12,13,],[13,-11,-6,-7,-8,-9,-10,]),'DOT':([3,6,9,10,11,12,13,],[14,-11,-6,-7,-8,-9,-10,]),}
+_lr_action_items = {'NUMBER':([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,],[-2,6,-1,-3,-4,-5,-11,-13,-2,-6,-7,-8,-9,-10,-12,6,-14,]),'DOTSTRING':([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,],[-2,7,-1,-3,-4,-5,-11,-13,-2,-6,-7,-8,-9,-10,-12,7,-14,]),'COMMENT_START':([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,],[-2,8,-1,-3,-4,-5,-11,-13,-2,-6,-7,-8,-9,-10,-12,8,-14,]),'$end':([0,1,2,3,4,5,6,7,9,10,11,12,13,14,16,],[-2,0,-1,-3,-4,-5,-11,-13,-6,-7,-8,-9,-10,-12,-14,]),'COMMENT_END':([2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,],[-1,-3,-4,-5,-11,-13,-2,-6,-7,-8,-9,-10,-12,16,-14,]),'+':([3,6,9,10,11,12,13,],[9,-11,-6,-7,-8,-9,-10,]),'-':([3,6,9,10,11,12,13,],[10,-11,-6,-7,-8,-9,-10,]),'*':([3,6,9,10,11,12,13,],[11,-11,-6,-7,-8,-9,-10,]),'/':([3,6,9,10,11,12,13,],[12,-11,-6,-7,-8,-9,-10,]),'%':([3,6,9,10,11,12,13,],[13,-11,-6,-7,-8,-9,-10,]),'DOT':([3,6,9,10,11,12,13,],[14,-11,-6,-7,-8,-9,-10,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -40,6 +40,5 @@ _lr_productions = [
   ('Expressao -> NUMBER','Expressao',1,'p_Expressao6','yacc.py',59),
   ('Imprime -> Expressao DOT','Imprime',2,'p_Expressao_Print','yacc.py',63),
   ('Imprime -> DOTSTRING','Imprime',1,'p_Expressao_Print2','yacc.py',67),
-  ('Termo -> NUMBER','Termo',1,'p_Termo1','yacc.py',71),
-  ('Comment -> COMMENT_START Comandos COMMENT_END','Comment',3,'p_Comment','yacc.py',75),
+  ('Comment -> COMMENT_START Comandos COMMENT_END','Comment',3,'p_Comment','yacc.py',71),
 ]

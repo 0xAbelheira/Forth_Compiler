@@ -30,8 +30,7 @@ Rule 10    Expressao -> Expressao %
 Rule 11    Expressao -> NUMBER
 Rule 12    Imprime -> Expressao DOT
 Rule 13    Imprime -> DOTSTRING
-Rule 14    Termo -> NUMBER
-Rule 15    Comment -> COMMENT_START Comandos COMMENT_END
+Rule 14    Comment -> COMMENT_START Comandos COMMENT_END
 
 Terminals, with rules where they appear
 
@@ -40,8 +39,8 @@ Terminals, with rules where they appear
 +                    : 6
 -                    : 7
 /                    : 9
-COMMENT_END          : 15
-COMMENT_START        : 15
+COMMENT_END          : 14
+COMMENT_START        : 14
 DO                   : 
 DOT                  : 12
 DOTSTRING            : 13
@@ -52,7 +51,7 @@ FUNC_START           :
 ID                   : 
 IF                   : 
 LOOP                 : 
-NUMBER               : 11 14
+NUMBER               : 11
 STRING               : 
 THEN                 : 
 VARIABLE             : 
@@ -61,11 +60,10 @@ error                :
 Nonterminals, with rules where they appear
 
 Comando              : 1
-Comandos             : 1 15 0
+Comandos             : 1 14 0
 Comment              : 5
 Expressao            : 3 6 7 8 9 10 12
 Imprime              : 4
-Termo                : 
 
 Parsing method: LALR
 
@@ -97,7 +95,7 @@ state 1
     (11) Expressao -> . NUMBER
     (12) Imprime -> . Expressao DOT
     (13) Imprime -> . DOTSTRING
-    (15) Comment -> . COMMENT_START Comandos COMMENT_END
+    (14) Comment -> . COMMENT_START Comandos COMMENT_END
 
     NUMBER          shift and go to state 6
     DOTSTRING       shift and go to state 7
@@ -194,7 +192,7 @@ state 7
 
 state 8
 
-    (15) Comment -> COMMENT_START . Comandos COMMENT_END
+    (14) Comment -> COMMENT_START . Comandos COMMENT_END
     (1) Comandos -> . Comandos Comando
     (2) Comandos -> .
 
@@ -303,7 +301,7 @@ state 14
 
 state 15
 
-    (15) Comment -> COMMENT_START Comandos . COMMENT_END
+    (14) Comment -> COMMENT_START Comandos . COMMENT_END
     (1) Comandos -> Comandos . Comando
     (3) Comando -> . Expressao
     (4) Comando -> . Imprime
@@ -316,7 +314,7 @@ state 15
     (11) Expressao -> . NUMBER
     (12) Imprime -> . Expressao DOT
     (13) Imprime -> . DOTSTRING
-    (15) Comment -> . COMMENT_START Comandos COMMENT_END
+    (14) Comment -> . COMMENT_START Comandos COMMENT_END
 
     COMMENT_END     shift and go to state 16
     NUMBER          shift and go to state 6
@@ -330,11 +328,11 @@ state 15
 
 state 16
 
-    (15) Comment -> COMMENT_START Comandos COMMENT_END .
+    (14) Comment -> COMMENT_START Comandos COMMENT_END .
 
-    NUMBER          reduce using rule 15 (Comment -> COMMENT_START Comandos COMMENT_END .)
-    DOTSTRING       reduce using rule 15 (Comment -> COMMENT_START Comandos COMMENT_END .)
-    COMMENT_START   reduce using rule 15 (Comment -> COMMENT_START Comandos COMMENT_END .)
-    $end            reduce using rule 15 (Comment -> COMMENT_START Comandos COMMENT_END .)
-    COMMENT_END     reduce using rule 15 (Comment -> COMMENT_START Comandos COMMENT_END .)
+    NUMBER          reduce using rule 14 (Comment -> COMMENT_START Comandos COMMENT_END .)
+    DOTSTRING       reduce using rule 14 (Comment -> COMMENT_START Comandos COMMENT_END .)
+    COMMENT_START   reduce using rule 14 (Comment -> COMMENT_START Comandos COMMENT_END .)
+    $end            reduce using rule 14 (Comment -> COMMENT_START Comandos COMMENT_END .)
+    COMMENT_END     reduce using rule 14 (Comment -> COMMENT_START Comandos COMMENT_END .)
 
