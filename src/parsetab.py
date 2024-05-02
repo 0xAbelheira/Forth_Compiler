@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "COMMENT_END COMMENT_START DO DOT DOTSTRING ELSE EMIT FUNC_END FUNC_START ID IF LOOP NUMBER STRING THEN VARIABLEComandos : Comandos ComandoComandos : Comando : ExpressaoComando : ImprimeComando : CommentExpressao : Expressao '+'Expressao : Expressao '-'Expressao : Expressao '*'Expressao : Expressao '/'Expressao : Expressao '%'Expressao : TermoTermo : NUMBERImprime : Expressao DOTImprime : DOTSTRINGComment : COMMENT_START Comandos COMMENT_END"
+_lr_signature = "COMMENT_END COMMENT_START DO DOT DOTSTRING ELSE EMIT FUNC_END FUNC_START ID IF LOOP NUMBER STRING THEN VARIABLEComandos : Comandos ComandoComandos : Comando : ExpressaoComando : ImprimeComando : CommentComando : StoreComando : VariavelExpressao : Expressao '+'Expressao : Expressao '-'Expressao : Expressao '*'Expressao : Expressao '/'Expressao : Expressao '%'Expressao : TermoTermo : NUMBERTermo : UnstoreImprime : Expressao DOTImprime : DOTSTRINGComment : COMMENT_START Comandos COMMENT_ENDStore : ID '!'Unstore : ID '@'Variavel : VARIABLE ID"
     
-_lr_action_items = {'DOTSTRING':([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,],[-2,7,-1,-3,-4,-5,-11,-14,-2,-12,-6,-7,-8,-9,-10,-13,7,-15,]),'COMMENT_START':([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,],[-2,8,-1,-3,-4,-5,-11,-14,-2,-12,-6,-7,-8,-9,-10,-13,8,-15,]),'NUMBER':([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,],[-2,9,-1,-3,-4,-5,-11,-14,-2,-12,-6,-7,-8,-9,-10,-13,9,-15,]),'$end':([0,1,2,3,4,5,6,7,9,10,11,12,13,14,15,17,],[-2,0,-1,-3,-4,-5,-11,-14,-12,-6,-7,-8,-9,-10,-13,-15,]),'COMMENT_END':([2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,],[-1,-3,-4,-5,-11,-14,-2,-12,-6,-7,-8,-9,-10,-13,17,-15,]),'+':([3,6,9,10,11,12,13,14,],[10,-11,-12,-6,-7,-8,-9,-10,]),'-':([3,6,9,10,11,12,13,14,],[11,-11,-12,-6,-7,-8,-9,-10,]),'*':([3,6,9,10,11,12,13,14,],[12,-11,-12,-6,-7,-8,-9,-10,]),'/':([3,6,9,10,11,12,13,14,],[13,-11,-12,-6,-7,-8,-9,-10,]),'%':([3,6,9,10,11,12,13,14,],[14,-11,-12,-6,-7,-8,-9,-10,]),'DOT':([3,6,9,10,11,12,13,14,],[15,-11,-12,-6,-7,-8,-9,-10,]),}
+_lr_action_items = {'DOTSTRING':([0,1,2,3,4,5,6,7,8,9,10,13,14,15,16,17,18,19,20,21,22,23,24,25,],[-2,9,-1,-3,-4,-5,-6,-7,-13,-17,-2,-14,-15,-8,-9,-10,-11,-12,-16,9,-19,-20,-21,-18,]),'COMMENT_START':([0,1,2,3,4,5,6,7,8,9,10,13,14,15,16,17,18,19,20,21,22,23,24,25,],[-2,10,-1,-3,-4,-5,-6,-7,-13,-17,-2,-14,-15,-8,-9,-10,-11,-12,-16,10,-19,-20,-21,-18,]),'ID':([0,1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,17,18,19,20,21,22,23,24,25,],[-2,11,-1,-3,-4,-5,-6,-7,-13,-17,-2,24,-14,-15,-8,-9,-10,-11,-12,-16,11,-19,-20,-21,-18,]),'VARIABLE':([0,1,2,3,4,5,6,7,8,9,10,13,14,15,16,17,18,19,20,21,22,23,24,25,],[-2,12,-1,-3,-4,-5,-6,-7,-13,-17,-2,-14,-15,-8,-9,-10,-11,-12,-16,12,-19,-20,-21,-18,]),'NUMBER':([0,1,2,3,4,5,6,7,8,9,10,13,14,15,16,17,18,19,20,21,22,23,24,25,],[-2,13,-1,-3,-4,-5,-6,-7,-13,-17,-2,-14,-15,-8,-9,-10,-11,-12,-16,13,-19,-20,-21,-18,]),'$end':([0,1,2,3,4,5,6,7,8,9,13,14,15,16,17,18,19,20,22,23,24,25,],[-2,0,-1,-3,-4,-5,-6,-7,-13,-17,-14,-15,-8,-9,-10,-11,-12,-16,-19,-20,-21,-18,]),'COMMENT_END':([2,3,4,5,6,7,8,9,10,13,14,15,16,17,18,19,20,21,22,23,24,25,],[-1,-3,-4,-5,-6,-7,-13,-17,-2,-14,-15,-8,-9,-10,-11,-12,-16,25,-19,-20,-21,-18,]),'+':([3,8,13,14,15,16,17,18,19,23,],[15,-13,-14,-15,-8,-9,-10,-11,-12,-20,]),'-':([3,8,13,14,15,16,17,18,19,23,],[16,-13,-14,-15,-8,-9,-10,-11,-12,-20,]),'*':([3,8,13,14,15,16,17,18,19,23,],[17,-13,-14,-15,-8,-9,-10,-11,-12,-20,]),'/':([3,8,13,14,15,16,17,18,19,23,],[18,-13,-14,-15,-8,-9,-10,-11,-12,-20,]),'%':([3,8,13,14,15,16,17,18,19,23,],[19,-13,-14,-15,-8,-9,-10,-11,-12,-20,]),'DOT':([3,8,13,14,15,16,17,18,19,23,],[20,-13,-14,-15,-8,-9,-10,-11,-12,-20,]),'!':([11,],[22,]),'@':([11,],[23,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'Comandos':([0,8,],[1,16,]),'Comando':([1,16,],[2,2,]),'Expressao':([1,16,],[3,3,]),'Imprime':([1,16,],[4,4,]),'Comment':([1,16,],[5,5,]),'Termo':([1,16,],[6,6,]),}
+_lr_goto_items = {'Comandos':([0,10,],[1,21,]),'Comando':([1,21,],[2,2,]),'Expressao':([1,21,],[3,3,]),'Imprime':([1,21,],[4,4,]),'Comment':([1,21,],[5,5,]),'Store':([1,21,],[6,6,]),'Variavel':([1,21,],[7,7,]),'Termo':([1,21,],[8,8,]),'Unstore':([1,21,],[14,14,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,19 +27,25 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> Comandos","S'",1,None,None,None),
-  ('Comandos -> Comandos Comando','Comandos',2,'p_Comandos1','yacc.py',19),
-  ('Comandos -> <empty>','Comandos',0,'p_Comandos2','yacc.py',23),
-  ('Comando -> Expressao','Comando',1,'p_Comando1','yacc.py',27),
-  ('Comando -> Imprime','Comando',1,'p_Comando2','yacc.py',31),
-  ('Comando -> Comment','Comando',1,'p_Comando3','yacc.py',35),
-  ('Expressao -> Expressao +','Expressao',2,'p_Expressao1','yacc.py',39),
-  ('Expressao -> Expressao -','Expressao',2,'p_Expressao2','yacc.py',43),
-  ('Expressao -> Expressao *','Expressao',2,'p_Expressao3','yacc.py',47),
-  ('Expressao -> Expressao /','Expressao',2,'p_Expressao4','yacc.py',51),
-  ('Expressao -> Expressao %','Expressao',2,'p_Expressao5','yacc.py',55),
-  ('Expressao -> Termo','Expressao',1,'p_Expressao6','yacc.py',59),
-  ('Termo -> NUMBER','Termo',1,'p_Termo','yacc.py',63),
-  ('Imprime -> Expressao DOT','Imprime',2,'p_Expressao_Print','yacc.py',67),
-  ('Imprime -> DOTSTRING','Imprime',1,'p_Expressao_Print2','yacc.py',71),
-  ('Comment -> COMMENT_START Comandos COMMENT_END','Comment',3,'p_Comment','yacc.py',75),
+  ('Comandos -> Comandos Comando','Comandos',2,'p_Comandos1','yacc.py',26),
+  ('Comandos -> <empty>','Comandos',0,'p_Comandos2','yacc.py',30),
+  ('Comando -> Expressao','Comando',1,'p_Comando1','yacc.py',34),
+  ('Comando -> Imprime','Comando',1,'p_Comando2','yacc.py',38),
+  ('Comando -> Comment','Comando',1,'p_Comando3','yacc.py',42),
+  ('Comando -> Store','Comando',1,'p_Comando4','yacc.py',46),
+  ('Comando -> Variavel','Comando',1,'p_Comando5','yacc.py',50),
+  ('Expressao -> Expressao +','Expressao',2,'p_Expressao1','yacc.py',54),
+  ('Expressao -> Expressao -','Expressao',2,'p_Expressao2','yacc.py',58),
+  ('Expressao -> Expressao *','Expressao',2,'p_Expressao3','yacc.py',62),
+  ('Expressao -> Expressao /','Expressao',2,'p_Expressao4','yacc.py',66),
+  ('Expressao -> Expressao %','Expressao',2,'p_Expressao5','yacc.py',70),
+  ('Expressao -> Termo','Expressao',1,'p_Expressao6','yacc.py',74),
+  ('Termo -> NUMBER','Termo',1,'p_Termo','yacc.py',78),
+  ('Termo -> Unstore','Termo',1,'p_Termo2','yacc.py',83),
+  ('Imprime -> Expressao DOT','Imprime',2,'p_Expressao_Print','yacc.py',87),
+  ('Imprime -> DOTSTRING','Imprime',1,'p_Expressao_Print2','yacc.py',91),
+  ('Comment -> COMMENT_START Comandos COMMENT_END','Comment',3,'p_Comment','yacc.py',95),
+  ('Store -> ID !','Store',2,'p_Store','yacc.py',99),
+  ('Unstore -> ID @','Unstore',2,'p_Unstore','yacc.py',111),
+  ('Variavel -> VARIABLE ID','Variavel',2,'p_Variavel','yacc.py',119),
 ]

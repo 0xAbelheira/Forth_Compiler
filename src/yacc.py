@@ -15,6 +15,13 @@ from ply import lex
 from lexer import tokens
 from ply.yacc import yacc
 
+variable_store = {}
+number_stack = []
+
+def print_state():
+    print(f"Stack: {number_stack}")
+    print(f"Variables: {variable_store}")
+
 def p_Comandos1(t):
     "Comandos : Comandos Comando"
     t[0] = t[1] + t[2]
@@ -33,6 +40,14 @@ def p_Comando2(t):
 
 def p_Comando3(t):
     "Comando : Comment"
+    t[0] = t[1]
+
+def p_Comando4(t):
+    "Comando : Store"
+    t[0] = t[1]
+
+def p_Comando5(t):
+    "Comando : Variavel"
     t[0] = t[1]
 
 def p_Expressao1(t):
@@ -61,7 +76,12 @@ def p_Expressao6(t):
 
 def p_Termo(t):
     "Termo : NUMBER"
+    number_stack.append(t[1])
     t[0] = f'pushg {t[1]}\n'
+
+def p_Termo2(t):
+    "Termo : Unstore"
+    t[0] = t[1]
 
 def p_Expressao_Print(t):
     "Imprime : Expressao DOT"
@@ -74,6 +94,31 @@ def p_Expressao_Print2(t):
 def p_Comment(t):
     "Comment : COMMENT_START Comandos COMMENT_END"
     t[0] = ""
+
+def p_Store(t):
+    "Store : ID '!'"
+    if t[1] in variable_store:
+        if number_stack:
+            last_number = number_stack.pop()
+            variable_store[t[1]] = last_number
+            t[0] = f'pushg {last_number}\nstoreg {t[1]}\n'
+        else:
+            t[0] = 'Error: No number to store.\n'
+    else:
+        t[0] = f'Error: Variable {t[1]} does not exist.\n'
+
+def p_Unstore(t):
+    "Unstore : ID '@'"
+    value = variable_store.get(t[1], "Undefined Variable")
+    if value == "Undefined Variable":
+        t[0] = f'Error: {value}.\n'
+    else:
+        t[0] = f'pushg {value}\n'
+
+def p_Variavel(t):
+    "Variavel : VARIABLE ID"
+    variable_store[t[2]] = 0
+    t[0] = f'pushg 0\n'
 
 #def p_Termo2(t):
 #    "Termo : NUMBER DOT"
@@ -152,7 +197,8 @@ parser = yacc()
 
 while True:
     ewvm = parser.parse(input("> "))
-    print(ewvm) 
+    print(ewvm)
+    print_state()
 
 def parse_program():
     print("Type your code (type 'END' on a new line to finish):")
