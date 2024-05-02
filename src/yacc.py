@@ -95,19 +95,19 @@ def p_Comment(t):
     "Comment : COMMENT_START Comandos COMMENT_END"
     t[0] = ""
 
-def p_Store(t):
+def p_Store(t): # guarda o ultimo valor na stack na variável 'ID'
     "Store : ID '!'"
     if t[1] in variable_store:
         if number_stack:
             last_number = number_stack.pop()
             variable_store[t[1]] = last_number
-            t[0] = f'pushg {last_number}\nstoreg {t[1]}\n'
+            t[0] = f'storeg {t[1]}\n'
         else:
             t[0] = 'Error: No number to store.\n'
     else:
         t[0] = f'Error: Variable {t[1]} does not exist.\n'
 
-def p_Unstore(t):
+def p_Unstore(t): #
     "Unstore : ID '@'"
     value = variable_store.get(t[1], "Undefined Variable")
     if value == "Undefined Variable":
