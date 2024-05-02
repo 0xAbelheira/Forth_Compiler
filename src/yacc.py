@@ -144,6 +144,26 @@ def p_Conditional4(t):
 def p_Conditional5(t):
     "Conditional : GEQUAL IF Comandos THEN"
     t[0] = t[3]
+    
+def p_Conditional6(t):
+    "Conditional : '=' IF Comandos ELSE Comandos THEN"
+    t[0] = t[3]
+    
+def p_Conditional7(t):
+    "Conditional : '<' IF Comandos ELSE Comandos THEN"
+    t[0] = t[3]
+    
+def p_Conditional8(t):
+    "Conditional : '>' IF Comandos ELSE Comandos THEN"
+    t[0] = t[3]
+    
+def p_Conditional9(t):
+    "Conditional : LEQUAL IF Comandos ELSE Comandos THEN"
+    t[0] = t[3]
+    
+def p_Conditional10(t):
+    "Conditional : GEQUAL IF Comandos ELSE Comandos THEN"
+    t[0] = t[3]
 
 #def p_Termo2(t):
 #    "Termo : NUMBER DOT"
