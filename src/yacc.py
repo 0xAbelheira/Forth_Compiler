@@ -21,6 +21,7 @@ number_stack = []
 def print_state():
     print(f"Stack: {number_stack}")
     print(f"Variables: {variable_store}")
+    print()
 
 def p_Comandos1(t):
     "Comandos : Comandos Comando"
@@ -36,7 +37,7 @@ def p_Comando1(t):
 
 def p_Comando2(t):
     "Comando : Imprime"
-    t[0] = t[1]
+    t[0] = t[1] 
 
 def p_Comando3(t):
     "Comando : Comment"
@@ -124,9 +125,25 @@ def p_Variavel(t):
     variable_store[t[2]] = 0
     t[0] = f'pushg 0\n'
 
-def p_Conditional(t):
-    "Conditional : IF Comandos THEN"
-    t[0] = t[2]
+def p_Conditional1(t):
+    "Conditional : '=' IF Comandos THEN"
+    t[0] = t[3]
+    
+def p_Conditional2(t):
+    "Conditional : '<' IF Comandos THEN"
+    t[0] = t[3]
+    
+def p_Conditional3(t):
+    "Conditional : '>' IF Comandos THEN"
+    t[0] = t[3]
+    
+def p_Conditional4(t):
+    "Conditional : LEQUAL IF Comandos THEN"
+    t[0] = t[3]
+    
+def p_Conditional5(t):
+    "Conditional : GEQUAL IF Comandos THEN"
+    t[0] = t[3]
 
 #def p_Termo2(t):
 #    "Termo : NUMBER DOT"

@@ -18,6 +18,8 @@ tokens = (
     'LOOP',
     'EMIT',
     'DOT',
+    'GEQUAL',
+    'LEQUAL',
     'DOTSTRING',
     'STRING',
     'COMMENT_START',
@@ -83,6 +85,14 @@ def t_DOT(t):
     r'\.'
     return t
 
+def t_GEQUAL(t):
+    r'>='
+    return t
+
+def t_LEQUAL(t):
+    r'<='
+    return t
+
 def t_STRING(t):
     r'"\s[^"]*? "'
     t.value = t.value[1:-1]
@@ -134,6 +144,14 @@ def t_function_DOTSTRING(t):
 
 def t_function_DOT(t):
     r'\.'
+    return t
+
+def t_function_GEQUAL(t):
+    r'>='
+    return t
+
+def t_function_LEQUAL(t):
+    r'<='
     return t
 
 def t_function_STRING(t):
