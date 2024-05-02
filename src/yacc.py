@@ -50,6 +50,10 @@ def p_Comando5(t):
     "Comando : Variavel"
     t[0] = t[1]
 
+def p_Comando6(t):
+    "Comando : Conditional"
+    t[0] = t[1]
+    
 def p_Expressao1(t):
     "Expressao : Expressao '+'"
     t[0] = f'{t[1]}add\n'
@@ -119,6 +123,10 @@ def p_Variavel(t):
     "Variavel : VARIABLE ID"
     variable_store[t[2]] = 0
     t[0] = f'pushg 0\n'
+
+def p_Conditional(t):
+    "Conditional : IF Comandos THEN"
+    t[0] = t[2]
 
 #def p_Termo2(t):
 #    "Termo : NUMBER DOT"

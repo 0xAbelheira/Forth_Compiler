@@ -182,7 +182,7 @@ lexer.begin('INITIAL')
 
 # Testing the lexer
 exemplo = """
-( ola )
+IF ELSE THEN
 """
 
 def debug_lexer(exemplo):

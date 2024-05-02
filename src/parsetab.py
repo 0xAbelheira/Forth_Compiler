@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "COMMENT_END COMMENT_START DO DOT DOTSTRING ELSE EMIT FUNC_END FUNC_START ID IF LOOP NUMBER STRING THEN VARIABLEComandos : Comandos ComandoComandos : Comando : ExpressaoComando : ImprimeComando : CommentComando : StoreComando : VariavelExpressao : Expressao '+'Expressao : Expressao '-'Expressao : Expressao '*'Expressao : Expressao '/'Expressao : Expressao '%'Expressao : TermoTermo : NUMBERTermo : UnstoreImprime : Expressao DOTImprime : DOTSTRINGComment : COMMENT_START Comandos COMMENT_ENDStore : ID '!'Unstore : ID '@'Variavel : VARIABLE ID"
+_lr_signature = "COMMENT_END COMMENT_START DO DOT DOTSTRING ELSE EMIT FUNC_END FUNC_START ID IF LOOP NUMBER STRING THEN VARIABLEComandos : Comandos ComandoComandos : Comando : ExpressaoComando : ImprimeComando : CommentComando : StoreComando : VariavelComando : ConditionalExpressao : Expressao '+'Expressao : Expressao '-'Expressao : Expressao '*'Expressao : Expressao '/'Expressao : Expressao '%'Expressao : TermoTermo : NUMBERTermo : UnstoreImprime : Expressao DOTImprime : DOTSTRINGComment : COMMENT_START Comandos COMMENT_ENDStore : ID '!'Unstore : ID '@'Variavel : VARIABLE IDConditional : IF Comandos THEN"
     
-_lr_action_items = {'DOTSTRING':([0,1,2,3,4,5,6,7,8,9,10,13,14,15,16,17,18,19,20,21,22,23,24,25,],[-2,9,-1,-3,-4,-5,-6,-7,-13,-17,-2,-14,-15,-8,-9,-10,-11,-12,-16,9,-19,-20,-21,-18,]),'COMMENT_START':([0,1,2,3,4,5,6,7,8,9,10,13,14,15,16,17,18,19,20,21,22,23,24,25,],[-2,10,-1,-3,-4,-5,-6,-7,-13,-17,-2,-14,-15,-8,-9,-10,-11,-12,-16,10,-19,-20,-21,-18,]),'ID':([0,1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,17,18,19,20,21,22,23,24,25,],[-2,11,-1,-3,-4,-5,-6,-7,-13,-17,-2,24,-14,-15,-8,-9,-10,-11,-12,-16,11,-19,-20,-21,-18,]),'VARIABLE':([0,1,2,3,4,5,6,7,8,9,10,13,14,15,16,17,18,19,20,21,22,23,24,25,],[-2,12,-1,-3,-4,-5,-6,-7,-13,-17,-2,-14,-15,-8,-9,-10,-11,-12,-16,12,-19,-20,-21,-18,]),'NUMBER':([0,1,2,3,4,5,6,7,8,9,10,13,14,15,16,17,18,19,20,21,22,23,24,25,],[-2,13,-1,-3,-4,-5,-6,-7,-13,-17,-2,-14,-15,-8,-9,-10,-11,-12,-16,13,-19,-20,-21,-18,]),'$end':([0,1,2,3,4,5,6,7,8,9,13,14,15,16,17,18,19,20,22,23,24,25,],[-2,0,-1,-3,-4,-5,-6,-7,-13,-17,-14,-15,-8,-9,-10,-11,-12,-16,-19,-20,-21,-18,]),'COMMENT_END':([2,3,4,5,6,7,8,9,10,13,14,15,16,17,18,19,20,21,22,23,24,25,],[-1,-3,-4,-5,-6,-7,-13,-17,-2,-14,-15,-8,-9,-10,-11,-12,-16,25,-19,-20,-21,-18,]),'+':([3,8,13,14,15,16,17,18,19,23,],[15,-13,-14,-15,-8,-9,-10,-11,-12,-20,]),'-':([3,8,13,14,15,16,17,18,19,23,],[16,-13,-14,-15,-8,-9,-10,-11,-12,-20,]),'*':([3,8,13,14,15,16,17,18,19,23,],[17,-13,-14,-15,-8,-9,-10,-11,-12,-20,]),'/':([3,8,13,14,15,16,17,18,19,23,],[18,-13,-14,-15,-8,-9,-10,-11,-12,-20,]),'%':([3,8,13,14,15,16,17,18,19,23,],[19,-13,-14,-15,-8,-9,-10,-11,-12,-20,]),'DOT':([3,8,13,14,15,16,17,18,19,23,],[20,-13,-14,-15,-8,-9,-10,-11,-12,-20,]),'!':([11,],[22,]),'@':([11,],[23,]),}
+_lr_action_items = {'DOTSTRING':([0,1,2,3,4,5,6,7,8,9,10,11,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,],[-2,10,-1,-3,-4,-5,-6,-7,-8,-14,-18,-2,-2,-15,-16,-9,-10,-11,-12,-13,-17,10,-20,-21,-22,10,-19,-23,]),'COMMENT_START':([0,1,2,3,4,5,6,7,8,9,10,11,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,],[-2,11,-1,-3,-4,-5,-6,-7,-8,-14,-18,-2,-2,-15,-16,-9,-10,-11,-12,-13,-17,11,-20,-21,-22,11,-19,-23,]),'ID':([0,1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,],[-2,12,-1,-3,-4,-5,-6,-7,-8,-14,-18,-2,26,-2,-15,-16,-9,-10,-11,-12,-13,-17,12,-20,-21,-22,12,-19,-23,]),'VARIABLE':([0,1,2,3,4,5,6,7,8,9,10,11,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,],[-2,13,-1,-3,-4,-5,-6,-7,-8,-14,-18,-2,-2,-15,-16,-9,-10,-11,-12,-13,-17,13,-20,-21,-22,13,-19,-23,]),'IF':([0,1,2,3,4,5,6,7,8,9,10,11,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,],[-2,14,-1,-3,-4,-5,-6,-7,-8,-14,-18,-2,-2,-15,-16,-9,-10,-11,-12,-13,-17,14,-20,-21,-22,14,-19,-23,]),'NUMBER':([0,1,2,3,4,5,6,7,8,9,10,11,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,],[-2,15,-1,-3,-4,-5,-6,-7,-8,-14,-18,-2,-2,-15,-16,-9,-10,-11,-12,-13,-17,15,-20,-21,-22,15,-19,-23,]),'$end':([0,1,2,3,4,5,6,7,8,9,10,15,16,17,18,19,20,21,22,24,25,26,28,29,],[-2,0,-1,-3,-4,-5,-6,-7,-8,-14,-18,-15,-16,-9,-10,-11,-12,-13,-17,-20,-21,-22,-19,-23,]),'COMMENT_END':([2,3,4,5,6,7,8,9,10,11,15,16,17,18,19,20,21,22,23,24,25,26,28,29,],[-1,-3,-4,-5,-6,-7,-8,-14,-18,-2,-15,-16,-9,-10,-11,-12,-13,-17,28,-20,-21,-22,-19,-23,]),'THEN':([2,3,4,5,6,7,8,9,10,14,15,16,17,18,19,20,21,22,24,25,26,27,28,29,],[-1,-3,-4,-5,-6,-7,-8,-14,-18,-2,-15,-16,-9,-10,-11,-12,-13,-17,-20,-21,-22,29,-19,-23,]),'+':([3,9,15,16,17,18,19,20,21,25,],[17,-14,-15,-16,-9,-10,-11,-12,-13,-21,]),'-':([3,9,15,16,17,18,19,20,21,25,],[18,-14,-15,-16,-9,-10,-11,-12,-13,-21,]),'*':([3,9,15,16,17,18,19,20,21,25,],[19,-14,-15,-16,-9,-10,-11,-12,-13,-21,]),'/':([3,9,15,16,17,18,19,20,21,25,],[20,-14,-15,-16,-9,-10,-11,-12,-13,-21,]),'%':([3,9,15,16,17,18,19,20,21,25,],[21,-14,-15,-16,-9,-10,-11,-12,-13,-21,]),'DOT':([3,9,15,16,17,18,19,20,21,25,],[22,-14,-15,-16,-9,-10,-11,-12,-13,-21,]),'!':([12,],[24,]),'@':([12,],[25,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'Comandos':([0,10,],[1,21,]),'Comando':([1,21,],[2,2,]),'Expressao':([1,21,],[3,3,]),'Imprime':([1,21,],[4,4,]),'Comment':([1,21,],[5,5,]),'Store':([1,21,],[6,6,]),'Variavel':([1,21,],[7,7,]),'Termo':([1,21,],[8,8,]),'Unstore':([1,21,],[14,14,]),}
+_lr_goto_items = {'Comandos':([0,11,14,],[1,23,27,]),'Comando':([1,23,27,],[2,2,2,]),'Expressao':([1,23,27,],[3,3,3,]),'Imprime':([1,23,27,],[4,4,4,]),'Comment':([1,23,27,],[5,5,5,]),'Store':([1,23,27,],[6,6,6,]),'Variavel':([1,23,27,],[7,7,7,]),'Conditional':([1,23,27,],[8,8,8,]),'Termo':([1,23,27,],[9,9,9,]),'Unstore':([1,23,27,],[16,16,16,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -34,18 +34,20 @@ _lr_productions = [
   ('Comando -> Comment','Comando',1,'p_Comando3','yacc.py',42),
   ('Comando -> Store','Comando',1,'p_Comando4','yacc.py',46),
   ('Comando -> Variavel','Comando',1,'p_Comando5','yacc.py',50),
-  ('Expressao -> Expressao +','Expressao',2,'p_Expressao1','yacc.py',54),
-  ('Expressao -> Expressao -','Expressao',2,'p_Expressao2','yacc.py',58),
-  ('Expressao -> Expressao *','Expressao',2,'p_Expressao3','yacc.py',62),
-  ('Expressao -> Expressao /','Expressao',2,'p_Expressao4','yacc.py',66),
-  ('Expressao -> Expressao %','Expressao',2,'p_Expressao5','yacc.py',70),
-  ('Expressao -> Termo','Expressao',1,'p_Expressao6','yacc.py',74),
-  ('Termo -> NUMBER','Termo',1,'p_Termo','yacc.py',78),
-  ('Termo -> Unstore','Termo',1,'p_Termo2','yacc.py',83),
-  ('Imprime -> Expressao DOT','Imprime',2,'p_Expressao_Print','yacc.py',87),
-  ('Imprime -> DOTSTRING','Imprime',1,'p_Expressao_Print2','yacc.py',91),
-  ('Comment -> COMMENT_START Comandos COMMENT_END','Comment',3,'p_Comment','yacc.py',95),
-  ('Store -> ID !','Store',2,'p_Store','yacc.py',99),
-  ('Unstore -> ID @','Unstore',2,'p_Unstore','yacc.py',111),
-  ('Variavel -> VARIABLE ID','Variavel',2,'p_Variavel','yacc.py',119),
+  ('Comando -> Conditional','Comando',1,'p_Comando6','yacc.py',54),
+  ('Expressao -> Expressao +','Expressao',2,'p_Expressao1','yacc.py',58),
+  ('Expressao -> Expressao -','Expressao',2,'p_Expressao2','yacc.py',62),
+  ('Expressao -> Expressao *','Expressao',2,'p_Expressao3','yacc.py',66),
+  ('Expressao -> Expressao /','Expressao',2,'p_Expressao4','yacc.py',70),
+  ('Expressao -> Expressao %','Expressao',2,'p_Expressao5','yacc.py',74),
+  ('Expressao -> Termo','Expressao',1,'p_Expressao6','yacc.py',78),
+  ('Termo -> NUMBER','Termo',1,'p_Termo','yacc.py',82),
+  ('Termo -> Unstore','Termo',1,'p_Termo2','yacc.py',87),
+  ('Imprime -> Expressao DOT','Imprime',2,'p_Expressao_Print','yacc.py',91),
+  ('Imprime -> DOTSTRING','Imprime',1,'p_Expressao_Print2','yacc.py',95),
+  ('Comment -> COMMENT_START Comandos COMMENT_END','Comment',3,'p_Comment','yacc.py',99),
+  ('Store -> ID !','Store',2,'p_Store','yacc.py',103),
+  ('Unstore -> ID @','Unstore',2,'p_Unstore','yacc.py',115),
+  ('Variavel -> VARIABLE ID','Variavel',2,'p_Variavel','yacc.py',123),
+  ('Conditional -> IF Comandos THEN','Conditional',3,'p_Conditional','yacc.py',128),
 ]
