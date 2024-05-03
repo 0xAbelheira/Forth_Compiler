@@ -130,6 +130,15 @@ def p_Variavel(t):
     variable_store[t[2]] = 0
     t[0] = f'pushg 0\n'
 
+
+def p_p_Conditional11(t):
+    "Conditional : Expressao IF Comandos THEN"
+    t[0] = t[3]
+
+def p_p_Conditional12(t):
+    "Conditional : Expressao IF Comandos ELSE Comandos THEN"
+    t[0] = t[3]
+
 def p_Conditional1(t):
     "Conditional : '=' IF Comandos THEN"
     t[0] = t[3]
