@@ -11,6 +11,7 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
+
 from ply import lex
 from lexer import tokens
 from ply.yacc import yacc
@@ -57,6 +58,10 @@ def p_Comando6(t):
     
 def p_Expressao1(t):
     "Expressao : Expressao '+'"
+    #pop 
+    #pop 
+    #conta 
+    #push stack
     t[0] = f'{t[1]}add\n'
 
 def p_Expressao2(t):
@@ -147,23 +152,23 @@ def p_Conditional5(t):
     
 def p_Conditional6(t):
     "Conditional : '=' IF Comandos ELSE Comandos THEN"
-    t[0] = t[3]
+    t[0] = t[3] + t[5]
     
 def p_Conditional7(t):
     "Conditional : '<' IF Comandos ELSE Comandos THEN"
-    t[0] = t[3]
+    t[0] = t[3] + t[5]
     
 def p_Conditional8(t):
     "Conditional : '>' IF Comandos ELSE Comandos THEN"
-    t[0] = t[3]
+    t[0] = t[3] + t[5]
     
 def p_Conditional9(t):
     "Conditional : LEQUAL IF Comandos ELSE Comandos THEN"
-    t[0] = t[3]
+    t[0] = t[3] + t[5]
     
 def p_Conditional10(t):
     "Conditional : GEQUAL IF Comandos ELSE Comandos THEN"
-    t[0] = t[3]
+    t[0] = t[3] + t[5]
 
 #def p_Termo2(t):
 #    "Termo : NUMBER DOT"
