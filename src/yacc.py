@@ -21,7 +21,6 @@ label_counter = -1 # to generate unique labels for conditionals
 contadorA = 0
 
 def print_state():
-    #print(f"Stack: {number_stack}")
     print(f"Variables: {variable_store}")
     print()
 
@@ -209,10 +208,10 @@ def p_Conditional12(t):
 def p_Loop(t):
     "Loop : Expressao DO Comandos LOOP"
     global contador
-    contador += 1
-    t[0] = f'pushi 0\nswap\nstoreg {contador-3}\n{t[1]}{t[3]}'
+    contador += 2
+    t[0] = f'pushi 0\nswap\nstoreg {contador-4}\npushi 0\n{t[1]}storeg {contador-2}\n{t[3]}'
     
-    
+
 def p_error(t):
     print(f"Syntax error: {t.value}, {t.type}, {t}")
 
