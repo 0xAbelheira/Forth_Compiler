@@ -11,16 +11,15 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
-
 from ply import lex
 from lexer import tokens
 from ply.yacc import yacc
 
 variable_store = {}
-number_stack = []
+contador = 0 # para tratar o endereçamento de variáveis
 
 def print_state():
-    print(f"Stack: {number_stack}")
+    #print(f"Stack: {number_stack}")
     print(f"Variables: {variable_store}")
     print()
 
@@ -58,10 +57,6 @@ def p_Comando6(t):
     
 def p_Expressao1(t):
     "Expressao : Expressao '+'"
-    #pop 
-    #pop 
-    #conta 
-    #push stack
     t[0] = f'{t[1]}add\n'
 
 def p_Expressao2(t):
@@ -86,16 +81,15 @@ def p_Expressao6(t):
 
 def p_Termo(t):
     "Termo : NUMBER"
-    number_stack.append(t[1])
-    t[0] = f'pushg {t[1]}\n'
+    t[0] = f'pushi {t[1]}\n'
 
 def p_Termo2(t):
     "Termo : Unstore"
     t[0] = t[1]
 
 def p_Expressao_Print(t):
-    "Imprime : Expressao DOT"
-    t[0] = f'{t[1]}writei\n'
+    "Imprime : DOT"
+    t[0] = f'writei\n'
 
 def p_Expressao_Print2(t):
     "Imprime : DOTSTRING"
@@ -107,37 +101,19 @@ def p_Comment(t):
 
 def p_Store(t): # guarda o ultimo valor na stack na variável 'ID'
     "Store : ID '!'"
-    if t[1] in variable_store:
-        if number_stack:
-            last_number = number_stack.pop()
-            variable_store[t[1]] = last_number
-            t[0] = f'storeg {t[1]}\n'
-        else:
-            t[0] = 'Error: No number to store.\n'
-    else:
-        t[0] = f'Error: Variable {t[1]} does not exist.\n'
+    t[0] = f'storeg {variable_store.get(t[1], "Undefined Variable")}\n'
 
-def p_Unstore(t): #
+def p_Unstore(t): 
     "Unstore : ID '@'"
     value = variable_store.get(t[1], "Undefined Variable")
-    if value == "Undefined Variable":
-        t[0] = f'Error: {value}.\n'
-    else:
-        t[0] = f'pushg {value}\n'
+    t[0] = f'pushg {value}\n'
 
 def p_Variavel(t):
     "Variavel : VARIABLE ID"
-    variable_store[t[2]] = 0
-    t[0] = f'pushg 0\n'
-
-
-def p_p_Conditional11(t):
-    "Conditional : Expressao IF Comandos THEN"
-    t[0] = t[3]
-
-def p_p_Conditional12(t):
-    "Conditional : Expressao IF Comandos ELSE Comandos THEN"
-    t[0] = t[3]
+    global contador
+    variable_store[t[2]] = contador
+    contador += 1
+    t[0] = f'pushi 0\n'
 
 def p_Conditional1(t):
     "Conditional : '=' IF Comandos THEN"
@@ -161,23 +137,31 @@ def p_Conditional5(t):
     
 def p_Conditional6(t):
     "Conditional : '=' IF Comandos ELSE Comandos THEN"
-    t[0] = t[3] + t[5]
+    t[0] = t[3]
     
 def p_Conditional7(t):
     "Conditional : '<' IF Comandos ELSE Comandos THEN"
-    t[0] = t[3] + t[5]
+    t[0] = t[3]
     
 def p_Conditional8(t):
     "Conditional : '>' IF Comandos ELSE Comandos THEN"
-    t[0] = t[3] + t[5]
+    t[0] = t[3]
     
 def p_Conditional9(t):
     "Conditional : LEQUAL IF Comandos ELSE Comandos THEN"
-    t[0] = t[3] + t[5]
+    t[0] = t[3]
     
 def p_Conditional10(t):
     "Conditional : GEQUAL IF Comandos ELSE Comandos THEN"
-    t[0] = t[3] + t[5]
+    t[0] = t[3]
+
+def p_p_Conditional11(t):
+    "Conditional : Expressao IF Comandos THEN"
+    t[0] = t[3]
+
+def p_p_Conditional12(t):
+    "Conditional : Expressao IF Comandos ELSE Comandos THEN"
+    t[0] = t[3]
 
 #def p_Termo2(t):
 #    "Termo : NUMBER DOT"
