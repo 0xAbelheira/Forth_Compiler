@@ -16,8 +16,9 @@ from lexer import tokens
 from ply.yacc import yacc
 
 variable_store = {}
-contador = 0 # para tratar o endereçamento de variáveis
+contador = -1 # para tratar o endereçamento de variáveis
 label_counter = -1 # to generate unique labels for conditionals
+contadorA = 0
 
 def print_state():
     #print(f"Stack: {number_stack}")
@@ -31,7 +32,10 @@ def generate_label():
 
 def p_Comandos1(t):
     "Comandos : Comandos Comando"
+    global contadorA, contador
     t[0] = t[1] + t[2]
+    contador+=contadorA
+    contadorA = 0
 
 def p_Comandos2(t):
     "Comandos : "
@@ -67,32 +71,42 @@ def p_Comando7(t):
     
 def p_Expressao1(t):
     "Expressao : Expressao '+'"
+    global contadorA
     t[0] = f'{t[1]}add\n'
+    contadorA -= 1
 
 def p_Expressao2(t):
     "Expressao : Expressao '-'"
+    global contadorA
     t[0] = f'{t[1]}sub\n'
+    contadorA -= 1
 
 def p_Expressao3(t):
     "Expressao : Expressao '*'"
+    global contadorA
     t[0] = f'{t[1]}mul\n'
+    contadorA -= 1
 
 def p_Expressao4(t):
     "Expressao : Expressao '/'"
+    global contadorA
     t[0] = f'{t[1]}div\n'
+    contadorA -= 1
 
 def p_Expressao5(t):
     "Expressao : Expressao '%'"
+    global contadorA
     t[0] = f'{t[1]}mod\n'
+    contadorA -= 1
 
 def p_Expressao6(t):
     "Expressao : Termo"
+    global contadorA
     t[0] = t[1]
+    contadorA += 1
 
 def p_Termo(t):
     "Termo : NUMBER"
-    global contador
-    contador += 1 
     t[0] = f'pushi {int(t[1])}\n'
 
 def p_Termo2(t):
@@ -123,9 +137,10 @@ def p_Unstore(t):
 def p_Variavel(t):
     "Variavel : VARIABLE ID"
     global contador
-    variable_store[t[2]] = contador
     contador += 1
+    variable_store[t[2]] = contador
     t[0] = f'pushi 0\n'
+    contador -= 1
 
 def p_Conditional1(t):
     "Conditional : '=' IF Comandos THEN"
@@ -180,22 +195,23 @@ def p_Conditional10(t):
 def p_Conditional11(t):
     "Conditional : Expressao IF Comandos THEN"
     global contador
-    label = generate_label()
-    contador += 1 
+    label = generate_label() 
     t[0] = f'{t[1]}\npushi 1\nequal\njz ENDIF{label}\n{t[3]}\njump ENDIF{label}\nENDIF{label}:\n'
+    contador += 1
     
 def p_Conditional12(t):
     "Conditional : Expressao IF Comandos ELSE Comandos THEN"
     global contador
     label = generate_label()
-    contador += 1 
     t[0] = f'{t[1]}\npushi 1\nequal\njz ELSE{label}\n{t[3]}\njump ENDIF{label}\nELSE{label}:\n{t[5]}\njump ENDIF{label}\nENDIF{label}:\n'
+    contador += 1
     
 def p_Loop(t):
     "Loop : Expressao DO Comandos LOOP"
     global contador
     contador += 1
-    t[0] = f'pushi 0\nswap\nstoreg {contador}\n{t[3]}'
+    t[0] = f'pushi 0\nswap\nstoreg {contador-3}\n{t[1]}{t[3]}'
+    
     
 def p_error(t):
     print(f"Syntax error: {t.value}, {t.type}, {t}")
