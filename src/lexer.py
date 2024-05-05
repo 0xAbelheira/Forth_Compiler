@@ -9,6 +9,7 @@ tokens = (
     'FUNC_START',
     'FUNC_END',
     'NUMBER',
+    'NUMBERF',
     'VARIABLE',
     'ID',
     'IF',
@@ -18,8 +19,8 @@ tokens = (
     'LOOP',
     'EMIT',
     'DOT',
-    'GEQUAL',
-    'LEQUAL',
+    'SUPEQ',
+    'INFEQ',
     'DOTSTRING',
     'STRING',
     'COMMENT_START',
@@ -44,7 +45,12 @@ def t_EMIT(t):
     return t
 
 def t_NUMBER(t):
-    r'-?\d+(\.\d+)?'
+    r'-?\d+'
+    t.value = int(t.value)
+    return t
+
+def t_NUMBERF(t):
+    r'-?\d+\.\d+'
     t.value = float(t.value)
     return t
 
@@ -85,11 +91,11 @@ def t_DOT(t):
     r'\.'
     return t
 
-def t_GEQUAL(t):
+def t_SUPEQ(t):
     r'>='
     return t
 
-def t_LEQUAL(t):
+def t_INFEQ(t):
     r'<='
     return t
 

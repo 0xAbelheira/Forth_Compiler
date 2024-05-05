@@ -17,11 +17,17 @@ from ply.yacc import yacc
 
 variable_store = {}
 contador = 0 # para tratar o endereçamento de variáveis
+label_counter = -1 # to generate unique labels for conditionals
 
 def print_state():
     #print(f"Stack: {number_stack}")
     print(f"Variables: {variable_store}")
     print()
+
+def generate_label():
+    global label_counter
+    label_counter += 1
+    return label_counter
 
 def p_Comandos1(t):
     "Comandos : Comandos Comando"
@@ -55,6 +61,10 @@ def p_Comando6(t):
     "Comando : Conditional"
     t[0] = t[1]
     
+def p_Comando7(t):
+    "Comando : Loop"
+    t[0] = t[1]
+    
 def p_Expressao1(t):
     "Expressao : Expressao '+'"
     t[0] = f'{t[1]}add\n'
@@ -81,7 +91,7 @@ def p_Expressao6(t):
 
 def p_Termo(t):
     "Termo : NUMBER"
-    t[0] = f'pushi {t[1]}\n'
+    t[0] = f'pushi {int(t[1])}\n'
 
 def p_Termo2(t):
     "Termo : Unstore"
@@ -117,122 +127,68 @@ def p_Variavel(t):
 
 def p_Conditional1(t):
     "Conditional : '=' IF Comandos THEN"
-    t[0] = t[3]
+    label = generate_label()
+    t[0] = f'equal\njz ENDIF{label}\n{t[3]}\njump ENDIF{label}\nENDIF{label}:\n'
     
 def p_Conditional2(t):
     "Conditional : '<' IF Comandos THEN"
-    t[0] = t[3]
+    label = generate_label()
+    t[0] = f'inf\njz ENDIF{label}\n{t[3]}\njump ENDIF{label}\nENDIF{label}:\n'
     
 def p_Conditional3(t):
     "Conditional : '>' IF Comandos THEN"
-    t[0] = t[3]
+    label = generate_label()
+    t[0] = f'sup\njz ENDIF{label}\n{t[3]}\njump ENDIF{label}\nENDIF{label}:\n'
     
 def p_Conditional4(t):
-    "Conditional : LEQUAL IF Comandos THEN"
-    t[0] = t[3]
+    "Conditional : INFEQ IF Comandos THEN" # mudar nome 
+    label = generate_label()
+    t[0] = f'infeq\njz ENDIF{label}\n{t[3]}\njump ENDIF{label}\nENDIF{label}:\n'
     
 def p_Conditional5(t):
-    "Conditional : GEQUAL IF Comandos THEN"
-    t[0] = t[3]
+    "Conditional : SUPEQ IF Comandos THEN"
+    label = generate_label()
+    t[0] = f'supeq\njz ENDIF{label}\n{t[3]}\njump ENDIF{label}\nENDIF{label}:\n'
     
 def p_Conditional6(t):
     "Conditional : '=' IF Comandos ELSE Comandos THEN"
-    t[0] = t[3]
+    label = generate_label()
+    t[0] = f'equal\njz ELSE{label}\n{t[3]}\njump ENDIF{label}\nELSE{label}:\n{t[5]}\njump ENDIF{label}\nENDIF{label}:\n'
     
 def p_Conditional7(t):
     "Conditional : '<' IF Comandos ELSE Comandos THEN"
-    t[0] = t[3]
+    label = generate_label()
+    t[0] = f'inf\njz ELSE{label}\n{t[3]}\njump ENDIF{label}\nELSE{label}:\n{t[5]}\njump ENDIF{label}\nENDIF{label}:\n'
     
 def p_Conditional8(t):
     "Conditional : '>' IF Comandos ELSE Comandos THEN"
-    t[0] = t[3]
+    label = generate_label()
+    t[0] = f'sup\njz ELSE{label}\n{t[3]}\njump ENDIF{label}\nELSE{label}:\n{t[5]}\njump ENDIF{label}\nENDIF{label}:\n'
     
 def p_Conditional9(t):
-    "Conditional : LEQUAL IF Comandos ELSE Comandos THEN"
-    t[0] = t[3]
+    "Conditional : INFEQ IF Comandos ELSE Comandos THEN"
+    label = generate_label()
+    t[0] = f'infeq\njz ELSE{label}\n{t[3]}\njump ENDIF{label}\nELSE{label}:\n{t[5]}\njump ENDIF{label}\nENDIF{label}:\n'
     
 def p_Conditional10(t):
-    "Conditional : GEQUAL IF Comandos ELSE Comandos THEN"
-    t[0] = t[3]
+    "Conditional : SUPEQ IF Comandos ELSE Comandos THEN"
+    label = generate_label()
+    t[0] = f'supeq\njz ELSE{label}\n{t[3]}\njump ENDIF{label}\nELSE{label}:\n{t[5]}\njump ENDIF{label}\nENDIF{label}:\n'
 
-def p_p_Conditional11(t):
+def p_Conditional11(t):
     "Conditional : Expressao IF Comandos THEN"
-    t[0] = t[3]
-
-def p_p_Conditional12(t):
+    label = generate_label()
+    t[0] = f'{t[1]}\npushi 1\nequal\njz ENDIF{label}\n{t[3]}\njump ENDIF{label}\nENDIF{label}:\n'
+    
+def p_Conditional12(t):
     "Conditional : Expressao IF Comandos ELSE Comandos THEN"
-    t[0] = t[3]
-
-#def p_Termo2(t):
-#    "Termo : NUMBER DOT"
-#   t[0]=f'pushg {t[1]}\nwritei\n'
-
-#def p_Imprime2(t): "Imprime : DOT STRING Comandos"; t[0] = 
-#def p_Imprime3(t): "Imprime : NUMBER EMIT Comandos"; t[0] = 
-#def p_Imprime4(t): "Imprime : "; t[0] = ''
-#
-#def p_Imprime1(t):
-#    "Imprime : Expressao DOT"
-#    t[0] = f'{t[1]} writei\n'  # Assuming 'writei' prints an integer
-#
-#def p_Imprime2(t):
-#    "Imprime : DOT STRING Comandos"
-#    t[0] = f'pushs "{t[2]}"\n writes\n'  # Assuming 'writes' prints a string
-#
-#def p_Imprime3(t):
-#    "Imprime : "
-#    t[0] = ''
-#
-#def p_Statement_if_then_else(t):
-#    "Statement : Expressao IF Comandos ELSE Comandos THEN Comandos"
-#    label_else = new_label()
-#    label_end = new_label()
-#    t[0] = (f'{t[1]} jz {label_else}\n'  # Evaluate expression and jump to else if zero
-#            f'{t[3]}'                    # Commands to execute if condition is true
-#            f'jump {label_end}\n'        # Jump to end after executing true branch
-#            f'{label_else}:\n'
-#            f'{t[5]}'                    # Commands to execute if condition is false
-#            f'{label_end}:\n'
-#            f'{t[7]}')                   # Commands after THEN
-#
-#
-#def p_Statement_if_then(t):
-#    "Statement : Expressao IF Comandos THEN Comandos"
-#    label_end = new_label()
-#    t[0] = (f'{t[1]} jz {label_end}\n'  # Evaluate expression and jump to end if zero
-#            f'{t[3]}'                    # Commands to execute if condition is true
-#            f'{label_end}:\n'
-#            f'{t[5]}')                   # Commands after THEN
-#
-#
-#def p_Store(t):
-#    "Store : Termo ID '!'"
-#    index = get_variable_index(t[2])
-#    t[0] = f'{t[1]}storeg {index}\n'
-#
-#def p_UnStore(t):
-#    "UnStore : ID '@'"
-#    index = get_variable_index(t[1])
-#    t[0] = f'pushg {index}\n'
-#
-#
-#def p_Funcao(t):
-#    "Funcao : FUNC_START ID Comandos FUNC_END"
-#    start_label = f'func_{t[2]}'
-#    end_label = f'end_{t[2]}'
-#    t[0] = f'{start_label}:\n{t[3]} jump {end_label}\n{end_label}:\n'
-#
-#
-#def p_Loop(t):
-#    "Loop : Expressao Expressao DO ID Comandos LOOP"
-#    start_label = new_label()
-#    end_label = new_label()
-#    t[0] = f'{start_label}:\n{t[1]} jz {end_label}\n{t[5]} jump {start_label}\n{end_label}:\n'
-#
-#
-##def p_Comentario1(t): "Comentario : '(' Comandos ')'"; t[0] = 
-#def p_Comentario2(t): "Comentario : '\' Comandos"; t[0] = 
-
+    label = generate_label()
+    t[0] = f'{t[1]}\npushi 1\nequal\njz ELSE{label}\n{t[3]}\njump ENDIF{label}\nELSE{label}:\n{t[5]}\njump ENDIF{label}\nENDIF{label}:\n'
+    
+def p_Loop(t):
+    "Loop : Expressao DO Comandos LOOP"
+    t[0] = f'{t[1]} + {t[3]}'
+    
 def p_error(t):
     print(f"Syntax error: {t.value}, {t.type}, {t}")
 
@@ -243,7 +199,7 @@ while True:
     print(ewvm)
     print_state()
 
-def parse_program():
+"""def parse_program():
     print("Type your code (type 'END' on a new line to finish):")
     lines = []
     while True:
@@ -260,4 +216,4 @@ if __name__ == "__main__":
     try:
         parse_program()
     except KeyboardInterrupt:
-        print("\nProgram terminated!")
+        print("\nProgram terminated!")"""
