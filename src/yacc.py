@@ -91,6 +91,8 @@ def p_Expressao6(t):
 
 def p_Termo(t):
     "Termo : NUMBER"
+    global contador
+    contador += 1 
     t[0] = f'pushi {int(t[1])}\n'
 
 def p_Termo2(t):
@@ -177,17 +179,23 @@ def p_Conditional10(t):
 
 def p_Conditional11(t):
     "Conditional : Expressao IF Comandos THEN"
+    global contador
     label = generate_label()
+    contador += 1 
     t[0] = f'{t[1]}\npushi 1\nequal\njz ENDIF{label}\n{t[3]}\njump ENDIF{label}\nENDIF{label}:\n'
     
 def p_Conditional12(t):
     "Conditional : Expressao IF Comandos ELSE Comandos THEN"
+    global contador
     label = generate_label()
+    contador += 1 
     t[0] = f'{t[1]}\npushi 1\nequal\njz ELSE{label}\n{t[3]}\njump ENDIF{label}\nELSE{label}:\n{t[5]}\njump ENDIF{label}\nENDIF{label}:\n'
     
 def p_Loop(t):
     "Loop : Expressao DO Comandos LOOP"
-    t[0] = f'{t[1]} + {t[3]}'
+    global contador
+    contador += 1
+    t[0] = f'pushi 0\nswap\nstoreg {contador}\n{t[3]}'
     
 def p_error(t):
     print(f"Syntax error: {t.value}, {t.type}, {t}")
