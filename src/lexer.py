@@ -24,7 +24,8 @@ tokens = (
     'DOTSTRING',
     'STRING',
     'COMMENT_START',
-    'COMMENT_END'
+    'COMMENT_END',
+    'I'
 )
 
 literals = '+-*/%!@><='
@@ -76,6 +77,10 @@ def t_DO(t):
 
 def t_LOOP(t):
     r'\bLOOP\b'
+    return t
+
+def t_I(t):
+    r'\bI\b'
     return t
 
 def t_ID(t):

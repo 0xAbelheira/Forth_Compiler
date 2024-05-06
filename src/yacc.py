@@ -114,7 +114,9 @@ def p_Termo2(t):
 
 def p_Expressao_Print(t):
     "Imprime : DOT"
+    global contadorA
     t[0] = f'writei\n'
+    contadorA -= 1
 
 def p_Expressao_Print2(t):
     "Imprime : DOTSTRING"
@@ -139,7 +141,7 @@ def p_Variavel(t):
     contador += 1
     variable_store[t[2]] = contador
     t[0] = f'pushi 0\n'
-    contador -= 1
+    #contador -= 1
 
 def p_Conditional1(t):
     "Conditional : '=' IF Comandos THEN"
@@ -208,8 +210,19 @@ def p_Conditional12(t):
 def p_Loop(t):
     "Loop : Expressao DO Comandos LOOP"
     global contador
+    label = generate_label()
     contador += 2
-    t[0] = f'pushi 0\nswap\nstoreg {contador-4}\npushi 0\n{t[1]}storeg {contador-2}\n{t[3]}'
+    t[0] = f'pushi 0\nswap\nstoreg {contador-4}\npushi 0\n{t[1]}storeg {contador-2}\nWHILE{label}:\npushg {contador-4}\npushg {contador-2}\nsup\njz ENDWHILE{label}\n{t[3]}pushi 1\npushg {contador-2}\nadd\nstoreg {contador-2}\njump WHILE{label}\nENDWHILE{label}:\n'
+    
+
+
+#estudar como fazer este, os loops permitem a existencia de uma variavel I que fica com o valor da Expressao
+def p_Loop2(t):
+    "Loop : Expressao DO I Comandos LOOP"
+    global contador
+    label = generate_label()
+    t[0] = f'pushi 0\nswap\nstoreg {contador-2}\npushi 0\n{t[1]}storeg {contador}\nWHILE{label}:\npushg {contador-2}\npushg {contador}\nsup\njz ENDWHILE{label}\n{t[3]}pushi 1\npushg {contador}\nadd\nstoreg {contador}\njump WHILE{label}\nENDWHILE{label}:\n'
+    contador += 2
     
 
 def p_error(t):
