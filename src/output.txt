@@ -1,4 +1,14 @@
 start
-pushi 42
-writechr
+pushi 1
+pushi 1
+equal
+jz ENDIF0
+pushi 2
+pushi 3
+add
+
+jump ENDIF0
+ENDIF0:
+pushi 4
+writei
 stop

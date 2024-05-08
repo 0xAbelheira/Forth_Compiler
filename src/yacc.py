@@ -132,6 +132,10 @@ def p_Comment(t):
     "Comment : COMMENT_START Comandos COMMENT_END"
     t[0] = ""
 
+def p_Comment2(t):
+    "Comment : ONELINE"
+    t[0] = ""
+
 def p_Store(t): # guarda o ultimo valor na stack na variável 'ID'
     "Store : ID '!'"
     t[0] = f'storeg {variable_store.get(t[1], "Undefined Variable")}\n'

@@ -31,65 +31,67 @@ Rule 18    Imprime -> DOT
 Rule 19    Imprime -> DOTSTRING
 Rule 20    Imprime -> EMIT
 Rule 21    Comment -> COMMENT_START Comandos COMMENT_END
-Rule 22    Store -> ID !
-Rule 23    Unstore -> ID @
-Rule 24    Variavel -> VARIABLE ID
-Rule 25    Conditional -> = IF Comandos THEN
-Rule 26    Conditional -> < IF Comandos THEN
-Rule 27    Conditional -> > IF Comandos THEN
-Rule 28    Conditional -> INFEQ IF Comandos THEN
-Rule 29    Conditional -> SUPEQ IF Comandos THEN
-Rule 30    Conditional -> = IF Comandos ELSE Comandos THEN
-Rule 31    Conditional -> < IF Comandos ELSE Comandos THEN
-Rule 32    Conditional -> > IF Comandos ELSE Comandos THEN
-Rule 33    Conditional -> INFEQ IF Comandos ELSE Comandos THEN
-Rule 34    Conditional -> SUPEQ IF Comandos ELSE Comandos THEN
-Rule 35    Conditional -> Expressao IF Comandos THEN
-Rule 36    Conditional -> Expressao IF Comandos ELSE Comandos THEN
-Rule 37    Loop -> Expressao DO Comandos LOOP
-Rule 38    Loop -> Expressao DO I Comandos LOOP
+Rule 22    Comment -> ONELINE
+Rule 23    Store -> ID !
+Rule 24    Unstore -> ID @
+Rule 25    Variavel -> VARIABLE ID
+Rule 26    Conditional -> = IF Comandos THEN
+Rule 27    Conditional -> < IF Comandos THEN
+Rule 28    Conditional -> > IF Comandos THEN
+Rule 29    Conditional -> INFEQ IF Comandos THEN
+Rule 30    Conditional -> SUPEQ IF Comandos THEN
+Rule 31    Conditional -> = IF Comandos ELSE Comandos THEN
+Rule 32    Conditional -> < IF Comandos ELSE Comandos THEN
+Rule 33    Conditional -> > IF Comandos ELSE Comandos THEN
+Rule 34    Conditional -> INFEQ IF Comandos ELSE Comandos THEN
+Rule 35    Conditional -> SUPEQ IF Comandos ELSE Comandos THEN
+Rule 36    Conditional -> Expressao IF Comandos THEN
+Rule 37    Conditional -> Expressao IF Comandos ELSE Comandos THEN
+Rule 38    Loop -> Expressao DO Comandos LOOP
+Rule 39    Loop -> Expressao DO I Comandos LOOP
 
 Terminals, with rules where they appear
 
-!                    : 22
+!                    : 23
 %                    : 14
 *                    : 12
 +                    : 10
 -                    : 11
 /                    : 13
-<                    : 26 31
-=                    : 25 30
->                    : 27 32
-@                    : 23
+<                    : 27 32
+=                    : 26 31
+>                    : 28 33
+@                    : 24
 COMMENT_END          : 21
 COMMENT_START        : 21
-DO                   : 37 38
+DO                   : 38 39
 DOT                  : 18
 DOTSTRING            : 19
-ELSE                 : 30 31 32 33 34 36
+ELSE                 : 31 32 33 34 35 37
 EMIT                 : 20
 FUNC_END             : 
 FUNC_START           : 
-I                    : 38
-ID                   : 22 23 24
-IF                   : 25 26 27 28 29 30 31 32 33 34 35 36
-INFEQ                : 28 33
-LOOP                 : 37 38
+I                    : 39
+ID                   : 23 24 25
+IF                   : 26 27 28 29 30 31 32 33 34 35 36 37
+INFEQ                : 29 34
+LOOP                 : 38 39
 NUMBER               : 16
 NUMBERF              : 
+ONELINE              : 22
 STRING               : 
-SUPEQ                : 29 34
-THEN                 : 25 26 27 28 29 30 31 32 33 34 35 36
-VARIABLE             : 24
+SUPEQ                : 30 35
+THEN                 : 26 27 28 29 30 31 32 33 34 35 36 37
+VARIABLE             : 25
 error                : 
 
 Nonterminals, with rules where they appear
 
 Comando              : 1
-Comandos             : 1 21 25 26 27 28 29 30 30 31 31 32 32 33 33 34 34 35 36 36 37 38 0
+Comandos             : 1 21 26 27 28 29 30 31 31 32 32 33 33 34 34 35 35 36 37 37 38 39 0
 Comment              : 5
 Conditional          : 8
-Expressao            : 3 10 11 12 13 14 35 36 37 38
+Expressao            : 3 10 11 12 13 14 36 37 38 39
 Imprime              : 4
 Loop                 : 9
 Store                : 6
@@ -109,6 +111,7 @@ state 0
     DOTSTRING       reduce using rule 2 (Comandos -> .)
     EMIT            reduce using rule 2 (Comandos -> .)
     COMMENT_START   reduce using rule 2 (Comandos -> .)
+    ONELINE         reduce using rule 2 (Comandos -> .)
     ID              reduce using rule 2 (Comandos -> .)
     VARIABLE        reduce using rule 2 (Comandos -> .)
     =               reduce using rule 2 (Comandos -> .)
@@ -142,38 +145,40 @@ state 1
     (19) Imprime -> . DOTSTRING
     (20) Imprime -> . EMIT
     (21) Comment -> . COMMENT_START Comandos COMMENT_END
-    (22) Store -> . ID !
-    (24) Variavel -> . VARIABLE ID
-    (25) Conditional -> . = IF Comandos THEN
-    (26) Conditional -> . < IF Comandos THEN
-    (27) Conditional -> . > IF Comandos THEN
-    (28) Conditional -> . INFEQ IF Comandos THEN
-    (29) Conditional -> . SUPEQ IF Comandos THEN
-    (30) Conditional -> . = IF Comandos ELSE Comandos THEN
-    (31) Conditional -> . < IF Comandos ELSE Comandos THEN
-    (32) Conditional -> . > IF Comandos ELSE Comandos THEN
-    (33) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
-    (34) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
-    (35) Conditional -> . Expressao IF Comandos THEN
-    (36) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
-    (37) Loop -> . Expressao DO Comandos LOOP
-    (38) Loop -> . Expressao DO I Comandos LOOP
+    (22) Comment -> . ONELINE
+    (23) Store -> . ID !
+    (25) Variavel -> . VARIABLE ID
+    (26) Conditional -> . = IF Comandos THEN
+    (27) Conditional -> . < IF Comandos THEN
+    (28) Conditional -> . > IF Comandos THEN
+    (29) Conditional -> . INFEQ IF Comandos THEN
+    (30) Conditional -> . SUPEQ IF Comandos THEN
+    (31) Conditional -> . = IF Comandos ELSE Comandos THEN
+    (32) Conditional -> . < IF Comandos ELSE Comandos THEN
+    (33) Conditional -> . > IF Comandos ELSE Comandos THEN
+    (34) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
+    (35) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
+    (36) Conditional -> . Expressao IF Comandos THEN
+    (37) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
+    (38) Loop -> . Expressao DO Comandos LOOP
+    (39) Loop -> . Expressao DO I Comandos LOOP
     (16) Termo -> . NUMBER
     (17) Termo -> . Unstore
-    (23) Unstore -> . ID @
+    (24) Unstore -> . ID @
 
     DOT             shift and go to state 11
     DOTSTRING       shift and go to state 12
     EMIT            shift and go to state 13
     COMMENT_START   shift and go to state 14
-    ID              shift and go to state 15
-    VARIABLE        shift and go to state 16
-    =               shift and go to state 17
-    <               shift and go to state 18
-    >               shift and go to state 19
-    INFEQ           shift and go to state 20
-    SUPEQ           shift and go to state 21
-    NUMBER          shift and go to state 22
+    ONELINE         shift and go to state 15
+    ID              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    =               shift and go to state 18
+    <               shift and go to state 19
+    >               shift and go to state 20
+    INFEQ           shift and go to state 21
+    SUPEQ           shift and go to state 22
+    NUMBER          shift and go to state 23
 
     Comando                        shift and go to state 2
     Expressao                      shift and go to state 3
@@ -184,7 +189,7 @@ state 1
     Conditional                    shift and go to state 8
     Loop                           shift and go to state 9
     Termo                          shift and go to state 10
-    Unstore                        shift and go to state 23
+    Unstore                        shift and go to state 24
 
 state 2
 
@@ -194,6 +199,7 @@ state 2
     DOTSTRING       reduce using rule 1 (Comandos -> Comandos Comando .)
     EMIT            reduce using rule 1 (Comandos -> Comandos Comando .)
     COMMENT_START   reduce using rule 1 (Comandos -> Comandos Comando .)
+    ONELINE         reduce using rule 1 (Comandos -> Comandos Comando .)
     ID              reduce using rule 1 (Comandos -> Comandos Comando .)
     VARIABLE        reduce using rule 1 (Comandos -> Comandos Comando .)
     =               reduce using rule 1 (Comandos -> Comandos Comando .)
@@ -217,15 +223,16 @@ state 3
     (12) Expressao -> Expressao . *
     (13) Expressao -> Expressao . /
     (14) Expressao -> Expressao . %
-    (35) Conditional -> Expressao . IF Comandos THEN
-    (36) Conditional -> Expressao . IF Comandos ELSE Comandos THEN
-    (37) Loop -> Expressao . DO Comandos LOOP
-    (38) Loop -> Expressao . DO I Comandos LOOP
+    (36) Conditional -> Expressao . IF Comandos THEN
+    (37) Conditional -> Expressao . IF Comandos ELSE Comandos THEN
+    (38) Loop -> Expressao . DO Comandos LOOP
+    (39) Loop -> Expressao . DO I Comandos LOOP
 
     DOT             reduce using rule 3 (Comando -> Expressao .)
     DOTSTRING       reduce using rule 3 (Comando -> Expressao .)
     EMIT            reduce using rule 3 (Comando -> Expressao .)
     COMMENT_START   reduce using rule 3 (Comando -> Expressao .)
+    ONELINE         reduce using rule 3 (Comando -> Expressao .)
     ID              reduce using rule 3 (Comando -> Expressao .)
     VARIABLE        reduce using rule 3 (Comando -> Expressao .)
     =               reduce using rule 3 (Comando -> Expressao .)
@@ -239,13 +246,13 @@ state 3
     THEN            reduce using rule 3 (Comando -> Expressao .)
     ELSE            reduce using rule 3 (Comando -> Expressao .)
     LOOP            reduce using rule 3 (Comando -> Expressao .)
-    +               shift and go to state 24
-    -               shift and go to state 25
-    *               shift and go to state 26
-    /               shift and go to state 27
-    %               shift and go to state 28
-    IF              shift and go to state 29
-    DO              shift and go to state 30
+    +               shift and go to state 25
+    -               shift and go to state 26
+    *               shift and go to state 27
+    /               shift and go to state 28
+    %               shift and go to state 29
+    IF              shift and go to state 30
+    DO              shift and go to state 31
 
 
 state 4
@@ -256,6 +263,7 @@ state 4
     DOTSTRING       reduce using rule 4 (Comando -> Imprime .)
     EMIT            reduce using rule 4 (Comando -> Imprime .)
     COMMENT_START   reduce using rule 4 (Comando -> Imprime .)
+    ONELINE         reduce using rule 4 (Comando -> Imprime .)
     ID              reduce using rule 4 (Comando -> Imprime .)
     VARIABLE        reduce using rule 4 (Comando -> Imprime .)
     =               reduce using rule 4 (Comando -> Imprime .)
@@ -279,6 +287,7 @@ state 5
     DOTSTRING       reduce using rule 5 (Comando -> Comment .)
     EMIT            reduce using rule 5 (Comando -> Comment .)
     COMMENT_START   reduce using rule 5 (Comando -> Comment .)
+    ONELINE         reduce using rule 5 (Comando -> Comment .)
     ID              reduce using rule 5 (Comando -> Comment .)
     VARIABLE        reduce using rule 5 (Comando -> Comment .)
     =               reduce using rule 5 (Comando -> Comment .)
@@ -302,6 +311,7 @@ state 6
     DOTSTRING       reduce using rule 6 (Comando -> Store .)
     EMIT            reduce using rule 6 (Comando -> Store .)
     COMMENT_START   reduce using rule 6 (Comando -> Store .)
+    ONELINE         reduce using rule 6 (Comando -> Store .)
     ID              reduce using rule 6 (Comando -> Store .)
     VARIABLE        reduce using rule 6 (Comando -> Store .)
     =               reduce using rule 6 (Comando -> Store .)
@@ -325,6 +335,7 @@ state 7
     DOTSTRING       reduce using rule 7 (Comando -> Variavel .)
     EMIT            reduce using rule 7 (Comando -> Variavel .)
     COMMENT_START   reduce using rule 7 (Comando -> Variavel .)
+    ONELINE         reduce using rule 7 (Comando -> Variavel .)
     ID              reduce using rule 7 (Comando -> Variavel .)
     VARIABLE        reduce using rule 7 (Comando -> Variavel .)
     =               reduce using rule 7 (Comando -> Variavel .)
@@ -348,6 +359,7 @@ state 8
     DOTSTRING       reduce using rule 8 (Comando -> Conditional .)
     EMIT            reduce using rule 8 (Comando -> Conditional .)
     COMMENT_START   reduce using rule 8 (Comando -> Conditional .)
+    ONELINE         reduce using rule 8 (Comando -> Conditional .)
     ID              reduce using rule 8 (Comando -> Conditional .)
     VARIABLE        reduce using rule 8 (Comando -> Conditional .)
     =               reduce using rule 8 (Comando -> Conditional .)
@@ -371,6 +383,7 @@ state 9
     DOTSTRING       reduce using rule 9 (Comando -> Loop .)
     EMIT            reduce using rule 9 (Comando -> Loop .)
     COMMENT_START   reduce using rule 9 (Comando -> Loop .)
+    ONELINE         reduce using rule 9 (Comando -> Loop .)
     ID              reduce using rule 9 (Comando -> Loop .)
     VARIABLE        reduce using rule 9 (Comando -> Loop .)
     =               reduce using rule 9 (Comando -> Loop .)
@@ -401,6 +414,7 @@ state 10
     DOTSTRING       reduce using rule 15 (Expressao -> Termo .)
     EMIT            reduce using rule 15 (Expressao -> Termo .)
     COMMENT_START   reduce using rule 15 (Expressao -> Termo .)
+    ONELINE         reduce using rule 15 (Expressao -> Termo .)
     ID              reduce using rule 15 (Expressao -> Termo .)
     VARIABLE        reduce using rule 15 (Expressao -> Termo .)
     =               reduce using rule 15 (Expressao -> Termo .)
@@ -424,6 +438,7 @@ state 11
     DOTSTRING       reduce using rule 18 (Imprime -> DOT .)
     EMIT            reduce using rule 18 (Imprime -> DOT .)
     COMMENT_START   reduce using rule 18 (Imprime -> DOT .)
+    ONELINE         reduce using rule 18 (Imprime -> DOT .)
     ID              reduce using rule 18 (Imprime -> DOT .)
     VARIABLE        reduce using rule 18 (Imprime -> DOT .)
     =               reduce using rule 18 (Imprime -> DOT .)
@@ -447,6 +462,7 @@ state 12
     DOTSTRING       reduce using rule 19 (Imprime -> DOTSTRING .)
     EMIT            reduce using rule 19 (Imprime -> DOTSTRING .)
     COMMENT_START   reduce using rule 19 (Imprime -> DOTSTRING .)
+    ONELINE         reduce using rule 19 (Imprime -> DOTSTRING .)
     ID              reduce using rule 19 (Imprime -> DOTSTRING .)
     VARIABLE        reduce using rule 19 (Imprime -> DOTSTRING .)
     =               reduce using rule 19 (Imprime -> DOTSTRING .)
@@ -470,6 +486,7 @@ state 13
     DOTSTRING       reduce using rule 20 (Imprime -> EMIT .)
     EMIT            reduce using rule 20 (Imprime -> EMIT .)
     COMMENT_START   reduce using rule 20 (Imprime -> EMIT .)
+    ONELINE         reduce using rule 20 (Imprime -> EMIT .)
     ID              reduce using rule 20 (Imprime -> EMIT .)
     VARIABLE        reduce using rule 20 (Imprime -> EMIT .)
     =               reduce using rule 20 (Imprime -> EMIT .)
@@ -496,6 +513,7 @@ state 14
     DOTSTRING       reduce using rule 2 (Comandos -> .)
     EMIT            reduce using rule 2 (Comandos -> .)
     COMMENT_START   reduce using rule 2 (Comandos -> .)
+    ONELINE         reduce using rule 2 (Comandos -> .)
     ID              reduce using rule 2 (Comandos -> .)
     VARIABLE        reduce using rule 2 (Comandos -> .)
     =               reduce using rule 2 (Comandos -> .)
@@ -505,65 +523,89 @@ state 14
     SUPEQ           reduce using rule 2 (Comandos -> .)
     NUMBER          reduce using rule 2 (Comandos -> .)
 
-    Comandos                       shift and go to state 31
+    Comandos                       shift and go to state 32
 
 state 15
 
-    (22) Store -> ID . !
-    (23) Unstore -> ID . @
+    (22) Comment -> ONELINE .
 
-    !               shift and go to state 32
-    @               shift and go to state 33
+    DOT             reduce using rule 22 (Comment -> ONELINE .)
+    DOTSTRING       reduce using rule 22 (Comment -> ONELINE .)
+    EMIT            reduce using rule 22 (Comment -> ONELINE .)
+    COMMENT_START   reduce using rule 22 (Comment -> ONELINE .)
+    ONELINE         reduce using rule 22 (Comment -> ONELINE .)
+    ID              reduce using rule 22 (Comment -> ONELINE .)
+    VARIABLE        reduce using rule 22 (Comment -> ONELINE .)
+    =               reduce using rule 22 (Comment -> ONELINE .)
+    <               reduce using rule 22 (Comment -> ONELINE .)
+    >               reduce using rule 22 (Comment -> ONELINE .)
+    INFEQ           reduce using rule 22 (Comment -> ONELINE .)
+    SUPEQ           reduce using rule 22 (Comment -> ONELINE .)
+    NUMBER          reduce using rule 22 (Comment -> ONELINE .)
+    $end            reduce using rule 22 (Comment -> ONELINE .)
+    COMMENT_END     reduce using rule 22 (Comment -> ONELINE .)
+    THEN            reduce using rule 22 (Comment -> ONELINE .)
+    ELSE            reduce using rule 22 (Comment -> ONELINE .)
+    LOOP            reduce using rule 22 (Comment -> ONELINE .)
 
 
 state 16
 
-    (24) Variavel -> VARIABLE . ID
+    (23) Store -> ID . !
+    (24) Unstore -> ID . @
 
-    ID              shift and go to state 34
+    !               shift and go to state 33
+    @               shift and go to state 34
 
 
 state 17
 
-    (25) Conditional -> = . IF Comandos THEN
-    (30) Conditional -> = . IF Comandos ELSE Comandos THEN
+    (25) Variavel -> VARIABLE . ID
 
-    IF              shift and go to state 35
+    ID              shift and go to state 35
 
 
 state 18
 
-    (26) Conditional -> < . IF Comandos THEN
-    (31) Conditional -> < . IF Comandos ELSE Comandos THEN
+    (26) Conditional -> = . IF Comandos THEN
+    (31) Conditional -> = . IF Comandos ELSE Comandos THEN
 
     IF              shift and go to state 36
 
 
 state 19
 
-    (27) Conditional -> > . IF Comandos THEN
-    (32) Conditional -> > . IF Comandos ELSE Comandos THEN
+    (27) Conditional -> < . IF Comandos THEN
+    (32) Conditional -> < . IF Comandos ELSE Comandos THEN
 
     IF              shift and go to state 37
 
 
 state 20
 
-    (28) Conditional -> INFEQ . IF Comandos THEN
-    (33) Conditional -> INFEQ . IF Comandos ELSE Comandos THEN
+    (28) Conditional -> > . IF Comandos THEN
+    (33) Conditional -> > . IF Comandos ELSE Comandos THEN
 
     IF              shift and go to state 38
 
 
 state 21
 
-    (29) Conditional -> SUPEQ . IF Comandos THEN
-    (34) Conditional -> SUPEQ . IF Comandos ELSE Comandos THEN
+    (29) Conditional -> INFEQ . IF Comandos THEN
+    (34) Conditional -> INFEQ . IF Comandos ELSE Comandos THEN
 
     IF              shift and go to state 39
 
 
 state 22
+
+    (30) Conditional -> SUPEQ . IF Comandos THEN
+    (35) Conditional -> SUPEQ . IF Comandos ELSE Comandos THEN
+
+    IF              shift and go to state 40
+
+
+state 23
 
     (16) Termo -> NUMBER .
 
@@ -578,6 +620,7 @@ state 22
     DOTSTRING       reduce using rule 16 (Termo -> NUMBER .)
     EMIT            reduce using rule 16 (Termo -> NUMBER .)
     COMMENT_START   reduce using rule 16 (Termo -> NUMBER .)
+    ONELINE         reduce using rule 16 (Termo -> NUMBER .)
     ID              reduce using rule 16 (Termo -> NUMBER .)
     VARIABLE        reduce using rule 16 (Termo -> NUMBER .)
     =               reduce using rule 16 (Termo -> NUMBER .)
@@ -593,7 +636,7 @@ state 22
     LOOP            reduce using rule 16 (Termo -> NUMBER .)
 
 
-state 23
+state 24
 
     (17) Termo -> Unstore .
 
@@ -608,6 +651,7 @@ state 23
     DOTSTRING       reduce using rule 17 (Termo -> Unstore .)
     EMIT            reduce using rule 17 (Termo -> Unstore .)
     COMMENT_START   reduce using rule 17 (Termo -> Unstore .)
+    ONELINE         reduce using rule 17 (Termo -> Unstore .)
     ID              reduce using rule 17 (Termo -> Unstore .)
     VARIABLE        reduce using rule 17 (Termo -> Unstore .)
     =               reduce using rule 17 (Termo -> Unstore .)
@@ -623,7 +667,7 @@ state 23
     LOOP            reduce using rule 17 (Termo -> Unstore .)
 
 
-state 24
+state 25
 
     (10) Expressao -> Expressao + .
 
@@ -638,6 +682,7 @@ state 24
     DOTSTRING       reduce using rule 10 (Expressao -> Expressao + .)
     EMIT            reduce using rule 10 (Expressao -> Expressao + .)
     COMMENT_START   reduce using rule 10 (Expressao -> Expressao + .)
+    ONELINE         reduce using rule 10 (Expressao -> Expressao + .)
     ID              reduce using rule 10 (Expressao -> Expressao + .)
     VARIABLE        reduce using rule 10 (Expressao -> Expressao + .)
     =               reduce using rule 10 (Expressao -> Expressao + .)
@@ -653,7 +698,7 @@ state 24
     LOOP            reduce using rule 10 (Expressao -> Expressao + .)
 
 
-state 25
+state 26
 
     (11) Expressao -> Expressao - .
 
@@ -668,6 +713,7 @@ state 25
     DOTSTRING       reduce using rule 11 (Expressao -> Expressao - .)
     EMIT            reduce using rule 11 (Expressao -> Expressao - .)
     COMMENT_START   reduce using rule 11 (Expressao -> Expressao - .)
+    ONELINE         reduce using rule 11 (Expressao -> Expressao - .)
     ID              reduce using rule 11 (Expressao -> Expressao - .)
     VARIABLE        reduce using rule 11 (Expressao -> Expressao - .)
     =               reduce using rule 11 (Expressao -> Expressao - .)
@@ -683,7 +729,7 @@ state 25
     LOOP            reduce using rule 11 (Expressao -> Expressao - .)
 
 
-state 26
+state 27
 
     (12) Expressao -> Expressao * .
 
@@ -698,6 +744,7 @@ state 26
     DOTSTRING       reduce using rule 12 (Expressao -> Expressao * .)
     EMIT            reduce using rule 12 (Expressao -> Expressao * .)
     COMMENT_START   reduce using rule 12 (Expressao -> Expressao * .)
+    ONELINE         reduce using rule 12 (Expressao -> Expressao * .)
     ID              reduce using rule 12 (Expressao -> Expressao * .)
     VARIABLE        reduce using rule 12 (Expressao -> Expressao * .)
     =               reduce using rule 12 (Expressao -> Expressao * .)
@@ -713,7 +760,7 @@ state 26
     LOOP            reduce using rule 12 (Expressao -> Expressao * .)
 
 
-state 27
+state 28
 
     (13) Expressao -> Expressao / .
 
@@ -728,6 +775,7 @@ state 27
     DOTSTRING       reduce using rule 13 (Expressao -> Expressao / .)
     EMIT            reduce using rule 13 (Expressao -> Expressao / .)
     COMMENT_START   reduce using rule 13 (Expressao -> Expressao / .)
+    ONELINE         reduce using rule 13 (Expressao -> Expressao / .)
     ID              reduce using rule 13 (Expressao -> Expressao / .)
     VARIABLE        reduce using rule 13 (Expressao -> Expressao / .)
     =               reduce using rule 13 (Expressao -> Expressao / .)
@@ -743,7 +791,7 @@ state 27
     LOOP            reduce using rule 13 (Expressao -> Expressao / .)
 
 
-state 28
+state 29
 
     (14) Expressao -> Expressao % .
 
@@ -758,6 +806,7 @@ state 28
     DOTSTRING       reduce using rule 14 (Expressao -> Expressao % .)
     EMIT            reduce using rule 14 (Expressao -> Expressao % .)
     COMMENT_START   reduce using rule 14 (Expressao -> Expressao % .)
+    ONELINE         reduce using rule 14 (Expressao -> Expressao % .)
     ID              reduce using rule 14 (Expressao -> Expressao % .)
     VARIABLE        reduce using rule 14 (Expressao -> Expressao % .)
     =               reduce using rule 14 (Expressao -> Expressao % .)
@@ -773,10 +822,10 @@ state 28
     LOOP            reduce using rule 14 (Expressao -> Expressao % .)
 
 
-state 29
+state 30
 
-    (35) Conditional -> Expressao IF . Comandos THEN
-    (36) Conditional -> Expressao IF . Comandos ELSE Comandos THEN
+    (36) Conditional -> Expressao IF . Comandos THEN
+    (37) Conditional -> Expressao IF . Comandos ELSE Comandos THEN
     (1) Comandos -> . Comandos Comando
     (2) Comandos -> .
 
@@ -786,30 +835,7 @@ state 29
     DOTSTRING       reduce using rule 2 (Comandos -> .)
     EMIT            reduce using rule 2 (Comandos -> .)
     COMMENT_START   reduce using rule 2 (Comandos -> .)
-    ID              reduce using rule 2 (Comandos -> .)
-    VARIABLE        reduce using rule 2 (Comandos -> .)
-    =               reduce using rule 2 (Comandos -> .)
-    <               reduce using rule 2 (Comandos -> .)
-    >               reduce using rule 2 (Comandos -> .)
-    INFEQ           reduce using rule 2 (Comandos -> .)
-    SUPEQ           reduce using rule 2 (Comandos -> .)
-    NUMBER          reduce using rule 2 (Comandos -> .)
-
-    Comandos                       shift and go to state 40
-
-state 30
-
-    (37) Loop -> Expressao DO . Comandos LOOP
-    (38) Loop -> Expressao DO . I Comandos LOOP
-    (1) Comandos -> . Comandos Comando
-    (2) Comandos -> .
-
-    I               shift and go to state 42
-    LOOP            reduce using rule 2 (Comandos -> .)
-    DOT             reduce using rule 2 (Comandos -> .)
-    DOTSTRING       reduce using rule 2 (Comandos -> .)
-    EMIT            reduce using rule 2 (Comandos -> .)
-    COMMENT_START   reduce using rule 2 (Comandos -> .)
+    ONELINE         reduce using rule 2 (Comandos -> .)
     ID              reduce using rule 2 (Comandos -> .)
     VARIABLE        reduce using rule 2 (Comandos -> .)
     =               reduce using rule 2 (Comandos -> .)
@@ -822,6 +848,31 @@ state 30
     Comandos                       shift and go to state 41
 
 state 31
+
+    (38) Loop -> Expressao DO . Comandos LOOP
+    (39) Loop -> Expressao DO . I Comandos LOOP
+    (1) Comandos -> . Comandos Comando
+    (2) Comandos -> .
+
+    I               shift and go to state 43
+    LOOP            reduce using rule 2 (Comandos -> .)
+    DOT             reduce using rule 2 (Comandos -> .)
+    DOTSTRING       reduce using rule 2 (Comandos -> .)
+    EMIT            reduce using rule 2 (Comandos -> .)
+    COMMENT_START   reduce using rule 2 (Comandos -> .)
+    ONELINE         reduce using rule 2 (Comandos -> .)
+    ID              reduce using rule 2 (Comandos -> .)
+    VARIABLE        reduce using rule 2 (Comandos -> .)
+    =               reduce using rule 2 (Comandos -> .)
+    <               reduce using rule 2 (Comandos -> .)
+    >               reduce using rule 2 (Comandos -> .)
+    INFEQ           reduce using rule 2 (Comandos -> .)
+    SUPEQ           reduce using rule 2 (Comandos -> .)
+    NUMBER          reduce using rule 2 (Comandos -> .)
+
+    Comandos                       shift and go to state 42
+
+state 32
 
     (21) Comment -> COMMENT_START Comandos . COMMENT_END
     (1) Comandos -> Comandos . Comando
@@ -842,39 +893,41 @@ state 31
     (19) Imprime -> . DOTSTRING
     (20) Imprime -> . EMIT
     (21) Comment -> . COMMENT_START Comandos COMMENT_END
-    (22) Store -> . ID !
-    (24) Variavel -> . VARIABLE ID
-    (25) Conditional -> . = IF Comandos THEN
-    (26) Conditional -> . < IF Comandos THEN
-    (27) Conditional -> . > IF Comandos THEN
-    (28) Conditional -> . INFEQ IF Comandos THEN
-    (29) Conditional -> . SUPEQ IF Comandos THEN
-    (30) Conditional -> . = IF Comandos ELSE Comandos THEN
-    (31) Conditional -> . < IF Comandos ELSE Comandos THEN
-    (32) Conditional -> . > IF Comandos ELSE Comandos THEN
-    (33) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
-    (34) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
-    (35) Conditional -> . Expressao IF Comandos THEN
-    (36) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
-    (37) Loop -> . Expressao DO Comandos LOOP
-    (38) Loop -> . Expressao DO I Comandos LOOP
+    (22) Comment -> . ONELINE
+    (23) Store -> . ID !
+    (25) Variavel -> . VARIABLE ID
+    (26) Conditional -> . = IF Comandos THEN
+    (27) Conditional -> . < IF Comandos THEN
+    (28) Conditional -> . > IF Comandos THEN
+    (29) Conditional -> . INFEQ IF Comandos THEN
+    (30) Conditional -> . SUPEQ IF Comandos THEN
+    (31) Conditional -> . = IF Comandos ELSE Comandos THEN
+    (32) Conditional -> . < IF Comandos ELSE Comandos THEN
+    (33) Conditional -> . > IF Comandos ELSE Comandos THEN
+    (34) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
+    (35) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
+    (36) Conditional -> . Expressao IF Comandos THEN
+    (37) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
+    (38) Loop -> . Expressao DO Comandos LOOP
+    (39) Loop -> . Expressao DO I Comandos LOOP
     (16) Termo -> . NUMBER
     (17) Termo -> . Unstore
-    (23) Unstore -> . ID @
+    (24) Unstore -> . ID @
 
-    COMMENT_END     shift and go to state 43
+    COMMENT_END     shift and go to state 44
     DOT             shift and go to state 11
     DOTSTRING       shift and go to state 12
     EMIT            shift and go to state 13
     COMMENT_START   shift and go to state 14
-    ID              shift and go to state 15
-    VARIABLE        shift and go to state 16
-    =               shift and go to state 17
-    <               shift and go to state 18
-    >               shift and go to state 19
-    INFEQ           shift and go to state 20
-    SUPEQ           shift and go to state 21
-    NUMBER          shift and go to state 22
+    ONELINE         shift and go to state 15
+    ID              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    =               shift and go to state 18
+    <               shift and go to state 19
+    >               shift and go to state 20
+    INFEQ           shift and go to state 21
+    SUPEQ           shift and go to state 22
+    NUMBER          shift and go to state 23
 
     Comando                        shift and go to state 2
     Expressao                      shift and go to state 3
@@ -885,112 +938,91 @@ state 31
     Conditional                    shift and go to state 8
     Loop                           shift and go to state 9
     Termo                          shift and go to state 10
-    Unstore                        shift and go to state 23
-
-state 32
-
-    (22) Store -> ID ! .
-
-    DOT             reduce using rule 22 (Store -> ID ! .)
-    DOTSTRING       reduce using rule 22 (Store -> ID ! .)
-    EMIT            reduce using rule 22 (Store -> ID ! .)
-    COMMENT_START   reduce using rule 22 (Store -> ID ! .)
-    ID              reduce using rule 22 (Store -> ID ! .)
-    VARIABLE        reduce using rule 22 (Store -> ID ! .)
-    =               reduce using rule 22 (Store -> ID ! .)
-    <               reduce using rule 22 (Store -> ID ! .)
-    >               reduce using rule 22 (Store -> ID ! .)
-    INFEQ           reduce using rule 22 (Store -> ID ! .)
-    SUPEQ           reduce using rule 22 (Store -> ID ! .)
-    NUMBER          reduce using rule 22 (Store -> ID ! .)
-    $end            reduce using rule 22 (Store -> ID ! .)
-    COMMENT_END     reduce using rule 22 (Store -> ID ! .)
-    THEN            reduce using rule 22 (Store -> ID ! .)
-    ELSE            reduce using rule 22 (Store -> ID ! .)
-    LOOP            reduce using rule 22 (Store -> ID ! .)
-
+    Unstore                        shift and go to state 24
 
 state 33
 
-    (23) Unstore -> ID @ .
+    (23) Store -> ID ! .
 
-    +               reduce using rule 23 (Unstore -> ID @ .)
-    -               reduce using rule 23 (Unstore -> ID @ .)
-    *               reduce using rule 23 (Unstore -> ID @ .)
-    /               reduce using rule 23 (Unstore -> ID @ .)
-    %               reduce using rule 23 (Unstore -> ID @ .)
-    IF              reduce using rule 23 (Unstore -> ID @ .)
-    DO              reduce using rule 23 (Unstore -> ID @ .)
-    DOT             reduce using rule 23 (Unstore -> ID @ .)
-    DOTSTRING       reduce using rule 23 (Unstore -> ID @ .)
-    EMIT            reduce using rule 23 (Unstore -> ID @ .)
-    COMMENT_START   reduce using rule 23 (Unstore -> ID @ .)
-    ID              reduce using rule 23 (Unstore -> ID @ .)
-    VARIABLE        reduce using rule 23 (Unstore -> ID @ .)
-    =               reduce using rule 23 (Unstore -> ID @ .)
-    <               reduce using rule 23 (Unstore -> ID @ .)
-    >               reduce using rule 23 (Unstore -> ID @ .)
-    INFEQ           reduce using rule 23 (Unstore -> ID @ .)
-    SUPEQ           reduce using rule 23 (Unstore -> ID @ .)
-    NUMBER          reduce using rule 23 (Unstore -> ID @ .)
-    $end            reduce using rule 23 (Unstore -> ID @ .)
-    COMMENT_END     reduce using rule 23 (Unstore -> ID @ .)
-    THEN            reduce using rule 23 (Unstore -> ID @ .)
-    ELSE            reduce using rule 23 (Unstore -> ID @ .)
-    LOOP            reduce using rule 23 (Unstore -> ID @ .)
+    DOT             reduce using rule 23 (Store -> ID ! .)
+    DOTSTRING       reduce using rule 23 (Store -> ID ! .)
+    EMIT            reduce using rule 23 (Store -> ID ! .)
+    COMMENT_START   reduce using rule 23 (Store -> ID ! .)
+    ONELINE         reduce using rule 23 (Store -> ID ! .)
+    ID              reduce using rule 23 (Store -> ID ! .)
+    VARIABLE        reduce using rule 23 (Store -> ID ! .)
+    =               reduce using rule 23 (Store -> ID ! .)
+    <               reduce using rule 23 (Store -> ID ! .)
+    >               reduce using rule 23 (Store -> ID ! .)
+    INFEQ           reduce using rule 23 (Store -> ID ! .)
+    SUPEQ           reduce using rule 23 (Store -> ID ! .)
+    NUMBER          reduce using rule 23 (Store -> ID ! .)
+    $end            reduce using rule 23 (Store -> ID ! .)
+    COMMENT_END     reduce using rule 23 (Store -> ID ! .)
+    THEN            reduce using rule 23 (Store -> ID ! .)
+    ELSE            reduce using rule 23 (Store -> ID ! .)
+    LOOP            reduce using rule 23 (Store -> ID ! .)
 
 
 state 34
 
-    (24) Variavel -> VARIABLE ID .
+    (24) Unstore -> ID @ .
 
-    DOT             reduce using rule 24 (Variavel -> VARIABLE ID .)
-    DOTSTRING       reduce using rule 24 (Variavel -> VARIABLE ID .)
-    EMIT            reduce using rule 24 (Variavel -> VARIABLE ID .)
-    COMMENT_START   reduce using rule 24 (Variavel -> VARIABLE ID .)
-    ID              reduce using rule 24 (Variavel -> VARIABLE ID .)
-    VARIABLE        reduce using rule 24 (Variavel -> VARIABLE ID .)
-    =               reduce using rule 24 (Variavel -> VARIABLE ID .)
-    <               reduce using rule 24 (Variavel -> VARIABLE ID .)
-    >               reduce using rule 24 (Variavel -> VARIABLE ID .)
-    INFEQ           reduce using rule 24 (Variavel -> VARIABLE ID .)
-    SUPEQ           reduce using rule 24 (Variavel -> VARIABLE ID .)
-    NUMBER          reduce using rule 24 (Variavel -> VARIABLE ID .)
-    $end            reduce using rule 24 (Variavel -> VARIABLE ID .)
-    COMMENT_END     reduce using rule 24 (Variavel -> VARIABLE ID .)
-    THEN            reduce using rule 24 (Variavel -> VARIABLE ID .)
-    ELSE            reduce using rule 24 (Variavel -> VARIABLE ID .)
-    LOOP            reduce using rule 24 (Variavel -> VARIABLE ID .)
+    +               reduce using rule 24 (Unstore -> ID @ .)
+    -               reduce using rule 24 (Unstore -> ID @ .)
+    *               reduce using rule 24 (Unstore -> ID @ .)
+    /               reduce using rule 24 (Unstore -> ID @ .)
+    %               reduce using rule 24 (Unstore -> ID @ .)
+    IF              reduce using rule 24 (Unstore -> ID @ .)
+    DO              reduce using rule 24 (Unstore -> ID @ .)
+    DOT             reduce using rule 24 (Unstore -> ID @ .)
+    DOTSTRING       reduce using rule 24 (Unstore -> ID @ .)
+    EMIT            reduce using rule 24 (Unstore -> ID @ .)
+    COMMENT_START   reduce using rule 24 (Unstore -> ID @ .)
+    ONELINE         reduce using rule 24 (Unstore -> ID @ .)
+    ID              reduce using rule 24 (Unstore -> ID @ .)
+    VARIABLE        reduce using rule 24 (Unstore -> ID @ .)
+    =               reduce using rule 24 (Unstore -> ID @ .)
+    <               reduce using rule 24 (Unstore -> ID @ .)
+    >               reduce using rule 24 (Unstore -> ID @ .)
+    INFEQ           reduce using rule 24 (Unstore -> ID @ .)
+    SUPEQ           reduce using rule 24 (Unstore -> ID @ .)
+    NUMBER          reduce using rule 24 (Unstore -> ID @ .)
+    $end            reduce using rule 24 (Unstore -> ID @ .)
+    COMMENT_END     reduce using rule 24 (Unstore -> ID @ .)
+    THEN            reduce using rule 24 (Unstore -> ID @ .)
+    ELSE            reduce using rule 24 (Unstore -> ID @ .)
+    LOOP            reduce using rule 24 (Unstore -> ID @ .)
 
 
 state 35
 
-    (25) Conditional -> = IF . Comandos THEN
-    (30) Conditional -> = IF . Comandos ELSE Comandos THEN
-    (1) Comandos -> . Comandos Comando
-    (2) Comandos -> .
+    (25) Variavel -> VARIABLE ID .
 
-    THEN            reduce using rule 2 (Comandos -> .)
-    ELSE            reduce using rule 2 (Comandos -> .)
-    DOT             reduce using rule 2 (Comandos -> .)
-    DOTSTRING       reduce using rule 2 (Comandos -> .)
-    EMIT            reduce using rule 2 (Comandos -> .)
-    COMMENT_START   reduce using rule 2 (Comandos -> .)
-    ID              reduce using rule 2 (Comandos -> .)
-    VARIABLE        reduce using rule 2 (Comandos -> .)
-    =               reduce using rule 2 (Comandos -> .)
-    <               reduce using rule 2 (Comandos -> .)
-    >               reduce using rule 2 (Comandos -> .)
-    INFEQ           reduce using rule 2 (Comandos -> .)
-    SUPEQ           reduce using rule 2 (Comandos -> .)
-    NUMBER          reduce using rule 2 (Comandos -> .)
+    DOT             reduce using rule 25 (Variavel -> VARIABLE ID .)
+    DOTSTRING       reduce using rule 25 (Variavel -> VARIABLE ID .)
+    EMIT            reduce using rule 25 (Variavel -> VARIABLE ID .)
+    COMMENT_START   reduce using rule 25 (Variavel -> VARIABLE ID .)
+    ONELINE         reduce using rule 25 (Variavel -> VARIABLE ID .)
+    ID              reduce using rule 25 (Variavel -> VARIABLE ID .)
+    VARIABLE        reduce using rule 25 (Variavel -> VARIABLE ID .)
+    =               reduce using rule 25 (Variavel -> VARIABLE ID .)
+    <               reduce using rule 25 (Variavel -> VARIABLE ID .)
+    >               reduce using rule 25 (Variavel -> VARIABLE ID .)
+    INFEQ           reduce using rule 25 (Variavel -> VARIABLE ID .)
+    SUPEQ           reduce using rule 25 (Variavel -> VARIABLE ID .)
+    NUMBER          reduce using rule 25 (Variavel -> VARIABLE ID .)
+    $end            reduce using rule 25 (Variavel -> VARIABLE ID .)
+    COMMENT_END     reduce using rule 25 (Variavel -> VARIABLE ID .)
+    THEN            reduce using rule 25 (Variavel -> VARIABLE ID .)
+    ELSE            reduce using rule 25 (Variavel -> VARIABLE ID .)
+    LOOP            reduce using rule 25 (Variavel -> VARIABLE ID .)
 
-    Comandos                       shift and go to state 44
 
 state 36
 
-    (26) Conditional -> < IF . Comandos THEN
-    (31) Conditional -> < IF . Comandos ELSE Comandos THEN
+    (26) Conditional -> = IF . Comandos THEN
+    (31) Conditional -> = IF . Comandos ELSE Comandos THEN
     (1) Comandos -> . Comandos Comando
     (2) Comandos -> .
 
@@ -1000,6 +1032,7 @@ state 36
     DOTSTRING       reduce using rule 2 (Comandos -> .)
     EMIT            reduce using rule 2 (Comandos -> .)
     COMMENT_START   reduce using rule 2 (Comandos -> .)
+    ONELINE         reduce using rule 2 (Comandos -> .)
     ID              reduce using rule 2 (Comandos -> .)
     VARIABLE        reduce using rule 2 (Comandos -> .)
     =               reduce using rule 2 (Comandos -> .)
@@ -1013,8 +1046,8 @@ state 36
 
 state 37
 
-    (27) Conditional -> > IF . Comandos THEN
-    (32) Conditional -> > IF . Comandos ELSE Comandos THEN
+    (27) Conditional -> < IF . Comandos THEN
+    (32) Conditional -> < IF . Comandos ELSE Comandos THEN
     (1) Comandos -> . Comandos Comando
     (2) Comandos -> .
 
@@ -1024,6 +1057,7 @@ state 37
     DOTSTRING       reduce using rule 2 (Comandos -> .)
     EMIT            reduce using rule 2 (Comandos -> .)
     COMMENT_START   reduce using rule 2 (Comandos -> .)
+    ONELINE         reduce using rule 2 (Comandos -> .)
     ID              reduce using rule 2 (Comandos -> .)
     VARIABLE        reduce using rule 2 (Comandos -> .)
     =               reduce using rule 2 (Comandos -> .)
@@ -1037,8 +1071,8 @@ state 37
 
 state 38
 
-    (28) Conditional -> INFEQ IF . Comandos THEN
-    (33) Conditional -> INFEQ IF . Comandos ELSE Comandos THEN
+    (28) Conditional -> > IF . Comandos THEN
+    (33) Conditional -> > IF . Comandos ELSE Comandos THEN
     (1) Comandos -> . Comandos Comando
     (2) Comandos -> .
 
@@ -1048,6 +1082,7 @@ state 38
     DOTSTRING       reduce using rule 2 (Comandos -> .)
     EMIT            reduce using rule 2 (Comandos -> .)
     COMMENT_START   reduce using rule 2 (Comandos -> .)
+    ONELINE         reduce using rule 2 (Comandos -> .)
     ID              reduce using rule 2 (Comandos -> .)
     VARIABLE        reduce using rule 2 (Comandos -> .)
     =               reduce using rule 2 (Comandos -> .)
@@ -1061,8 +1096,8 @@ state 38
 
 state 39
 
-    (29) Conditional -> SUPEQ IF . Comandos THEN
-    (34) Conditional -> SUPEQ IF . Comandos ELSE Comandos THEN
+    (29) Conditional -> INFEQ IF . Comandos THEN
+    (34) Conditional -> INFEQ IF . Comandos ELSE Comandos THEN
     (1) Comandos -> . Comandos Comando
     (2) Comandos -> .
 
@@ -1072,6 +1107,7 @@ state 39
     DOTSTRING       reduce using rule 2 (Comandos -> .)
     EMIT            reduce using rule 2 (Comandos -> .)
     COMMENT_START   reduce using rule 2 (Comandos -> .)
+    ONELINE         reduce using rule 2 (Comandos -> .)
     ID              reduce using rule 2 (Comandos -> .)
     VARIABLE        reduce using rule 2 (Comandos -> .)
     =               reduce using rule 2 (Comandos -> .)
@@ -1085,149 +1121,18 @@ state 39
 
 state 40
 
-    (35) Conditional -> Expressao IF Comandos . THEN
-    (36) Conditional -> Expressao IF Comandos . ELSE Comandos THEN
-    (1) Comandos -> Comandos . Comando
-    (3) Comando -> . Expressao
-    (4) Comando -> . Imprime
-    (5) Comando -> . Comment
-    (6) Comando -> . Store
-    (7) Comando -> . Variavel
-    (8) Comando -> . Conditional
-    (9) Comando -> . Loop
-    (10) Expressao -> . Expressao +
-    (11) Expressao -> . Expressao -
-    (12) Expressao -> . Expressao *
-    (13) Expressao -> . Expressao /
-    (14) Expressao -> . Expressao %
-    (15) Expressao -> . Termo
-    (18) Imprime -> . DOT
-    (19) Imprime -> . DOTSTRING
-    (20) Imprime -> . EMIT
-    (21) Comment -> . COMMENT_START Comandos COMMENT_END
-    (22) Store -> . ID !
-    (24) Variavel -> . VARIABLE ID
-    (25) Conditional -> . = IF Comandos THEN
-    (26) Conditional -> . < IF Comandos THEN
-    (27) Conditional -> . > IF Comandos THEN
-    (28) Conditional -> . INFEQ IF Comandos THEN
-    (29) Conditional -> . SUPEQ IF Comandos THEN
-    (30) Conditional -> . = IF Comandos ELSE Comandos THEN
-    (31) Conditional -> . < IF Comandos ELSE Comandos THEN
-    (32) Conditional -> . > IF Comandos ELSE Comandos THEN
-    (33) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
-    (34) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
-    (35) Conditional -> . Expressao IF Comandos THEN
-    (36) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
-    (37) Loop -> . Expressao DO Comandos LOOP
-    (38) Loop -> . Expressao DO I Comandos LOOP
-    (16) Termo -> . NUMBER
-    (17) Termo -> . Unstore
-    (23) Unstore -> . ID @
-
-    THEN            shift and go to state 49
-    ELSE            shift and go to state 50
-    DOT             shift and go to state 11
-    DOTSTRING       shift and go to state 12
-    EMIT            shift and go to state 13
-    COMMENT_START   shift and go to state 14
-    ID              shift and go to state 15
-    VARIABLE        shift and go to state 16
-    =               shift and go to state 17
-    <               shift and go to state 18
-    >               shift and go to state 19
-    INFEQ           shift and go to state 20
-    SUPEQ           shift and go to state 21
-    NUMBER          shift and go to state 22
-
-    Expressao                      shift and go to state 3
-    Comando                        shift and go to state 2
-    Imprime                        shift and go to state 4
-    Comment                        shift and go to state 5
-    Store                          shift and go to state 6
-    Variavel                       shift and go to state 7
-    Conditional                    shift and go to state 8
-    Loop                           shift and go to state 9
-    Termo                          shift and go to state 10
-    Unstore                        shift and go to state 23
-
-state 41
-
-    (37) Loop -> Expressao DO Comandos . LOOP
-    (1) Comandos -> Comandos . Comando
-    (3) Comando -> . Expressao
-    (4) Comando -> . Imprime
-    (5) Comando -> . Comment
-    (6) Comando -> . Store
-    (7) Comando -> . Variavel
-    (8) Comando -> . Conditional
-    (9) Comando -> . Loop
-    (10) Expressao -> . Expressao +
-    (11) Expressao -> . Expressao -
-    (12) Expressao -> . Expressao *
-    (13) Expressao -> . Expressao /
-    (14) Expressao -> . Expressao %
-    (15) Expressao -> . Termo
-    (18) Imprime -> . DOT
-    (19) Imprime -> . DOTSTRING
-    (20) Imprime -> . EMIT
-    (21) Comment -> . COMMENT_START Comandos COMMENT_END
-    (22) Store -> . ID !
-    (24) Variavel -> . VARIABLE ID
-    (25) Conditional -> . = IF Comandos THEN
-    (26) Conditional -> . < IF Comandos THEN
-    (27) Conditional -> . > IF Comandos THEN
-    (28) Conditional -> . INFEQ IF Comandos THEN
-    (29) Conditional -> . SUPEQ IF Comandos THEN
-    (30) Conditional -> . = IF Comandos ELSE Comandos THEN
-    (31) Conditional -> . < IF Comandos ELSE Comandos THEN
-    (32) Conditional -> . > IF Comandos ELSE Comandos THEN
-    (33) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
-    (34) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
-    (35) Conditional -> . Expressao IF Comandos THEN
-    (36) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
-    (37) Loop -> . Expressao DO Comandos LOOP
-    (38) Loop -> . Expressao DO I Comandos LOOP
-    (16) Termo -> . NUMBER
-    (17) Termo -> . Unstore
-    (23) Unstore -> . ID @
-
-    LOOP            shift and go to state 51
-    DOT             shift and go to state 11
-    DOTSTRING       shift and go to state 12
-    EMIT            shift and go to state 13
-    COMMENT_START   shift and go to state 14
-    ID              shift and go to state 15
-    VARIABLE        shift and go to state 16
-    =               shift and go to state 17
-    <               shift and go to state 18
-    >               shift and go to state 19
-    INFEQ           shift and go to state 20
-    SUPEQ           shift and go to state 21
-    NUMBER          shift and go to state 22
-
-    Expressao                      shift and go to state 3
-    Comando                        shift and go to state 2
-    Imprime                        shift and go to state 4
-    Comment                        shift and go to state 5
-    Store                          shift and go to state 6
-    Variavel                       shift and go to state 7
-    Conditional                    shift and go to state 8
-    Loop                           shift and go to state 9
-    Termo                          shift and go to state 10
-    Unstore                        shift and go to state 23
-
-state 42
-
-    (38) Loop -> Expressao DO I . Comandos LOOP
+    (30) Conditional -> SUPEQ IF . Comandos THEN
+    (35) Conditional -> SUPEQ IF . Comandos ELSE Comandos THEN
     (1) Comandos -> . Comandos Comando
     (2) Comandos -> .
 
-    LOOP            reduce using rule 2 (Comandos -> .)
+    THEN            reduce using rule 2 (Comandos -> .)
+    ELSE            reduce using rule 2 (Comandos -> .)
     DOT             reduce using rule 2 (Comandos -> .)
     DOTSTRING       reduce using rule 2 (Comandos -> .)
     EMIT            reduce using rule 2 (Comandos -> .)
     COMMENT_START   reduce using rule 2 (Comandos -> .)
+    ONELINE         reduce using rule 2 (Comandos -> .)
     ID              reduce using rule 2 (Comandos -> .)
     VARIABLE        reduce using rule 2 (Comandos -> .)
     =               reduce using rule 2 (Comandos -> .)
@@ -1237,9 +1142,170 @@ state 42
     SUPEQ           reduce using rule 2 (Comandos -> .)
     NUMBER          reduce using rule 2 (Comandos -> .)
 
-    Comandos                       shift and go to state 52
+    Comandos                       shift and go to state 49
+
+state 41
+
+    (36) Conditional -> Expressao IF Comandos . THEN
+    (37) Conditional -> Expressao IF Comandos . ELSE Comandos THEN
+    (1) Comandos -> Comandos . Comando
+    (3) Comando -> . Expressao
+    (4) Comando -> . Imprime
+    (5) Comando -> . Comment
+    (6) Comando -> . Store
+    (7) Comando -> . Variavel
+    (8) Comando -> . Conditional
+    (9) Comando -> . Loop
+    (10) Expressao -> . Expressao +
+    (11) Expressao -> . Expressao -
+    (12) Expressao -> . Expressao *
+    (13) Expressao -> . Expressao /
+    (14) Expressao -> . Expressao %
+    (15) Expressao -> . Termo
+    (18) Imprime -> . DOT
+    (19) Imprime -> . DOTSTRING
+    (20) Imprime -> . EMIT
+    (21) Comment -> . COMMENT_START Comandos COMMENT_END
+    (22) Comment -> . ONELINE
+    (23) Store -> . ID !
+    (25) Variavel -> . VARIABLE ID
+    (26) Conditional -> . = IF Comandos THEN
+    (27) Conditional -> . < IF Comandos THEN
+    (28) Conditional -> . > IF Comandos THEN
+    (29) Conditional -> . INFEQ IF Comandos THEN
+    (30) Conditional -> . SUPEQ IF Comandos THEN
+    (31) Conditional -> . = IF Comandos ELSE Comandos THEN
+    (32) Conditional -> . < IF Comandos ELSE Comandos THEN
+    (33) Conditional -> . > IF Comandos ELSE Comandos THEN
+    (34) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
+    (35) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
+    (36) Conditional -> . Expressao IF Comandos THEN
+    (37) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
+    (38) Loop -> . Expressao DO Comandos LOOP
+    (39) Loop -> . Expressao DO I Comandos LOOP
+    (16) Termo -> . NUMBER
+    (17) Termo -> . Unstore
+    (24) Unstore -> . ID @
+
+    THEN            shift and go to state 50
+    ELSE            shift and go to state 51
+    DOT             shift and go to state 11
+    DOTSTRING       shift and go to state 12
+    EMIT            shift and go to state 13
+    COMMENT_START   shift and go to state 14
+    ONELINE         shift and go to state 15
+    ID              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    =               shift and go to state 18
+    <               shift and go to state 19
+    >               shift and go to state 20
+    INFEQ           shift and go to state 21
+    SUPEQ           shift and go to state 22
+    NUMBER          shift and go to state 23
+
+    Expressao                      shift and go to state 3
+    Comando                        shift and go to state 2
+    Imprime                        shift and go to state 4
+    Comment                        shift and go to state 5
+    Store                          shift and go to state 6
+    Variavel                       shift and go to state 7
+    Conditional                    shift and go to state 8
+    Loop                           shift and go to state 9
+    Termo                          shift and go to state 10
+    Unstore                        shift and go to state 24
+
+state 42
+
+    (38) Loop -> Expressao DO Comandos . LOOP
+    (1) Comandos -> Comandos . Comando
+    (3) Comando -> . Expressao
+    (4) Comando -> . Imprime
+    (5) Comando -> . Comment
+    (6) Comando -> . Store
+    (7) Comando -> . Variavel
+    (8) Comando -> . Conditional
+    (9) Comando -> . Loop
+    (10) Expressao -> . Expressao +
+    (11) Expressao -> . Expressao -
+    (12) Expressao -> . Expressao *
+    (13) Expressao -> . Expressao /
+    (14) Expressao -> . Expressao %
+    (15) Expressao -> . Termo
+    (18) Imprime -> . DOT
+    (19) Imprime -> . DOTSTRING
+    (20) Imprime -> . EMIT
+    (21) Comment -> . COMMENT_START Comandos COMMENT_END
+    (22) Comment -> . ONELINE
+    (23) Store -> . ID !
+    (25) Variavel -> . VARIABLE ID
+    (26) Conditional -> . = IF Comandos THEN
+    (27) Conditional -> . < IF Comandos THEN
+    (28) Conditional -> . > IF Comandos THEN
+    (29) Conditional -> . INFEQ IF Comandos THEN
+    (30) Conditional -> . SUPEQ IF Comandos THEN
+    (31) Conditional -> . = IF Comandos ELSE Comandos THEN
+    (32) Conditional -> . < IF Comandos ELSE Comandos THEN
+    (33) Conditional -> . > IF Comandos ELSE Comandos THEN
+    (34) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
+    (35) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
+    (36) Conditional -> . Expressao IF Comandos THEN
+    (37) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
+    (38) Loop -> . Expressao DO Comandos LOOP
+    (39) Loop -> . Expressao DO I Comandos LOOP
+    (16) Termo -> . NUMBER
+    (17) Termo -> . Unstore
+    (24) Unstore -> . ID @
+
+    LOOP            shift and go to state 52
+    DOT             shift and go to state 11
+    DOTSTRING       shift and go to state 12
+    EMIT            shift and go to state 13
+    COMMENT_START   shift and go to state 14
+    ONELINE         shift and go to state 15
+    ID              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    =               shift and go to state 18
+    <               shift and go to state 19
+    >               shift and go to state 20
+    INFEQ           shift and go to state 21
+    SUPEQ           shift and go to state 22
+    NUMBER          shift and go to state 23
+
+    Expressao                      shift and go to state 3
+    Comando                        shift and go to state 2
+    Imprime                        shift and go to state 4
+    Comment                        shift and go to state 5
+    Store                          shift and go to state 6
+    Variavel                       shift and go to state 7
+    Conditional                    shift and go to state 8
+    Loop                           shift and go to state 9
+    Termo                          shift and go to state 10
+    Unstore                        shift and go to state 24
 
 state 43
+
+    (39) Loop -> Expressao DO I . Comandos LOOP
+    (1) Comandos -> . Comandos Comando
+    (2) Comandos -> .
+
+    LOOP            reduce using rule 2 (Comandos -> .)
+    DOT             reduce using rule 2 (Comandos -> .)
+    DOTSTRING       reduce using rule 2 (Comandos -> .)
+    EMIT            reduce using rule 2 (Comandos -> .)
+    COMMENT_START   reduce using rule 2 (Comandos -> .)
+    ONELINE         reduce using rule 2 (Comandos -> .)
+    ID              reduce using rule 2 (Comandos -> .)
+    VARIABLE        reduce using rule 2 (Comandos -> .)
+    =               reduce using rule 2 (Comandos -> .)
+    <               reduce using rule 2 (Comandos -> .)
+    >               reduce using rule 2 (Comandos -> .)
+    INFEQ           reduce using rule 2 (Comandos -> .)
+    SUPEQ           reduce using rule 2 (Comandos -> .)
+    NUMBER          reduce using rule 2 (Comandos -> .)
+
+    Comandos                       shift and go to state 53
+
+state 44
 
     (21) Comment -> COMMENT_START Comandos COMMENT_END .
 
@@ -1247,6 +1313,7 @@ state 43
     DOTSTRING       reduce using rule 21 (Comment -> COMMENT_START Comandos COMMENT_END .)
     EMIT            reduce using rule 21 (Comment -> COMMENT_START Comandos COMMENT_END .)
     COMMENT_START   reduce using rule 21 (Comment -> COMMENT_START Comandos COMMENT_END .)
+    ONELINE         reduce using rule 21 (Comment -> COMMENT_START Comandos COMMENT_END .)
     ID              reduce using rule 21 (Comment -> COMMENT_START Comandos COMMENT_END .)
     VARIABLE        reduce using rule 21 (Comment -> COMMENT_START Comandos COMMENT_END .)
     =               reduce using rule 21 (Comment -> COMMENT_START Comandos COMMENT_END .)
@@ -1262,78 +1329,10 @@ state 43
     LOOP            reduce using rule 21 (Comment -> COMMENT_START Comandos COMMENT_END .)
 
 
-state 44
-
-    (25) Conditional -> = IF Comandos . THEN
-    (30) Conditional -> = IF Comandos . ELSE Comandos THEN
-    (1) Comandos -> Comandos . Comando
-    (3) Comando -> . Expressao
-    (4) Comando -> . Imprime
-    (5) Comando -> . Comment
-    (6) Comando -> . Store
-    (7) Comando -> . Variavel
-    (8) Comando -> . Conditional
-    (9) Comando -> . Loop
-    (10) Expressao -> . Expressao +
-    (11) Expressao -> . Expressao -
-    (12) Expressao -> . Expressao *
-    (13) Expressao -> . Expressao /
-    (14) Expressao -> . Expressao %
-    (15) Expressao -> . Termo
-    (18) Imprime -> . DOT
-    (19) Imprime -> . DOTSTRING
-    (20) Imprime -> . EMIT
-    (21) Comment -> . COMMENT_START Comandos COMMENT_END
-    (22) Store -> . ID !
-    (24) Variavel -> . VARIABLE ID
-    (25) Conditional -> . = IF Comandos THEN
-    (26) Conditional -> . < IF Comandos THEN
-    (27) Conditional -> . > IF Comandos THEN
-    (28) Conditional -> . INFEQ IF Comandos THEN
-    (29) Conditional -> . SUPEQ IF Comandos THEN
-    (30) Conditional -> . = IF Comandos ELSE Comandos THEN
-    (31) Conditional -> . < IF Comandos ELSE Comandos THEN
-    (32) Conditional -> . > IF Comandos ELSE Comandos THEN
-    (33) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
-    (34) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
-    (35) Conditional -> . Expressao IF Comandos THEN
-    (36) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
-    (37) Loop -> . Expressao DO Comandos LOOP
-    (38) Loop -> . Expressao DO I Comandos LOOP
-    (16) Termo -> . NUMBER
-    (17) Termo -> . Unstore
-    (23) Unstore -> . ID @
-
-    THEN            shift and go to state 53
-    ELSE            shift and go to state 54
-    DOT             shift and go to state 11
-    DOTSTRING       shift and go to state 12
-    EMIT            shift and go to state 13
-    COMMENT_START   shift and go to state 14
-    ID              shift and go to state 15
-    VARIABLE        shift and go to state 16
-    =               shift and go to state 17
-    <               shift and go to state 18
-    >               shift and go to state 19
-    INFEQ           shift and go to state 20
-    SUPEQ           shift and go to state 21
-    NUMBER          shift and go to state 22
-
-    Comando                        shift and go to state 2
-    Expressao                      shift and go to state 3
-    Imprime                        shift and go to state 4
-    Comment                        shift and go to state 5
-    Store                          shift and go to state 6
-    Variavel                       shift and go to state 7
-    Conditional                    shift and go to state 8
-    Loop                           shift and go to state 9
-    Termo                          shift and go to state 10
-    Unstore                        shift and go to state 23
-
 state 45
 
-    (26) Conditional -> < IF Comandos . THEN
-    (31) Conditional -> < IF Comandos . ELSE Comandos THEN
+    (26) Conditional -> = IF Comandos . THEN
+    (31) Conditional -> = IF Comandos . ELSE Comandos THEN
     (1) Comandos -> Comandos . Comando
     (3) Comando -> . Expressao
     (4) Comando -> . Imprime
@@ -1352,40 +1351,42 @@ state 45
     (19) Imprime -> . DOTSTRING
     (20) Imprime -> . EMIT
     (21) Comment -> . COMMENT_START Comandos COMMENT_END
-    (22) Store -> . ID !
-    (24) Variavel -> . VARIABLE ID
-    (25) Conditional -> . = IF Comandos THEN
-    (26) Conditional -> . < IF Comandos THEN
-    (27) Conditional -> . > IF Comandos THEN
-    (28) Conditional -> . INFEQ IF Comandos THEN
-    (29) Conditional -> . SUPEQ IF Comandos THEN
-    (30) Conditional -> . = IF Comandos ELSE Comandos THEN
-    (31) Conditional -> . < IF Comandos ELSE Comandos THEN
-    (32) Conditional -> . > IF Comandos ELSE Comandos THEN
-    (33) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
-    (34) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
-    (35) Conditional -> . Expressao IF Comandos THEN
-    (36) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
-    (37) Loop -> . Expressao DO Comandos LOOP
-    (38) Loop -> . Expressao DO I Comandos LOOP
+    (22) Comment -> . ONELINE
+    (23) Store -> . ID !
+    (25) Variavel -> . VARIABLE ID
+    (26) Conditional -> . = IF Comandos THEN
+    (27) Conditional -> . < IF Comandos THEN
+    (28) Conditional -> . > IF Comandos THEN
+    (29) Conditional -> . INFEQ IF Comandos THEN
+    (30) Conditional -> . SUPEQ IF Comandos THEN
+    (31) Conditional -> . = IF Comandos ELSE Comandos THEN
+    (32) Conditional -> . < IF Comandos ELSE Comandos THEN
+    (33) Conditional -> . > IF Comandos ELSE Comandos THEN
+    (34) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
+    (35) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
+    (36) Conditional -> . Expressao IF Comandos THEN
+    (37) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
+    (38) Loop -> . Expressao DO Comandos LOOP
+    (39) Loop -> . Expressao DO I Comandos LOOP
     (16) Termo -> . NUMBER
     (17) Termo -> . Unstore
-    (23) Unstore -> . ID @
+    (24) Unstore -> . ID @
 
-    THEN            shift and go to state 55
-    ELSE            shift and go to state 56
+    THEN            shift and go to state 54
+    ELSE            shift and go to state 55
     DOT             shift and go to state 11
     DOTSTRING       shift and go to state 12
     EMIT            shift and go to state 13
     COMMENT_START   shift and go to state 14
-    ID              shift and go to state 15
-    VARIABLE        shift and go to state 16
-    =               shift and go to state 17
-    <               shift and go to state 18
-    >               shift and go to state 19
-    INFEQ           shift and go to state 20
-    SUPEQ           shift and go to state 21
-    NUMBER          shift and go to state 22
+    ONELINE         shift and go to state 15
+    ID              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    =               shift and go to state 18
+    <               shift and go to state 19
+    >               shift and go to state 20
+    INFEQ           shift and go to state 21
+    SUPEQ           shift and go to state 22
+    NUMBER          shift and go to state 23
 
     Comando                        shift and go to state 2
     Expressao                      shift and go to state 3
@@ -1396,12 +1397,12 @@ state 45
     Conditional                    shift and go to state 8
     Loop                           shift and go to state 9
     Termo                          shift and go to state 10
-    Unstore                        shift and go to state 23
+    Unstore                        shift and go to state 24
 
 state 46
 
-    (27) Conditional -> > IF Comandos . THEN
-    (32) Conditional -> > IF Comandos . ELSE Comandos THEN
+    (27) Conditional -> < IF Comandos . THEN
+    (32) Conditional -> < IF Comandos . ELSE Comandos THEN
     (1) Comandos -> Comandos . Comando
     (3) Comando -> . Expressao
     (4) Comando -> . Imprime
@@ -1420,40 +1421,42 @@ state 46
     (19) Imprime -> . DOTSTRING
     (20) Imprime -> . EMIT
     (21) Comment -> . COMMENT_START Comandos COMMENT_END
-    (22) Store -> . ID !
-    (24) Variavel -> . VARIABLE ID
-    (25) Conditional -> . = IF Comandos THEN
-    (26) Conditional -> . < IF Comandos THEN
-    (27) Conditional -> . > IF Comandos THEN
-    (28) Conditional -> . INFEQ IF Comandos THEN
-    (29) Conditional -> . SUPEQ IF Comandos THEN
-    (30) Conditional -> . = IF Comandos ELSE Comandos THEN
-    (31) Conditional -> . < IF Comandos ELSE Comandos THEN
-    (32) Conditional -> . > IF Comandos ELSE Comandos THEN
-    (33) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
-    (34) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
-    (35) Conditional -> . Expressao IF Comandos THEN
-    (36) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
-    (37) Loop -> . Expressao DO Comandos LOOP
-    (38) Loop -> . Expressao DO I Comandos LOOP
+    (22) Comment -> . ONELINE
+    (23) Store -> . ID !
+    (25) Variavel -> . VARIABLE ID
+    (26) Conditional -> . = IF Comandos THEN
+    (27) Conditional -> . < IF Comandos THEN
+    (28) Conditional -> . > IF Comandos THEN
+    (29) Conditional -> . INFEQ IF Comandos THEN
+    (30) Conditional -> . SUPEQ IF Comandos THEN
+    (31) Conditional -> . = IF Comandos ELSE Comandos THEN
+    (32) Conditional -> . < IF Comandos ELSE Comandos THEN
+    (33) Conditional -> . > IF Comandos ELSE Comandos THEN
+    (34) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
+    (35) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
+    (36) Conditional -> . Expressao IF Comandos THEN
+    (37) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
+    (38) Loop -> . Expressao DO Comandos LOOP
+    (39) Loop -> . Expressao DO I Comandos LOOP
     (16) Termo -> . NUMBER
     (17) Termo -> . Unstore
-    (23) Unstore -> . ID @
+    (24) Unstore -> . ID @
 
-    THEN            shift and go to state 57
-    ELSE            shift and go to state 58
+    THEN            shift and go to state 56
+    ELSE            shift and go to state 57
     DOT             shift and go to state 11
     DOTSTRING       shift and go to state 12
     EMIT            shift and go to state 13
     COMMENT_START   shift and go to state 14
-    ID              shift and go to state 15
-    VARIABLE        shift and go to state 16
-    =               shift and go to state 17
-    <               shift and go to state 18
-    >               shift and go to state 19
-    INFEQ           shift and go to state 20
-    SUPEQ           shift and go to state 21
-    NUMBER          shift and go to state 22
+    ONELINE         shift and go to state 15
+    ID              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    =               shift and go to state 18
+    <               shift and go to state 19
+    >               shift and go to state 20
+    INFEQ           shift and go to state 21
+    SUPEQ           shift and go to state 22
+    NUMBER          shift and go to state 23
 
     Comando                        shift and go to state 2
     Expressao                      shift and go to state 3
@@ -1464,12 +1467,12 @@ state 46
     Conditional                    shift and go to state 8
     Loop                           shift and go to state 9
     Termo                          shift and go to state 10
-    Unstore                        shift and go to state 23
+    Unstore                        shift and go to state 24
 
 state 47
 
-    (28) Conditional -> INFEQ IF Comandos . THEN
-    (33) Conditional -> INFEQ IF Comandos . ELSE Comandos THEN
+    (28) Conditional -> > IF Comandos . THEN
+    (33) Conditional -> > IF Comandos . ELSE Comandos THEN
     (1) Comandos -> Comandos . Comando
     (3) Comando -> . Expressao
     (4) Comando -> . Imprime
@@ -1488,40 +1491,42 @@ state 47
     (19) Imprime -> . DOTSTRING
     (20) Imprime -> . EMIT
     (21) Comment -> . COMMENT_START Comandos COMMENT_END
-    (22) Store -> . ID !
-    (24) Variavel -> . VARIABLE ID
-    (25) Conditional -> . = IF Comandos THEN
-    (26) Conditional -> . < IF Comandos THEN
-    (27) Conditional -> . > IF Comandos THEN
-    (28) Conditional -> . INFEQ IF Comandos THEN
-    (29) Conditional -> . SUPEQ IF Comandos THEN
-    (30) Conditional -> . = IF Comandos ELSE Comandos THEN
-    (31) Conditional -> . < IF Comandos ELSE Comandos THEN
-    (32) Conditional -> . > IF Comandos ELSE Comandos THEN
-    (33) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
-    (34) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
-    (35) Conditional -> . Expressao IF Comandos THEN
-    (36) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
-    (37) Loop -> . Expressao DO Comandos LOOP
-    (38) Loop -> . Expressao DO I Comandos LOOP
+    (22) Comment -> . ONELINE
+    (23) Store -> . ID !
+    (25) Variavel -> . VARIABLE ID
+    (26) Conditional -> . = IF Comandos THEN
+    (27) Conditional -> . < IF Comandos THEN
+    (28) Conditional -> . > IF Comandos THEN
+    (29) Conditional -> . INFEQ IF Comandos THEN
+    (30) Conditional -> . SUPEQ IF Comandos THEN
+    (31) Conditional -> . = IF Comandos ELSE Comandos THEN
+    (32) Conditional -> . < IF Comandos ELSE Comandos THEN
+    (33) Conditional -> . > IF Comandos ELSE Comandos THEN
+    (34) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
+    (35) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
+    (36) Conditional -> . Expressao IF Comandos THEN
+    (37) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
+    (38) Loop -> . Expressao DO Comandos LOOP
+    (39) Loop -> . Expressao DO I Comandos LOOP
     (16) Termo -> . NUMBER
     (17) Termo -> . Unstore
-    (23) Unstore -> . ID @
+    (24) Unstore -> . ID @
 
-    THEN            shift and go to state 59
-    ELSE            shift and go to state 60
+    THEN            shift and go to state 58
+    ELSE            shift and go to state 59
     DOT             shift and go to state 11
     DOTSTRING       shift and go to state 12
     EMIT            shift and go to state 13
     COMMENT_START   shift and go to state 14
-    ID              shift and go to state 15
-    VARIABLE        shift and go to state 16
-    =               shift and go to state 17
-    <               shift and go to state 18
-    >               shift and go to state 19
-    INFEQ           shift and go to state 20
-    SUPEQ           shift and go to state 21
-    NUMBER          shift and go to state 22
+    ONELINE         shift and go to state 15
+    ID              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    =               shift and go to state 18
+    <               shift and go to state 19
+    >               shift and go to state 20
+    INFEQ           shift and go to state 21
+    SUPEQ           shift and go to state 22
+    NUMBER          shift and go to state 23
 
     Comando                        shift and go to state 2
     Expressao                      shift and go to state 3
@@ -1532,12 +1537,12 @@ state 47
     Conditional                    shift and go to state 8
     Loop                           shift and go to state 9
     Termo                          shift and go to state 10
-    Unstore                        shift and go to state 23
+    Unstore                        shift and go to state 24
 
 state 48
 
-    (29) Conditional -> SUPEQ IF Comandos . THEN
-    (34) Conditional -> SUPEQ IF Comandos . ELSE Comandos THEN
+    (29) Conditional -> INFEQ IF Comandos . THEN
+    (34) Conditional -> INFEQ IF Comandos . ELSE Comandos THEN
     (1) Comandos -> Comandos . Comando
     (3) Comando -> . Expressao
     (4) Comando -> . Imprime
@@ -1556,40 +1561,42 @@ state 48
     (19) Imprime -> . DOTSTRING
     (20) Imprime -> . EMIT
     (21) Comment -> . COMMENT_START Comandos COMMENT_END
-    (22) Store -> . ID !
-    (24) Variavel -> . VARIABLE ID
-    (25) Conditional -> . = IF Comandos THEN
-    (26) Conditional -> . < IF Comandos THEN
-    (27) Conditional -> . > IF Comandos THEN
-    (28) Conditional -> . INFEQ IF Comandos THEN
-    (29) Conditional -> . SUPEQ IF Comandos THEN
-    (30) Conditional -> . = IF Comandos ELSE Comandos THEN
-    (31) Conditional -> . < IF Comandos ELSE Comandos THEN
-    (32) Conditional -> . > IF Comandos ELSE Comandos THEN
-    (33) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
-    (34) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
-    (35) Conditional -> . Expressao IF Comandos THEN
-    (36) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
-    (37) Loop -> . Expressao DO Comandos LOOP
-    (38) Loop -> . Expressao DO I Comandos LOOP
+    (22) Comment -> . ONELINE
+    (23) Store -> . ID !
+    (25) Variavel -> . VARIABLE ID
+    (26) Conditional -> . = IF Comandos THEN
+    (27) Conditional -> . < IF Comandos THEN
+    (28) Conditional -> . > IF Comandos THEN
+    (29) Conditional -> . INFEQ IF Comandos THEN
+    (30) Conditional -> . SUPEQ IF Comandos THEN
+    (31) Conditional -> . = IF Comandos ELSE Comandos THEN
+    (32) Conditional -> . < IF Comandos ELSE Comandos THEN
+    (33) Conditional -> . > IF Comandos ELSE Comandos THEN
+    (34) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
+    (35) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
+    (36) Conditional -> . Expressao IF Comandos THEN
+    (37) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
+    (38) Loop -> . Expressao DO Comandos LOOP
+    (39) Loop -> . Expressao DO I Comandos LOOP
     (16) Termo -> . NUMBER
     (17) Termo -> . Unstore
-    (23) Unstore -> . ID @
+    (24) Unstore -> . ID @
 
-    THEN            shift and go to state 61
-    ELSE            shift and go to state 62
+    THEN            shift and go to state 60
+    ELSE            shift and go to state 61
     DOT             shift and go to state 11
     DOTSTRING       shift and go to state 12
     EMIT            shift and go to state 13
     COMMENT_START   shift and go to state 14
-    ID              shift and go to state 15
-    VARIABLE        shift and go to state 16
-    =               shift and go to state 17
-    <               shift and go to state 18
-    >               shift and go to state 19
-    INFEQ           shift and go to state 20
-    SUPEQ           shift and go to state 21
-    NUMBER          shift and go to state 22
+    ONELINE         shift and go to state 15
+    ID              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    =               shift and go to state 18
+    <               shift and go to state 19
+    >               shift and go to state 20
+    INFEQ           shift and go to state 21
+    SUPEQ           shift and go to state 22
+    NUMBER          shift and go to state 23
 
     Comando                        shift and go to state 2
     Expressao                      shift and go to state 3
@@ -1600,79 +1607,12 @@ state 48
     Conditional                    shift and go to state 8
     Loop                           shift and go to state 9
     Termo                          shift and go to state 10
-    Unstore                        shift and go to state 23
+    Unstore                        shift and go to state 24
 
 state 49
 
-    (35) Conditional -> Expressao IF Comandos THEN .
-
-    DOT             reduce using rule 35 (Conditional -> Expressao IF Comandos THEN .)
-    DOTSTRING       reduce using rule 35 (Conditional -> Expressao IF Comandos THEN .)
-    EMIT            reduce using rule 35 (Conditional -> Expressao IF Comandos THEN .)
-    COMMENT_START   reduce using rule 35 (Conditional -> Expressao IF Comandos THEN .)
-    ID              reduce using rule 35 (Conditional -> Expressao IF Comandos THEN .)
-    VARIABLE        reduce using rule 35 (Conditional -> Expressao IF Comandos THEN .)
-    =               reduce using rule 35 (Conditional -> Expressao IF Comandos THEN .)
-    <               reduce using rule 35 (Conditional -> Expressao IF Comandos THEN .)
-    >               reduce using rule 35 (Conditional -> Expressao IF Comandos THEN .)
-    INFEQ           reduce using rule 35 (Conditional -> Expressao IF Comandos THEN .)
-    SUPEQ           reduce using rule 35 (Conditional -> Expressao IF Comandos THEN .)
-    NUMBER          reduce using rule 35 (Conditional -> Expressao IF Comandos THEN .)
-    $end            reduce using rule 35 (Conditional -> Expressao IF Comandos THEN .)
-    COMMENT_END     reduce using rule 35 (Conditional -> Expressao IF Comandos THEN .)
-    THEN            reduce using rule 35 (Conditional -> Expressao IF Comandos THEN .)
-    ELSE            reduce using rule 35 (Conditional -> Expressao IF Comandos THEN .)
-    LOOP            reduce using rule 35 (Conditional -> Expressao IF Comandos THEN .)
-
-
-state 50
-
-    (36) Conditional -> Expressao IF Comandos ELSE . Comandos THEN
-    (1) Comandos -> . Comandos Comando
-    (2) Comandos -> .
-
-    THEN            reduce using rule 2 (Comandos -> .)
-    DOT             reduce using rule 2 (Comandos -> .)
-    DOTSTRING       reduce using rule 2 (Comandos -> .)
-    EMIT            reduce using rule 2 (Comandos -> .)
-    COMMENT_START   reduce using rule 2 (Comandos -> .)
-    ID              reduce using rule 2 (Comandos -> .)
-    VARIABLE        reduce using rule 2 (Comandos -> .)
-    =               reduce using rule 2 (Comandos -> .)
-    <               reduce using rule 2 (Comandos -> .)
-    >               reduce using rule 2 (Comandos -> .)
-    INFEQ           reduce using rule 2 (Comandos -> .)
-    SUPEQ           reduce using rule 2 (Comandos -> .)
-    NUMBER          reduce using rule 2 (Comandos -> .)
-
-    Comandos                       shift and go to state 63
-
-state 51
-
-    (37) Loop -> Expressao DO Comandos LOOP .
-
-    DOT             reduce using rule 37 (Loop -> Expressao DO Comandos LOOP .)
-    DOTSTRING       reduce using rule 37 (Loop -> Expressao DO Comandos LOOP .)
-    EMIT            reduce using rule 37 (Loop -> Expressao DO Comandos LOOP .)
-    COMMENT_START   reduce using rule 37 (Loop -> Expressao DO Comandos LOOP .)
-    ID              reduce using rule 37 (Loop -> Expressao DO Comandos LOOP .)
-    VARIABLE        reduce using rule 37 (Loop -> Expressao DO Comandos LOOP .)
-    =               reduce using rule 37 (Loop -> Expressao DO Comandos LOOP .)
-    <               reduce using rule 37 (Loop -> Expressao DO Comandos LOOP .)
-    >               reduce using rule 37 (Loop -> Expressao DO Comandos LOOP .)
-    INFEQ           reduce using rule 37 (Loop -> Expressao DO Comandos LOOP .)
-    SUPEQ           reduce using rule 37 (Loop -> Expressao DO Comandos LOOP .)
-    NUMBER          reduce using rule 37 (Loop -> Expressao DO Comandos LOOP .)
-    $end            reduce using rule 37 (Loop -> Expressao DO Comandos LOOP .)
-    COMMENT_END     reduce using rule 37 (Loop -> Expressao DO Comandos LOOP .)
-    THEN            reduce using rule 37 (Loop -> Expressao DO Comandos LOOP .)
-    ELSE            reduce using rule 37 (Loop -> Expressao DO Comandos LOOP .)
-    LOOP            reduce using rule 37 (Loop -> Expressao DO Comandos LOOP .)
-
-
-state 52
-
-    (38) Loop -> Expressao DO I Comandos . LOOP
+    (30) Conditional -> SUPEQ IF Comandos . THEN
+    (35) Conditional -> SUPEQ IF Comandos . ELSE Comandos THEN
     (1) Comandos -> Comandos . Comando
     (3) Comando -> . Expressao
     (4) Comando -> . Imprime
@@ -1691,39 +1631,181 @@ state 52
     (19) Imprime -> . DOTSTRING
     (20) Imprime -> . EMIT
     (21) Comment -> . COMMENT_START Comandos COMMENT_END
-    (22) Store -> . ID !
-    (24) Variavel -> . VARIABLE ID
-    (25) Conditional -> . = IF Comandos THEN
-    (26) Conditional -> . < IF Comandos THEN
-    (27) Conditional -> . > IF Comandos THEN
-    (28) Conditional -> . INFEQ IF Comandos THEN
-    (29) Conditional -> . SUPEQ IF Comandos THEN
-    (30) Conditional -> . = IF Comandos ELSE Comandos THEN
-    (31) Conditional -> . < IF Comandos ELSE Comandos THEN
-    (32) Conditional -> . > IF Comandos ELSE Comandos THEN
-    (33) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
-    (34) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
-    (35) Conditional -> . Expressao IF Comandos THEN
-    (36) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
-    (37) Loop -> . Expressao DO Comandos LOOP
-    (38) Loop -> . Expressao DO I Comandos LOOP
+    (22) Comment -> . ONELINE
+    (23) Store -> . ID !
+    (25) Variavel -> . VARIABLE ID
+    (26) Conditional -> . = IF Comandos THEN
+    (27) Conditional -> . < IF Comandos THEN
+    (28) Conditional -> . > IF Comandos THEN
+    (29) Conditional -> . INFEQ IF Comandos THEN
+    (30) Conditional -> . SUPEQ IF Comandos THEN
+    (31) Conditional -> . = IF Comandos ELSE Comandos THEN
+    (32) Conditional -> . < IF Comandos ELSE Comandos THEN
+    (33) Conditional -> . > IF Comandos ELSE Comandos THEN
+    (34) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
+    (35) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
+    (36) Conditional -> . Expressao IF Comandos THEN
+    (37) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
+    (38) Loop -> . Expressao DO Comandos LOOP
+    (39) Loop -> . Expressao DO I Comandos LOOP
     (16) Termo -> . NUMBER
     (17) Termo -> . Unstore
-    (23) Unstore -> . ID @
+    (24) Unstore -> . ID @
 
-    LOOP            shift and go to state 64
+    THEN            shift and go to state 62
+    ELSE            shift and go to state 63
     DOT             shift and go to state 11
     DOTSTRING       shift and go to state 12
     EMIT            shift and go to state 13
     COMMENT_START   shift and go to state 14
-    ID              shift and go to state 15
-    VARIABLE        shift and go to state 16
-    =               shift and go to state 17
-    <               shift and go to state 18
-    >               shift and go to state 19
-    INFEQ           shift and go to state 20
-    SUPEQ           shift and go to state 21
-    NUMBER          shift and go to state 22
+    ONELINE         shift and go to state 15
+    ID              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    =               shift and go to state 18
+    <               shift and go to state 19
+    >               shift and go to state 20
+    INFEQ           shift and go to state 21
+    SUPEQ           shift and go to state 22
+    NUMBER          shift and go to state 23
+
+    Comando                        shift and go to state 2
+    Expressao                      shift and go to state 3
+    Imprime                        shift and go to state 4
+    Comment                        shift and go to state 5
+    Store                          shift and go to state 6
+    Variavel                       shift and go to state 7
+    Conditional                    shift and go to state 8
+    Loop                           shift and go to state 9
+    Termo                          shift and go to state 10
+    Unstore                        shift and go to state 24
+
+state 50
+
+    (36) Conditional -> Expressao IF Comandos THEN .
+
+    DOT             reduce using rule 36 (Conditional -> Expressao IF Comandos THEN .)
+    DOTSTRING       reduce using rule 36 (Conditional -> Expressao IF Comandos THEN .)
+    EMIT            reduce using rule 36 (Conditional -> Expressao IF Comandos THEN .)
+    COMMENT_START   reduce using rule 36 (Conditional -> Expressao IF Comandos THEN .)
+    ONELINE         reduce using rule 36 (Conditional -> Expressao IF Comandos THEN .)
+    ID              reduce using rule 36 (Conditional -> Expressao IF Comandos THEN .)
+    VARIABLE        reduce using rule 36 (Conditional -> Expressao IF Comandos THEN .)
+    =               reduce using rule 36 (Conditional -> Expressao IF Comandos THEN .)
+    <               reduce using rule 36 (Conditional -> Expressao IF Comandos THEN .)
+    >               reduce using rule 36 (Conditional -> Expressao IF Comandos THEN .)
+    INFEQ           reduce using rule 36 (Conditional -> Expressao IF Comandos THEN .)
+    SUPEQ           reduce using rule 36 (Conditional -> Expressao IF Comandos THEN .)
+    NUMBER          reduce using rule 36 (Conditional -> Expressao IF Comandos THEN .)
+    $end            reduce using rule 36 (Conditional -> Expressao IF Comandos THEN .)
+    COMMENT_END     reduce using rule 36 (Conditional -> Expressao IF Comandos THEN .)
+    THEN            reduce using rule 36 (Conditional -> Expressao IF Comandos THEN .)
+    ELSE            reduce using rule 36 (Conditional -> Expressao IF Comandos THEN .)
+    LOOP            reduce using rule 36 (Conditional -> Expressao IF Comandos THEN .)
+
+
+state 51
+
+    (37) Conditional -> Expressao IF Comandos ELSE . Comandos THEN
+    (1) Comandos -> . Comandos Comando
+    (2) Comandos -> .
+
+    THEN            reduce using rule 2 (Comandos -> .)
+    DOT             reduce using rule 2 (Comandos -> .)
+    DOTSTRING       reduce using rule 2 (Comandos -> .)
+    EMIT            reduce using rule 2 (Comandos -> .)
+    COMMENT_START   reduce using rule 2 (Comandos -> .)
+    ONELINE         reduce using rule 2 (Comandos -> .)
+    ID              reduce using rule 2 (Comandos -> .)
+    VARIABLE        reduce using rule 2 (Comandos -> .)
+    =               reduce using rule 2 (Comandos -> .)
+    <               reduce using rule 2 (Comandos -> .)
+    >               reduce using rule 2 (Comandos -> .)
+    INFEQ           reduce using rule 2 (Comandos -> .)
+    SUPEQ           reduce using rule 2 (Comandos -> .)
+    NUMBER          reduce using rule 2 (Comandos -> .)
+
+    Comandos                       shift and go to state 64
+
+state 52
+
+    (38) Loop -> Expressao DO Comandos LOOP .
+
+    DOT             reduce using rule 38 (Loop -> Expressao DO Comandos LOOP .)
+    DOTSTRING       reduce using rule 38 (Loop -> Expressao DO Comandos LOOP .)
+    EMIT            reduce using rule 38 (Loop -> Expressao DO Comandos LOOP .)
+    COMMENT_START   reduce using rule 38 (Loop -> Expressao DO Comandos LOOP .)
+    ONELINE         reduce using rule 38 (Loop -> Expressao DO Comandos LOOP .)
+    ID              reduce using rule 38 (Loop -> Expressao DO Comandos LOOP .)
+    VARIABLE        reduce using rule 38 (Loop -> Expressao DO Comandos LOOP .)
+    =               reduce using rule 38 (Loop -> Expressao DO Comandos LOOP .)
+    <               reduce using rule 38 (Loop -> Expressao DO Comandos LOOP .)
+    >               reduce using rule 38 (Loop -> Expressao DO Comandos LOOP .)
+    INFEQ           reduce using rule 38 (Loop -> Expressao DO Comandos LOOP .)
+    SUPEQ           reduce using rule 38 (Loop -> Expressao DO Comandos LOOP .)
+    NUMBER          reduce using rule 38 (Loop -> Expressao DO Comandos LOOP .)
+    $end            reduce using rule 38 (Loop -> Expressao DO Comandos LOOP .)
+    COMMENT_END     reduce using rule 38 (Loop -> Expressao DO Comandos LOOP .)
+    THEN            reduce using rule 38 (Loop -> Expressao DO Comandos LOOP .)
+    ELSE            reduce using rule 38 (Loop -> Expressao DO Comandos LOOP .)
+    LOOP            reduce using rule 38 (Loop -> Expressao DO Comandos LOOP .)
+
+
+state 53
+
+    (39) Loop -> Expressao DO I Comandos . LOOP
+    (1) Comandos -> Comandos . Comando
+    (3) Comando -> . Expressao
+    (4) Comando -> . Imprime
+    (5) Comando -> . Comment
+    (6) Comando -> . Store
+    (7) Comando -> . Variavel
+    (8) Comando -> . Conditional
+    (9) Comando -> . Loop
+    (10) Expressao -> . Expressao +
+    (11) Expressao -> . Expressao -
+    (12) Expressao -> . Expressao *
+    (13) Expressao -> . Expressao /
+    (14) Expressao -> . Expressao %
+    (15) Expressao -> . Termo
+    (18) Imprime -> . DOT
+    (19) Imprime -> . DOTSTRING
+    (20) Imprime -> . EMIT
+    (21) Comment -> . COMMENT_START Comandos COMMENT_END
+    (22) Comment -> . ONELINE
+    (23) Store -> . ID !
+    (25) Variavel -> . VARIABLE ID
+    (26) Conditional -> . = IF Comandos THEN
+    (27) Conditional -> . < IF Comandos THEN
+    (28) Conditional -> . > IF Comandos THEN
+    (29) Conditional -> . INFEQ IF Comandos THEN
+    (30) Conditional -> . SUPEQ IF Comandos THEN
+    (31) Conditional -> . = IF Comandos ELSE Comandos THEN
+    (32) Conditional -> . < IF Comandos ELSE Comandos THEN
+    (33) Conditional -> . > IF Comandos ELSE Comandos THEN
+    (34) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
+    (35) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
+    (36) Conditional -> . Expressao IF Comandos THEN
+    (37) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
+    (38) Loop -> . Expressao DO Comandos LOOP
+    (39) Loop -> . Expressao DO I Comandos LOOP
+    (16) Termo -> . NUMBER
+    (17) Termo -> . Unstore
+    (24) Unstore -> . ID @
+
+    LOOP            shift and go to state 65
+    DOT             shift and go to state 11
+    DOTSTRING       shift and go to state 12
+    EMIT            shift and go to state 13
+    COMMENT_START   shift and go to state 14
+    ONELINE         shift and go to state 15
+    ID              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    =               shift and go to state 18
+    <               shift and go to state 19
+    >               shift and go to state 20
+    INFEQ           shift and go to state 21
+    SUPEQ           shift and go to state 22
+    NUMBER          shift and go to state 23
 
     Expressao                      shift and go to state 3
     Comando                        shift and go to state 2
@@ -1734,79 +1816,35 @@ state 52
     Conditional                    shift and go to state 8
     Loop                           shift and go to state 9
     Termo                          shift and go to state 10
-    Unstore                        shift and go to state 23
-
-state 53
-
-    (25) Conditional -> = IF Comandos THEN .
-
-    DOT             reduce using rule 25 (Conditional -> = IF Comandos THEN .)
-    DOTSTRING       reduce using rule 25 (Conditional -> = IF Comandos THEN .)
-    EMIT            reduce using rule 25 (Conditional -> = IF Comandos THEN .)
-    COMMENT_START   reduce using rule 25 (Conditional -> = IF Comandos THEN .)
-    ID              reduce using rule 25 (Conditional -> = IF Comandos THEN .)
-    VARIABLE        reduce using rule 25 (Conditional -> = IF Comandos THEN .)
-    =               reduce using rule 25 (Conditional -> = IF Comandos THEN .)
-    <               reduce using rule 25 (Conditional -> = IF Comandos THEN .)
-    >               reduce using rule 25 (Conditional -> = IF Comandos THEN .)
-    INFEQ           reduce using rule 25 (Conditional -> = IF Comandos THEN .)
-    SUPEQ           reduce using rule 25 (Conditional -> = IF Comandos THEN .)
-    NUMBER          reduce using rule 25 (Conditional -> = IF Comandos THEN .)
-    $end            reduce using rule 25 (Conditional -> = IF Comandos THEN .)
-    COMMENT_END     reduce using rule 25 (Conditional -> = IF Comandos THEN .)
-    THEN            reduce using rule 25 (Conditional -> = IF Comandos THEN .)
-    ELSE            reduce using rule 25 (Conditional -> = IF Comandos THEN .)
-    LOOP            reduce using rule 25 (Conditional -> = IF Comandos THEN .)
-
+    Unstore                        shift and go to state 24
 
 state 54
 
-    (30) Conditional -> = IF Comandos ELSE . Comandos THEN
-    (1) Comandos -> . Comandos Comando
-    (2) Comandos -> .
+    (26) Conditional -> = IF Comandos THEN .
 
-    THEN            reduce using rule 2 (Comandos -> .)
-    DOT             reduce using rule 2 (Comandos -> .)
-    DOTSTRING       reduce using rule 2 (Comandos -> .)
-    EMIT            reduce using rule 2 (Comandos -> .)
-    COMMENT_START   reduce using rule 2 (Comandos -> .)
-    ID              reduce using rule 2 (Comandos -> .)
-    VARIABLE        reduce using rule 2 (Comandos -> .)
-    =               reduce using rule 2 (Comandos -> .)
-    <               reduce using rule 2 (Comandos -> .)
-    >               reduce using rule 2 (Comandos -> .)
-    INFEQ           reduce using rule 2 (Comandos -> .)
-    SUPEQ           reduce using rule 2 (Comandos -> .)
-    NUMBER          reduce using rule 2 (Comandos -> .)
+    DOT             reduce using rule 26 (Conditional -> = IF Comandos THEN .)
+    DOTSTRING       reduce using rule 26 (Conditional -> = IF Comandos THEN .)
+    EMIT            reduce using rule 26 (Conditional -> = IF Comandos THEN .)
+    COMMENT_START   reduce using rule 26 (Conditional -> = IF Comandos THEN .)
+    ONELINE         reduce using rule 26 (Conditional -> = IF Comandos THEN .)
+    ID              reduce using rule 26 (Conditional -> = IF Comandos THEN .)
+    VARIABLE        reduce using rule 26 (Conditional -> = IF Comandos THEN .)
+    =               reduce using rule 26 (Conditional -> = IF Comandos THEN .)
+    <               reduce using rule 26 (Conditional -> = IF Comandos THEN .)
+    >               reduce using rule 26 (Conditional -> = IF Comandos THEN .)
+    INFEQ           reduce using rule 26 (Conditional -> = IF Comandos THEN .)
+    SUPEQ           reduce using rule 26 (Conditional -> = IF Comandos THEN .)
+    NUMBER          reduce using rule 26 (Conditional -> = IF Comandos THEN .)
+    $end            reduce using rule 26 (Conditional -> = IF Comandos THEN .)
+    COMMENT_END     reduce using rule 26 (Conditional -> = IF Comandos THEN .)
+    THEN            reduce using rule 26 (Conditional -> = IF Comandos THEN .)
+    ELSE            reduce using rule 26 (Conditional -> = IF Comandos THEN .)
+    LOOP            reduce using rule 26 (Conditional -> = IF Comandos THEN .)
 
-    Comandos                       shift and go to state 65
 
 state 55
 
-    (26) Conditional -> < IF Comandos THEN .
-
-    DOT             reduce using rule 26 (Conditional -> < IF Comandos THEN .)
-    DOTSTRING       reduce using rule 26 (Conditional -> < IF Comandos THEN .)
-    EMIT            reduce using rule 26 (Conditional -> < IF Comandos THEN .)
-    COMMENT_START   reduce using rule 26 (Conditional -> < IF Comandos THEN .)
-    ID              reduce using rule 26 (Conditional -> < IF Comandos THEN .)
-    VARIABLE        reduce using rule 26 (Conditional -> < IF Comandos THEN .)
-    =               reduce using rule 26 (Conditional -> < IF Comandos THEN .)
-    <               reduce using rule 26 (Conditional -> < IF Comandos THEN .)
-    >               reduce using rule 26 (Conditional -> < IF Comandos THEN .)
-    INFEQ           reduce using rule 26 (Conditional -> < IF Comandos THEN .)
-    SUPEQ           reduce using rule 26 (Conditional -> < IF Comandos THEN .)
-    NUMBER          reduce using rule 26 (Conditional -> < IF Comandos THEN .)
-    $end            reduce using rule 26 (Conditional -> < IF Comandos THEN .)
-    COMMENT_END     reduce using rule 26 (Conditional -> < IF Comandos THEN .)
-    THEN            reduce using rule 26 (Conditional -> < IF Comandos THEN .)
-    ELSE            reduce using rule 26 (Conditional -> < IF Comandos THEN .)
-    LOOP            reduce using rule 26 (Conditional -> < IF Comandos THEN .)
-
-
-state 56
-
-    (31) Conditional -> < IF Comandos ELSE . Comandos THEN
+    (31) Conditional -> = IF Comandos ELSE . Comandos THEN
     (1) Comandos -> . Comandos Comando
     (2) Comandos -> .
 
@@ -1815,6 +1853,7 @@ state 56
     DOTSTRING       reduce using rule 2 (Comandos -> .)
     EMIT            reduce using rule 2 (Comandos -> .)
     COMMENT_START   reduce using rule 2 (Comandos -> .)
+    ONELINE         reduce using rule 2 (Comandos -> .)
     ID              reduce using rule 2 (Comandos -> .)
     VARIABLE        reduce using rule 2 (Comandos -> .)
     =               reduce using rule 2 (Comandos -> .)
@@ -1826,32 +1865,33 @@ state 56
 
     Comandos                       shift and go to state 66
 
+state 56
+
+    (27) Conditional -> < IF Comandos THEN .
+
+    DOT             reduce using rule 27 (Conditional -> < IF Comandos THEN .)
+    DOTSTRING       reduce using rule 27 (Conditional -> < IF Comandos THEN .)
+    EMIT            reduce using rule 27 (Conditional -> < IF Comandos THEN .)
+    COMMENT_START   reduce using rule 27 (Conditional -> < IF Comandos THEN .)
+    ONELINE         reduce using rule 27 (Conditional -> < IF Comandos THEN .)
+    ID              reduce using rule 27 (Conditional -> < IF Comandos THEN .)
+    VARIABLE        reduce using rule 27 (Conditional -> < IF Comandos THEN .)
+    =               reduce using rule 27 (Conditional -> < IF Comandos THEN .)
+    <               reduce using rule 27 (Conditional -> < IF Comandos THEN .)
+    >               reduce using rule 27 (Conditional -> < IF Comandos THEN .)
+    INFEQ           reduce using rule 27 (Conditional -> < IF Comandos THEN .)
+    SUPEQ           reduce using rule 27 (Conditional -> < IF Comandos THEN .)
+    NUMBER          reduce using rule 27 (Conditional -> < IF Comandos THEN .)
+    $end            reduce using rule 27 (Conditional -> < IF Comandos THEN .)
+    COMMENT_END     reduce using rule 27 (Conditional -> < IF Comandos THEN .)
+    THEN            reduce using rule 27 (Conditional -> < IF Comandos THEN .)
+    ELSE            reduce using rule 27 (Conditional -> < IF Comandos THEN .)
+    LOOP            reduce using rule 27 (Conditional -> < IF Comandos THEN .)
+
+
 state 57
 
-    (27) Conditional -> > IF Comandos THEN .
-
-    DOT             reduce using rule 27 (Conditional -> > IF Comandos THEN .)
-    DOTSTRING       reduce using rule 27 (Conditional -> > IF Comandos THEN .)
-    EMIT            reduce using rule 27 (Conditional -> > IF Comandos THEN .)
-    COMMENT_START   reduce using rule 27 (Conditional -> > IF Comandos THEN .)
-    ID              reduce using rule 27 (Conditional -> > IF Comandos THEN .)
-    VARIABLE        reduce using rule 27 (Conditional -> > IF Comandos THEN .)
-    =               reduce using rule 27 (Conditional -> > IF Comandos THEN .)
-    <               reduce using rule 27 (Conditional -> > IF Comandos THEN .)
-    >               reduce using rule 27 (Conditional -> > IF Comandos THEN .)
-    INFEQ           reduce using rule 27 (Conditional -> > IF Comandos THEN .)
-    SUPEQ           reduce using rule 27 (Conditional -> > IF Comandos THEN .)
-    NUMBER          reduce using rule 27 (Conditional -> > IF Comandos THEN .)
-    $end            reduce using rule 27 (Conditional -> > IF Comandos THEN .)
-    COMMENT_END     reduce using rule 27 (Conditional -> > IF Comandos THEN .)
-    THEN            reduce using rule 27 (Conditional -> > IF Comandos THEN .)
-    ELSE            reduce using rule 27 (Conditional -> > IF Comandos THEN .)
-    LOOP            reduce using rule 27 (Conditional -> > IF Comandos THEN .)
-
-
-state 58
-
-    (32) Conditional -> > IF Comandos ELSE . Comandos THEN
+    (32) Conditional -> < IF Comandos ELSE . Comandos THEN
     (1) Comandos -> . Comandos Comando
     (2) Comandos -> .
 
@@ -1860,6 +1900,7 @@ state 58
     DOTSTRING       reduce using rule 2 (Comandos -> .)
     EMIT            reduce using rule 2 (Comandos -> .)
     COMMENT_START   reduce using rule 2 (Comandos -> .)
+    ONELINE         reduce using rule 2 (Comandos -> .)
     ID              reduce using rule 2 (Comandos -> .)
     VARIABLE        reduce using rule 2 (Comandos -> .)
     =               reduce using rule 2 (Comandos -> .)
@@ -1871,32 +1912,33 @@ state 58
 
     Comandos                       shift and go to state 67
 
+state 58
+
+    (28) Conditional -> > IF Comandos THEN .
+
+    DOT             reduce using rule 28 (Conditional -> > IF Comandos THEN .)
+    DOTSTRING       reduce using rule 28 (Conditional -> > IF Comandos THEN .)
+    EMIT            reduce using rule 28 (Conditional -> > IF Comandos THEN .)
+    COMMENT_START   reduce using rule 28 (Conditional -> > IF Comandos THEN .)
+    ONELINE         reduce using rule 28 (Conditional -> > IF Comandos THEN .)
+    ID              reduce using rule 28 (Conditional -> > IF Comandos THEN .)
+    VARIABLE        reduce using rule 28 (Conditional -> > IF Comandos THEN .)
+    =               reduce using rule 28 (Conditional -> > IF Comandos THEN .)
+    <               reduce using rule 28 (Conditional -> > IF Comandos THEN .)
+    >               reduce using rule 28 (Conditional -> > IF Comandos THEN .)
+    INFEQ           reduce using rule 28 (Conditional -> > IF Comandos THEN .)
+    SUPEQ           reduce using rule 28 (Conditional -> > IF Comandos THEN .)
+    NUMBER          reduce using rule 28 (Conditional -> > IF Comandos THEN .)
+    $end            reduce using rule 28 (Conditional -> > IF Comandos THEN .)
+    COMMENT_END     reduce using rule 28 (Conditional -> > IF Comandos THEN .)
+    THEN            reduce using rule 28 (Conditional -> > IF Comandos THEN .)
+    ELSE            reduce using rule 28 (Conditional -> > IF Comandos THEN .)
+    LOOP            reduce using rule 28 (Conditional -> > IF Comandos THEN .)
+
+
 state 59
 
-    (28) Conditional -> INFEQ IF Comandos THEN .
-
-    DOT             reduce using rule 28 (Conditional -> INFEQ IF Comandos THEN .)
-    DOTSTRING       reduce using rule 28 (Conditional -> INFEQ IF Comandos THEN .)
-    EMIT            reduce using rule 28 (Conditional -> INFEQ IF Comandos THEN .)
-    COMMENT_START   reduce using rule 28 (Conditional -> INFEQ IF Comandos THEN .)
-    ID              reduce using rule 28 (Conditional -> INFEQ IF Comandos THEN .)
-    VARIABLE        reduce using rule 28 (Conditional -> INFEQ IF Comandos THEN .)
-    =               reduce using rule 28 (Conditional -> INFEQ IF Comandos THEN .)
-    <               reduce using rule 28 (Conditional -> INFEQ IF Comandos THEN .)
-    >               reduce using rule 28 (Conditional -> INFEQ IF Comandos THEN .)
-    INFEQ           reduce using rule 28 (Conditional -> INFEQ IF Comandos THEN .)
-    SUPEQ           reduce using rule 28 (Conditional -> INFEQ IF Comandos THEN .)
-    NUMBER          reduce using rule 28 (Conditional -> INFEQ IF Comandos THEN .)
-    $end            reduce using rule 28 (Conditional -> INFEQ IF Comandos THEN .)
-    COMMENT_END     reduce using rule 28 (Conditional -> INFEQ IF Comandos THEN .)
-    THEN            reduce using rule 28 (Conditional -> INFEQ IF Comandos THEN .)
-    ELSE            reduce using rule 28 (Conditional -> INFEQ IF Comandos THEN .)
-    LOOP            reduce using rule 28 (Conditional -> INFEQ IF Comandos THEN .)
-
-
-state 60
-
-    (33) Conditional -> INFEQ IF Comandos ELSE . Comandos THEN
+    (33) Conditional -> > IF Comandos ELSE . Comandos THEN
     (1) Comandos -> . Comandos Comando
     (2) Comandos -> .
 
@@ -1905,6 +1947,7 @@ state 60
     DOTSTRING       reduce using rule 2 (Comandos -> .)
     EMIT            reduce using rule 2 (Comandos -> .)
     COMMENT_START   reduce using rule 2 (Comandos -> .)
+    ONELINE         reduce using rule 2 (Comandos -> .)
     ID              reduce using rule 2 (Comandos -> .)
     VARIABLE        reduce using rule 2 (Comandos -> .)
     =               reduce using rule 2 (Comandos -> .)
@@ -1916,32 +1959,33 @@ state 60
 
     Comandos                       shift and go to state 68
 
+state 60
+
+    (29) Conditional -> INFEQ IF Comandos THEN .
+
+    DOT             reduce using rule 29 (Conditional -> INFEQ IF Comandos THEN .)
+    DOTSTRING       reduce using rule 29 (Conditional -> INFEQ IF Comandos THEN .)
+    EMIT            reduce using rule 29 (Conditional -> INFEQ IF Comandos THEN .)
+    COMMENT_START   reduce using rule 29 (Conditional -> INFEQ IF Comandos THEN .)
+    ONELINE         reduce using rule 29 (Conditional -> INFEQ IF Comandos THEN .)
+    ID              reduce using rule 29 (Conditional -> INFEQ IF Comandos THEN .)
+    VARIABLE        reduce using rule 29 (Conditional -> INFEQ IF Comandos THEN .)
+    =               reduce using rule 29 (Conditional -> INFEQ IF Comandos THEN .)
+    <               reduce using rule 29 (Conditional -> INFEQ IF Comandos THEN .)
+    >               reduce using rule 29 (Conditional -> INFEQ IF Comandos THEN .)
+    INFEQ           reduce using rule 29 (Conditional -> INFEQ IF Comandos THEN .)
+    SUPEQ           reduce using rule 29 (Conditional -> INFEQ IF Comandos THEN .)
+    NUMBER          reduce using rule 29 (Conditional -> INFEQ IF Comandos THEN .)
+    $end            reduce using rule 29 (Conditional -> INFEQ IF Comandos THEN .)
+    COMMENT_END     reduce using rule 29 (Conditional -> INFEQ IF Comandos THEN .)
+    THEN            reduce using rule 29 (Conditional -> INFEQ IF Comandos THEN .)
+    ELSE            reduce using rule 29 (Conditional -> INFEQ IF Comandos THEN .)
+    LOOP            reduce using rule 29 (Conditional -> INFEQ IF Comandos THEN .)
+
+
 state 61
 
-    (29) Conditional -> SUPEQ IF Comandos THEN .
-
-    DOT             reduce using rule 29 (Conditional -> SUPEQ IF Comandos THEN .)
-    DOTSTRING       reduce using rule 29 (Conditional -> SUPEQ IF Comandos THEN .)
-    EMIT            reduce using rule 29 (Conditional -> SUPEQ IF Comandos THEN .)
-    COMMENT_START   reduce using rule 29 (Conditional -> SUPEQ IF Comandos THEN .)
-    ID              reduce using rule 29 (Conditional -> SUPEQ IF Comandos THEN .)
-    VARIABLE        reduce using rule 29 (Conditional -> SUPEQ IF Comandos THEN .)
-    =               reduce using rule 29 (Conditional -> SUPEQ IF Comandos THEN .)
-    <               reduce using rule 29 (Conditional -> SUPEQ IF Comandos THEN .)
-    >               reduce using rule 29 (Conditional -> SUPEQ IF Comandos THEN .)
-    INFEQ           reduce using rule 29 (Conditional -> SUPEQ IF Comandos THEN .)
-    SUPEQ           reduce using rule 29 (Conditional -> SUPEQ IF Comandos THEN .)
-    NUMBER          reduce using rule 29 (Conditional -> SUPEQ IF Comandos THEN .)
-    $end            reduce using rule 29 (Conditional -> SUPEQ IF Comandos THEN .)
-    COMMENT_END     reduce using rule 29 (Conditional -> SUPEQ IF Comandos THEN .)
-    THEN            reduce using rule 29 (Conditional -> SUPEQ IF Comandos THEN .)
-    ELSE            reduce using rule 29 (Conditional -> SUPEQ IF Comandos THEN .)
-    LOOP            reduce using rule 29 (Conditional -> SUPEQ IF Comandos THEN .)
-
-
-state 62
-
-    (34) Conditional -> SUPEQ IF Comandos ELSE . Comandos THEN
+    (34) Conditional -> INFEQ IF Comandos ELSE . Comandos THEN
     (1) Comandos -> . Comandos Comando
     (2) Comandos -> .
 
@@ -1950,6 +1994,7 @@ state 62
     DOTSTRING       reduce using rule 2 (Comandos -> .)
     EMIT            reduce using rule 2 (Comandos -> .)
     COMMENT_START   reduce using rule 2 (Comandos -> .)
+    ONELINE         reduce using rule 2 (Comandos -> .)
     ID              reduce using rule 2 (Comandos -> .)
     VARIABLE        reduce using rule 2 (Comandos -> .)
     =               reduce using rule 2 (Comandos -> .)
@@ -1961,98 +2006,56 @@ state 62
 
     Comandos                       shift and go to state 69
 
+state 62
+
+    (30) Conditional -> SUPEQ IF Comandos THEN .
+
+    DOT             reduce using rule 30 (Conditional -> SUPEQ IF Comandos THEN .)
+    DOTSTRING       reduce using rule 30 (Conditional -> SUPEQ IF Comandos THEN .)
+    EMIT            reduce using rule 30 (Conditional -> SUPEQ IF Comandos THEN .)
+    COMMENT_START   reduce using rule 30 (Conditional -> SUPEQ IF Comandos THEN .)
+    ONELINE         reduce using rule 30 (Conditional -> SUPEQ IF Comandos THEN .)
+    ID              reduce using rule 30 (Conditional -> SUPEQ IF Comandos THEN .)
+    VARIABLE        reduce using rule 30 (Conditional -> SUPEQ IF Comandos THEN .)
+    =               reduce using rule 30 (Conditional -> SUPEQ IF Comandos THEN .)
+    <               reduce using rule 30 (Conditional -> SUPEQ IF Comandos THEN .)
+    >               reduce using rule 30 (Conditional -> SUPEQ IF Comandos THEN .)
+    INFEQ           reduce using rule 30 (Conditional -> SUPEQ IF Comandos THEN .)
+    SUPEQ           reduce using rule 30 (Conditional -> SUPEQ IF Comandos THEN .)
+    NUMBER          reduce using rule 30 (Conditional -> SUPEQ IF Comandos THEN .)
+    $end            reduce using rule 30 (Conditional -> SUPEQ IF Comandos THEN .)
+    COMMENT_END     reduce using rule 30 (Conditional -> SUPEQ IF Comandos THEN .)
+    THEN            reduce using rule 30 (Conditional -> SUPEQ IF Comandos THEN .)
+    ELSE            reduce using rule 30 (Conditional -> SUPEQ IF Comandos THEN .)
+    LOOP            reduce using rule 30 (Conditional -> SUPEQ IF Comandos THEN .)
+
+
 state 63
 
-    (36) Conditional -> Expressao IF Comandos ELSE Comandos . THEN
-    (1) Comandos -> Comandos . Comando
-    (3) Comando -> . Expressao
-    (4) Comando -> . Imprime
-    (5) Comando -> . Comment
-    (6) Comando -> . Store
-    (7) Comando -> . Variavel
-    (8) Comando -> . Conditional
-    (9) Comando -> . Loop
-    (10) Expressao -> . Expressao +
-    (11) Expressao -> . Expressao -
-    (12) Expressao -> . Expressao *
-    (13) Expressao -> . Expressao /
-    (14) Expressao -> . Expressao %
-    (15) Expressao -> . Termo
-    (18) Imprime -> . DOT
-    (19) Imprime -> . DOTSTRING
-    (20) Imprime -> . EMIT
-    (21) Comment -> . COMMENT_START Comandos COMMENT_END
-    (22) Store -> . ID !
-    (24) Variavel -> . VARIABLE ID
-    (25) Conditional -> . = IF Comandos THEN
-    (26) Conditional -> . < IF Comandos THEN
-    (27) Conditional -> . > IF Comandos THEN
-    (28) Conditional -> . INFEQ IF Comandos THEN
-    (29) Conditional -> . SUPEQ IF Comandos THEN
-    (30) Conditional -> . = IF Comandos ELSE Comandos THEN
-    (31) Conditional -> . < IF Comandos ELSE Comandos THEN
-    (32) Conditional -> . > IF Comandos ELSE Comandos THEN
-    (33) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
-    (34) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
-    (35) Conditional -> . Expressao IF Comandos THEN
-    (36) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
-    (37) Loop -> . Expressao DO Comandos LOOP
-    (38) Loop -> . Expressao DO I Comandos LOOP
-    (16) Termo -> . NUMBER
-    (17) Termo -> . Unstore
-    (23) Unstore -> . ID @
+    (35) Conditional -> SUPEQ IF Comandos ELSE . Comandos THEN
+    (1) Comandos -> . Comandos Comando
+    (2) Comandos -> .
 
-    THEN            shift and go to state 70
-    DOT             shift and go to state 11
-    DOTSTRING       shift and go to state 12
-    EMIT            shift and go to state 13
-    COMMENT_START   shift and go to state 14
-    ID              shift and go to state 15
-    VARIABLE        shift and go to state 16
-    =               shift and go to state 17
-    <               shift and go to state 18
-    >               shift and go to state 19
-    INFEQ           shift and go to state 20
-    SUPEQ           shift and go to state 21
-    NUMBER          shift and go to state 22
+    THEN            reduce using rule 2 (Comandos -> .)
+    DOT             reduce using rule 2 (Comandos -> .)
+    DOTSTRING       reduce using rule 2 (Comandos -> .)
+    EMIT            reduce using rule 2 (Comandos -> .)
+    COMMENT_START   reduce using rule 2 (Comandos -> .)
+    ONELINE         reduce using rule 2 (Comandos -> .)
+    ID              reduce using rule 2 (Comandos -> .)
+    VARIABLE        reduce using rule 2 (Comandos -> .)
+    =               reduce using rule 2 (Comandos -> .)
+    <               reduce using rule 2 (Comandos -> .)
+    >               reduce using rule 2 (Comandos -> .)
+    INFEQ           reduce using rule 2 (Comandos -> .)
+    SUPEQ           reduce using rule 2 (Comandos -> .)
+    NUMBER          reduce using rule 2 (Comandos -> .)
 
-    Expressao                      shift and go to state 3
-    Comando                        shift and go to state 2
-    Imprime                        shift and go to state 4
-    Comment                        shift and go to state 5
-    Store                          shift and go to state 6
-    Variavel                       shift and go to state 7
-    Conditional                    shift and go to state 8
-    Loop                           shift and go to state 9
-    Termo                          shift and go to state 10
-    Unstore                        shift and go to state 23
+    Comandos                       shift and go to state 70
 
 state 64
 
-    (38) Loop -> Expressao DO I Comandos LOOP .
-
-    DOT             reduce using rule 38 (Loop -> Expressao DO I Comandos LOOP .)
-    DOTSTRING       reduce using rule 38 (Loop -> Expressao DO I Comandos LOOP .)
-    EMIT            reduce using rule 38 (Loop -> Expressao DO I Comandos LOOP .)
-    COMMENT_START   reduce using rule 38 (Loop -> Expressao DO I Comandos LOOP .)
-    ID              reduce using rule 38 (Loop -> Expressao DO I Comandos LOOP .)
-    VARIABLE        reduce using rule 38 (Loop -> Expressao DO I Comandos LOOP .)
-    =               reduce using rule 38 (Loop -> Expressao DO I Comandos LOOP .)
-    <               reduce using rule 38 (Loop -> Expressao DO I Comandos LOOP .)
-    >               reduce using rule 38 (Loop -> Expressao DO I Comandos LOOP .)
-    INFEQ           reduce using rule 38 (Loop -> Expressao DO I Comandos LOOP .)
-    SUPEQ           reduce using rule 38 (Loop -> Expressao DO I Comandos LOOP .)
-    NUMBER          reduce using rule 38 (Loop -> Expressao DO I Comandos LOOP .)
-    $end            reduce using rule 38 (Loop -> Expressao DO I Comandos LOOP .)
-    COMMENT_END     reduce using rule 38 (Loop -> Expressao DO I Comandos LOOP .)
-    THEN            reduce using rule 38 (Loop -> Expressao DO I Comandos LOOP .)
-    ELSE            reduce using rule 38 (Loop -> Expressao DO I Comandos LOOP .)
-    LOOP            reduce using rule 38 (Loop -> Expressao DO I Comandos LOOP .)
-
-
-state 65
-
-    (30) Conditional -> = IF Comandos ELSE Comandos . THEN
+    (37) Conditional -> Expressao IF Comandos ELSE Comandos . THEN
     (1) Comandos -> Comandos . Comando
     (3) Comando -> . Expressao
     (4) Comando -> . Imprime
@@ -2071,42 +2074,44 @@ state 65
     (19) Imprime -> . DOTSTRING
     (20) Imprime -> . EMIT
     (21) Comment -> . COMMENT_START Comandos COMMENT_END
-    (22) Store -> . ID !
-    (24) Variavel -> . VARIABLE ID
-    (25) Conditional -> . = IF Comandos THEN
-    (26) Conditional -> . < IF Comandos THEN
-    (27) Conditional -> . > IF Comandos THEN
-    (28) Conditional -> . INFEQ IF Comandos THEN
-    (29) Conditional -> . SUPEQ IF Comandos THEN
-    (30) Conditional -> . = IF Comandos ELSE Comandos THEN
-    (31) Conditional -> . < IF Comandos ELSE Comandos THEN
-    (32) Conditional -> . > IF Comandos ELSE Comandos THEN
-    (33) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
-    (34) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
-    (35) Conditional -> . Expressao IF Comandos THEN
-    (36) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
-    (37) Loop -> . Expressao DO Comandos LOOP
-    (38) Loop -> . Expressao DO I Comandos LOOP
+    (22) Comment -> . ONELINE
+    (23) Store -> . ID !
+    (25) Variavel -> . VARIABLE ID
+    (26) Conditional -> . = IF Comandos THEN
+    (27) Conditional -> . < IF Comandos THEN
+    (28) Conditional -> . > IF Comandos THEN
+    (29) Conditional -> . INFEQ IF Comandos THEN
+    (30) Conditional -> . SUPEQ IF Comandos THEN
+    (31) Conditional -> . = IF Comandos ELSE Comandos THEN
+    (32) Conditional -> . < IF Comandos ELSE Comandos THEN
+    (33) Conditional -> . > IF Comandos ELSE Comandos THEN
+    (34) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
+    (35) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
+    (36) Conditional -> . Expressao IF Comandos THEN
+    (37) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
+    (38) Loop -> . Expressao DO Comandos LOOP
+    (39) Loop -> . Expressao DO I Comandos LOOP
     (16) Termo -> . NUMBER
     (17) Termo -> . Unstore
-    (23) Unstore -> . ID @
+    (24) Unstore -> . ID @
 
     THEN            shift and go to state 71
     DOT             shift and go to state 11
     DOTSTRING       shift and go to state 12
     EMIT            shift and go to state 13
     COMMENT_START   shift and go to state 14
-    ID              shift and go to state 15
-    VARIABLE        shift and go to state 16
-    =               shift and go to state 17
-    <               shift and go to state 18
-    >               shift and go to state 19
-    INFEQ           shift and go to state 20
-    SUPEQ           shift and go to state 21
-    NUMBER          shift and go to state 22
+    ONELINE         shift and go to state 15
+    ID              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    =               shift and go to state 18
+    <               shift and go to state 19
+    >               shift and go to state 20
+    INFEQ           shift and go to state 21
+    SUPEQ           shift and go to state 22
+    NUMBER          shift and go to state 23
 
-    Comando                        shift and go to state 2
     Expressao                      shift and go to state 3
+    Comando                        shift and go to state 2
     Imprime                        shift and go to state 4
     Comment                        shift and go to state 5
     Store                          shift and go to state 6
@@ -2114,11 +2119,35 @@ state 65
     Conditional                    shift and go to state 8
     Loop                           shift and go to state 9
     Termo                          shift and go to state 10
-    Unstore                        shift and go to state 23
+    Unstore                        shift and go to state 24
+
+state 65
+
+    (39) Loop -> Expressao DO I Comandos LOOP .
+
+    DOT             reduce using rule 39 (Loop -> Expressao DO I Comandos LOOP .)
+    DOTSTRING       reduce using rule 39 (Loop -> Expressao DO I Comandos LOOP .)
+    EMIT            reduce using rule 39 (Loop -> Expressao DO I Comandos LOOP .)
+    COMMENT_START   reduce using rule 39 (Loop -> Expressao DO I Comandos LOOP .)
+    ONELINE         reduce using rule 39 (Loop -> Expressao DO I Comandos LOOP .)
+    ID              reduce using rule 39 (Loop -> Expressao DO I Comandos LOOP .)
+    VARIABLE        reduce using rule 39 (Loop -> Expressao DO I Comandos LOOP .)
+    =               reduce using rule 39 (Loop -> Expressao DO I Comandos LOOP .)
+    <               reduce using rule 39 (Loop -> Expressao DO I Comandos LOOP .)
+    >               reduce using rule 39 (Loop -> Expressao DO I Comandos LOOP .)
+    INFEQ           reduce using rule 39 (Loop -> Expressao DO I Comandos LOOP .)
+    SUPEQ           reduce using rule 39 (Loop -> Expressao DO I Comandos LOOP .)
+    NUMBER          reduce using rule 39 (Loop -> Expressao DO I Comandos LOOP .)
+    $end            reduce using rule 39 (Loop -> Expressao DO I Comandos LOOP .)
+    COMMENT_END     reduce using rule 39 (Loop -> Expressao DO I Comandos LOOP .)
+    THEN            reduce using rule 39 (Loop -> Expressao DO I Comandos LOOP .)
+    ELSE            reduce using rule 39 (Loop -> Expressao DO I Comandos LOOP .)
+    LOOP            reduce using rule 39 (Loop -> Expressao DO I Comandos LOOP .)
+
 
 state 66
 
-    (31) Conditional -> < IF Comandos ELSE Comandos . THEN
+    (31) Conditional -> = IF Comandos ELSE Comandos . THEN
     (1) Comandos -> Comandos . Comando
     (3) Comando -> . Expressao
     (4) Comando -> . Imprime
@@ -2137,39 +2166,41 @@ state 66
     (19) Imprime -> . DOTSTRING
     (20) Imprime -> . EMIT
     (21) Comment -> . COMMENT_START Comandos COMMENT_END
-    (22) Store -> . ID !
-    (24) Variavel -> . VARIABLE ID
-    (25) Conditional -> . = IF Comandos THEN
-    (26) Conditional -> . < IF Comandos THEN
-    (27) Conditional -> . > IF Comandos THEN
-    (28) Conditional -> . INFEQ IF Comandos THEN
-    (29) Conditional -> . SUPEQ IF Comandos THEN
-    (30) Conditional -> . = IF Comandos ELSE Comandos THEN
-    (31) Conditional -> . < IF Comandos ELSE Comandos THEN
-    (32) Conditional -> . > IF Comandos ELSE Comandos THEN
-    (33) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
-    (34) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
-    (35) Conditional -> . Expressao IF Comandos THEN
-    (36) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
-    (37) Loop -> . Expressao DO Comandos LOOP
-    (38) Loop -> . Expressao DO I Comandos LOOP
+    (22) Comment -> . ONELINE
+    (23) Store -> . ID !
+    (25) Variavel -> . VARIABLE ID
+    (26) Conditional -> . = IF Comandos THEN
+    (27) Conditional -> . < IF Comandos THEN
+    (28) Conditional -> . > IF Comandos THEN
+    (29) Conditional -> . INFEQ IF Comandos THEN
+    (30) Conditional -> . SUPEQ IF Comandos THEN
+    (31) Conditional -> . = IF Comandos ELSE Comandos THEN
+    (32) Conditional -> . < IF Comandos ELSE Comandos THEN
+    (33) Conditional -> . > IF Comandos ELSE Comandos THEN
+    (34) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
+    (35) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
+    (36) Conditional -> . Expressao IF Comandos THEN
+    (37) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
+    (38) Loop -> . Expressao DO Comandos LOOP
+    (39) Loop -> . Expressao DO I Comandos LOOP
     (16) Termo -> . NUMBER
     (17) Termo -> . Unstore
-    (23) Unstore -> . ID @
+    (24) Unstore -> . ID @
 
     THEN            shift and go to state 72
     DOT             shift and go to state 11
     DOTSTRING       shift and go to state 12
     EMIT            shift and go to state 13
     COMMENT_START   shift and go to state 14
-    ID              shift and go to state 15
-    VARIABLE        shift and go to state 16
-    =               shift and go to state 17
-    <               shift and go to state 18
-    >               shift and go to state 19
-    INFEQ           shift and go to state 20
-    SUPEQ           shift and go to state 21
-    NUMBER          shift and go to state 22
+    ONELINE         shift and go to state 15
+    ID              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    =               shift and go to state 18
+    <               shift and go to state 19
+    >               shift and go to state 20
+    INFEQ           shift and go to state 21
+    SUPEQ           shift and go to state 22
+    NUMBER          shift and go to state 23
 
     Comando                        shift and go to state 2
     Expressao                      shift and go to state 3
@@ -2180,11 +2211,11 @@ state 66
     Conditional                    shift and go to state 8
     Loop                           shift and go to state 9
     Termo                          shift and go to state 10
-    Unstore                        shift and go to state 23
+    Unstore                        shift and go to state 24
 
 state 67
 
-    (32) Conditional -> > IF Comandos ELSE Comandos . THEN
+    (32) Conditional -> < IF Comandos ELSE Comandos . THEN
     (1) Comandos -> Comandos . Comando
     (3) Comando -> . Expressao
     (4) Comando -> . Imprime
@@ -2203,39 +2234,41 @@ state 67
     (19) Imprime -> . DOTSTRING
     (20) Imprime -> . EMIT
     (21) Comment -> . COMMENT_START Comandos COMMENT_END
-    (22) Store -> . ID !
-    (24) Variavel -> . VARIABLE ID
-    (25) Conditional -> . = IF Comandos THEN
-    (26) Conditional -> . < IF Comandos THEN
-    (27) Conditional -> . > IF Comandos THEN
-    (28) Conditional -> . INFEQ IF Comandos THEN
-    (29) Conditional -> . SUPEQ IF Comandos THEN
-    (30) Conditional -> . = IF Comandos ELSE Comandos THEN
-    (31) Conditional -> . < IF Comandos ELSE Comandos THEN
-    (32) Conditional -> . > IF Comandos ELSE Comandos THEN
-    (33) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
-    (34) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
-    (35) Conditional -> . Expressao IF Comandos THEN
-    (36) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
-    (37) Loop -> . Expressao DO Comandos LOOP
-    (38) Loop -> . Expressao DO I Comandos LOOP
+    (22) Comment -> . ONELINE
+    (23) Store -> . ID !
+    (25) Variavel -> . VARIABLE ID
+    (26) Conditional -> . = IF Comandos THEN
+    (27) Conditional -> . < IF Comandos THEN
+    (28) Conditional -> . > IF Comandos THEN
+    (29) Conditional -> . INFEQ IF Comandos THEN
+    (30) Conditional -> . SUPEQ IF Comandos THEN
+    (31) Conditional -> . = IF Comandos ELSE Comandos THEN
+    (32) Conditional -> . < IF Comandos ELSE Comandos THEN
+    (33) Conditional -> . > IF Comandos ELSE Comandos THEN
+    (34) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
+    (35) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
+    (36) Conditional -> . Expressao IF Comandos THEN
+    (37) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
+    (38) Loop -> . Expressao DO Comandos LOOP
+    (39) Loop -> . Expressao DO I Comandos LOOP
     (16) Termo -> . NUMBER
     (17) Termo -> . Unstore
-    (23) Unstore -> . ID @
+    (24) Unstore -> . ID @
 
     THEN            shift and go to state 73
     DOT             shift and go to state 11
     DOTSTRING       shift and go to state 12
     EMIT            shift and go to state 13
     COMMENT_START   shift and go to state 14
-    ID              shift and go to state 15
-    VARIABLE        shift and go to state 16
-    =               shift and go to state 17
-    <               shift and go to state 18
-    >               shift and go to state 19
-    INFEQ           shift and go to state 20
-    SUPEQ           shift and go to state 21
-    NUMBER          shift and go to state 22
+    ONELINE         shift and go to state 15
+    ID              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    =               shift and go to state 18
+    <               shift and go to state 19
+    >               shift and go to state 20
+    INFEQ           shift and go to state 21
+    SUPEQ           shift and go to state 22
+    NUMBER          shift and go to state 23
 
     Comando                        shift and go to state 2
     Expressao                      shift and go to state 3
@@ -2246,11 +2279,11 @@ state 67
     Conditional                    shift and go to state 8
     Loop                           shift and go to state 9
     Termo                          shift and go to state 10
-    Unstore                        shift and go to state 23
+    Unstore                        shift and go to state 24
 
 state 68
 
-    (33) Conditional -> INFEQ IF Comandos ELSE Comandos . THEN
+    (33) Conditional -> > IF Comandos ELSE Comandos . THEN
     (1) Comandos -> Comandos . Comando
     (3) Comando -> . Expressao
     (4) Comando -> . Imprime
@@ -2269,39 +2302,41 @@ state 68
     (19) Imprime -> . DOTSTRING
     (20) Imprime -> . EMIT
     (21) Comment -> . COMMENT_START Comandos COMMENT_END
-    (22) Store -> . ID !
-    (24) Variavel -> . VARIABLE ID
-    (25) Conditional -> . = IF Comandos THEN
-    (26) Conditional -> . < IF Comandos THEN
-    (27) Conditional -> . > IF Comandos THEN
-    (28) Conditional -> . INFEQ IF Comandos THEN
-    (29) Conditional -> . SUPEQ IF Comandos THEN
-    (30) Conditional -> . = IF Comandos ELSE Comandos THEN
-    (31) Conditional -> . < IF Comandos ELSE Comandos THEN
-    (32) Conditional -> . > IF Comandos ELSE Comandos THEN
-    (33) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
-    (34) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
-    (35) Conditional -> . Expressao IF Comandos THEN
-    (36) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
-    (37) Loop -> . Expressao DO Comandos LOOP
-    (38) Loop -> . Expressao DO I Comandos LOOP
+    (22) Comment -> . ONELINE
+    (23) Store -> . ID !
+    (25) Variavel -> . VARIABLE ID
+    (26) Conditional -> . = IF Comandos THEN
+    (27) Conditional -> . < IF Comandos THEN
+    (28) Conditional -> . > IF Comandos THEN
+    (29) Conditional -> . INFEQ IF Comandos THEN
+    (30) Conditional -> . SUPEQ IF Comandos THEN
+    (31) Conditional -> . = IF Comandos ELSE Comandos THEN
+    (32) Conditional -> . < IF Comandos ELSE Comandos THEN
+    (33) Conditional -> . > IF Comandos ELSE Comandos THEN
+    (34) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
+    (35) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
+    (36) Conditional -> . Expressao IF Comandos THEN
+    (37) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
+    (38) Loop -> . Expressao DO Comandos LOOP
+    (39) Loop -> . Expressao DO I Comandos LOOP
     (16) Termo -> . NUMBER
     (17) Termo -> . Unstore
-    (23) Unstore -> . ID @
+    (24) Unstore -> . ID @
 
     THEN            shift and go to state 74
     DOT             shift and go to state 11
     DOTSTRING       shift and go to state 12
     EMIT            shift and go to state 13
     COMMENT_START   shift and go to state 14
-    ID              shift and go to state 15
-    VARIABLE        shift and go to state 16
-    =               shift and go to state 17
-    <               shift and go to state 18
-    >               shift and go to state 19
-    INFEQ           shift and go to state 20
-    SUPEQ           shift and go to state 21
-    NUMBER          shift and go to state 22
+    ONELINE         shift and go to state 15
+    ID              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    =               shift and go to state 18
+    <               shift and go to state 19
+    >               shift and go to state 20
+    INFEQ           shift and go to state 21
+    SUPEQ           shift and go to state 22
+    NUMBER          shift and go to state 23
 
     Comando                        shift and go to state 2
     Expressao                      shift and go to state 3
@@ -2312,11 +2347,11 @@ state 68
     Conditional                    shift and go to state 8
     Loop                           shift and go to state 9
     Termo                          shift and go to state 10
-    Unstore                        shift and go to state 23
+    Unstore                        shift and go to state 24
 
 state 69
 
-    (34) Conditional -> SUPEQ IF Comandos ELSE Comandos . THEN
+    (34) Conditional -> INFEQ IF Comandos ELSE Comandos . THEN
     (1) Comandos -> Comandos . Comando
     (3) Comando -> . Expressao
     (4) Comando -> . Imprime
@@ -2335,39 +2370,41 @@ state 69
     (19) Imprime -> . DOTSTRING
     (20) Imprime -> . EMIT
     (21) Comment -> . COMMENT_START Comandos COMMENT_END
-    (22) Store -> . ID !
-    (24) Variavel -> . VARIABLE ID
-    (25) Conditional -> . = IF Comandos THEN
-    (26) Conditional -> . < IF Comandos THEN
-    (27) Conditional -> . > IF Comandos THEN
-    (28) Conditional -> . INFEQ IF Comandos THEN
-    (29) Conditional -> . SUPEQ IF Comandos THEN
-    (30) Conditional -> . = IF Comandos ELSE Comandos THEN
-    (31) Conditional -> . < IF Comandos ELSE Comandos THEN
-    (32) Conditional -> . > IF Comandos ELSE Comandos THEN
-    (33) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
-    (34) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
-    (35) Conditional -> . Expressao IF Comandos THEN
-    (36) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
-    (37) Loop -> . Expressao DO Comandos LOOP
-    (38) Loop -> . Expressao DO I Comandos LOOP
+    (22) Comment -> . ONELINE
+    (23) Store -> . ID !
+    (25) Variavel -> . VARIABLE ID
+    (26) Conditional -> . = IF Comandos THEN
+    (27) Conditional -> . < IF Comandos THEN
+    (28) Conditional -> . > IF Comandos THEN
+    (29) Conditional -> . INFEQ IF Comandos THEN
+    (30) Conditional -> . SUPEQ IF Comandos THEN
+    (31) Conditional -> . = IF Comandos ELSE Comandos THEN
+    (32) Conditional -> . < IF Comandos ELSE Comandos THEN
+    (33) Conditional -> . > IF Comandos ELSE Comandos THEN
+    (34) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
+    (35) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
+    (36) Conditional -> . Expressao IF Comandos THEN
+    (37) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
+    (38) Loop -> . Expressao DO Comandos LOOP
+    (39) Loop -> . Expressao DO I Comandos LOOP
     (16) Termo -> . NUMBER
     (17) Termo -> . Unstore
-    (23) Unstore -> . ID @
+    (24) Unstore -> . ID @
 
     THEN            shift and go to state 75
     DOT             shift and go to state 11
     DOTSTRING       shift and go to state 12
     EMIT            shift and go to state 13
     COMMENT_START   shift and go to state 14
-    ID              shift and go to state 15
-    VARIABLE        shift and go to state 16
-    =               shift and go to state 17
-    <               shift and go to state 18
-    >               shift and go to state 19
-    INFEQ           shift and go to state 20
-    SUPEQ           shift and go to state 21
-    NUMBER          shift and go to state 22
+    ONELINE         shift and go to state 15
+    ID              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    =               shift and go to state 18
+    <               shift and go to state 19
+    >               shift and go to state 20
+    INFEQ           shift and go to state 21
+    SUPEQ           shift and go to state 22
+    NUMBER          shift and go to state 23
 
     Comando                        shift and go to state 2
     Expressao                      shift and go to state 3
@@ -2378,142 +2415,216 @@ state 69
     Conditional                    shift and go to state 8
     Loop                           shift and go to state 9
     Termo                          shift and go to state 10
-    Unstore                        shift and go to state 23
+    Unstore                        shift and go to state 24
 
 state 70
 
-    (36) Conditional -> Expressao IF Comandos ELSE Comandos THEN .
+    (35) Conditional -> SUPEQ IF Comandos ELSE Comandos . THEN
+    (1) Comandos -> Comandos . Comando
+    (3) Comando -> . Expressao
+    (4) Comando -> . Imprime
+    (5) Comando -> . Comment
+    (6) Comando -> . Store
+    (7) Comando -> . Variavel
+    (8) Comando -> . Conditional
+    (9) Comando -> . Loop
+    (10) Expressao -> . Expressao +
+    (11) Expressao -> . Expressao -
+    (12) Expressao -> . Expressao *
+    (13) Expressao -> . Expressao /
+    (14) Expressao -> . Expressao %
+    (15) Expressao -> . Termo
+    (18) Imprime -> . DOT
+    (19) Imprime -> . DOTSTRING
+    (20) Imprime -> . EMIT
+    (21) Comment -> . COMMENT_START Comandos COMMENT_END
+    (22) Comment -> . ONELINE
+    (23) Store -> . ID !
+    (25) Variavel -> . VARIABLE ID
+    (26) Conditional -> . = IF Comandos THEN
+    (27) Conditional -> . < IF Comandos THEN
+    (28) Conditional -> . > IF Comandos THEN
+    (29) Conditional -> . INFEQ IF Comandos THEN
+    (30) Conditional -> . SUPEQ IF Comandos THEN
+    (31) Conditional -> . = IF Comandos ELSE Comandos THEN
+    (32) Conditional -> . < IF Comandos ELSE Comandos THEN
+    (33) Conditional -> . > IF Comandos ELSE Comandos THEN
+    (34) Conditional -> . INFEQ IF Comandos ELSE Comandos THEN
+    (35) Conditional -> . SUPEQ IF Comandos ELSE Comandos THEN
+    (36) Conditional -> . Expressao IF Comandos THEN
+    (37) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
+    (38) Loop -> . Expressao DO Comandos LOOP
+    (39) Loop -> . Expressao DO I Comandos LOOP
+    (16) Termo -> . NUMBER
+    (17) Termo -> . Unstore
+    (24) Unstore -> . ID @
 
-    DOT             reduce using rule 36 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    DOTSTRING       reduce using rule 36 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    EMIT            reduce using rule 36 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    COMMENT_START   reduce using rule 36 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    ID              reduce using rule 36 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    VARIABLE        reduce using rule 36 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    =               reduce using rule 36 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    <               reduce using rule 36 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    >               reduce using rule 36 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    INFEQ           reduce using rule 36 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    SUPEQ           reduce using rule 36 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    NUMBER          reduce using rule 36 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    $end            reduce using rule 36 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    COMMENT_END     reduce using rule 36 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    THEN            reduce using rule 36 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    ELSE            reduce using rule 36 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    LOOP            reduce using rule 36 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    THEN            shift and go to state 76
+    DOT             shift and go to state 11
+    DOTSTRING       shift and go to state 12
+    EMIT            shift and go to state 13
+    COMMENT_START   shift and go to state 14
+    ONELINE         shift and go to state 15
+    ID              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    =               shift and go to state 18
+    <               shift and go to state 19
+    >               shift and go to state 20
+    INFEQ           shift and go to state 21
+    SUPEQ           shift and go to state 22
+    NUMBER          shift and go to state 23
 
+    Comando                        shift and go to state 2
+    Expressao                      shift and go to state 3
+    Imprime                        shift and go to state 4
+    Comment                        shift and go to state 5
+    Store                          shift and go to state 6
+    Variavel                       shift and go to state 7
+    Conditional                    shift and go to state 8
+    Loop                           shift and go to state 9
+    Termo                          shift and go to state 10
+    Unstore                        shift and go to state 24
 
 state 71
 
-    (30) Conditional -> = IF Comandos ELSE Comandos THEN .
+    (37) Conditional -> Expressao IF Comandos ELSE Comandos THEN .
 
-    DOT             reduce using rule 30 (Conditional -> = IF Comandos ELSE Comandos THEN .)
-    DOTSTRING       reduce using rule 30 (Conditional -> = IF Comandos ELSE Comandos THEN .)
-    EMIT            reduce using rule 30 (Conditional -> = IF Comandos ELSE Comandos THEN .)
-    COMMENT_START   reduce using rule 30 (Conditional -> = IF Comandos ELSE Comandos THEN .)
-    ID              reduce using rule 30 (Conditional -> = IF Comandos ELSE Comandos THEN .)
-    VARIABLE        reduce using rule 30 (Conditional -> = IF Comandos ELSE Comandos THEN .)
-    =               reduce using rule 30 (Conditional -> = IF Comandos ELSE Comandos THEN .)
-    <               reduce using rule 30 (Conditional -> = IF Comandos ELSE Comandos THEN .)
-    >               reduce using rule 30 (Conditional -> = IF Comandos ELSE Comandos THEN .)
-    INFEQ           reduce using rule 30 (Conditional -> = IF Comandos ELSE Comandos THEN .)
-    SUPEQ           reduce using rule 30 (Conditional -> = IF Comandos ELSE Comandos THEN .)
-    NUMBER          reduce using rule 30 (Conditional -> = IF Comandos ELSE Comandos THEN .)
-    $end            reduce using rule 30 (Conditional -> = IF Comandos ELSE Comandos THEN .)
-    COMMENT_END     reduce using rule 30 (Conditional -> = IF Comandos ELSE Comandos THEN .)
-    THEN            reduce using rule 30 (Conditional -> = IF Comandos ELSE Comandos THEN .)
-    ELSE            reduce using rule 30 (Conditional -> = IF Comandos ELSE Comandos THEN .)
-    LOOP            reduce using rule 30 (Conditional -> = IF Comandos ELSE Comandos THEN .)
+    DOT             reduce using rule 37 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    DOTSTRING       reduce using rule 37 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    EMIT            reduce using rule 37 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    COMMENT_START   reduce using rule 37 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    ONELINE         reduce using rule 37 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    ID              reduce using rule 37 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    VARIABLE        reduce using rule 37 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    =               reduce using rule 37 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    <               reduce using rule 37 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    >               reduce using rule 37 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    INFEQ           reduce using rule 37 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    SUPEQ           reduce using rule 37 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    NUMBER          reduce using rule 37 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    $end            reduce using rule 37 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    COMMENT_END     reduce using rule 37 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    THEN            reduce using rule 37 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    ELSE            reduce using rule 37 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    LOOP            reduce using rule 37 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
 
 
 state 72
 
-    (31) Conditional -> < IF Comandos ELSE Comandos THEN .
+    (31) Conditional -> = IF Comandos ELSE Comandos THEN .
 
-    DOT             reduce using rule 31 (Conditional -> < IF Comandos ELSE Comandos THEN .)
-    DOTSTRING       reduce using rule 31 (Conditional -> < IF Comandos ELSE Comandos THEN .)
-    EMIT            reduce using rule 31 (Conditional -> < IF Comandos ELSE Comandos THEN .)
-    COMMENT_START   reduce using rule 31 (Conditional -> < IF Comandos ELSE Comandos THEN .)
-    ID              reduce using rule 31 (Conditional -> < IF Comandos ELSE Comandos THEN .)
-    VARIABLE        reduce using rule 31 (Conditional -> < IF Comandos ELSE Comandos THEN .)
-    =               reduce using rule 31 (Conditional -> < IF Comandos ELSE Comandos THEN .)
-    <               reduce using rule 31 (Conditional -> < IF Comandos ELSE Comandos THEN .)
-    >               reduce using rule 31 (Conditional -> < IF Comandos ELSE Comandos THEN .)
-    INFEQ           reduce using rule 31 (Conditional -> < IF Comandos ELSE Comandos THEN .)
-    SUPEQ           reduce using rule 31 (Conditional -> < IF Comandos ELSE Comandos THEN .)
-    NUMBER          reduce using rule 31 (Conditional -> < IF Comandos ELSE Comandos THEN .)
-    $end            reduce using rule 31 (Conditional -> < IF Comandos ELSE Comandos THEN .)
-    COMMENT_END     reduce using rule 31 (Conditional -> < IF Comandos ELSE Comandos THEN .)
-    THEN            reduce using rule 31 (Conditional -> < IF Comandos ELSE Comandos THEN .)
-    ELSE            reduce using rule 31 (Conditional -> < IF Comandos ELSE Comandos THEN .)
-    LOOP            reduce using rule 31 (Conditional -> < IF Comandos ELSE Comandos THEN .)
+    DOT             reduce using rule 31 (Conditional -> = IF Comandos ELSE Comandos THEN .)
+    DOTSTRING       reduce using rule 31 (Conditional -> = IF Comandos ELSE Comandos THEN .)
+    EMIT            reduce using rule 31 (Conditional -> = IF Comandos ELSE Comandos THEN .)
+    COMMENT_START   reduce using rule 31 (Conditional -> = IF Comandos ELSE Comandos THEN .)
+    ONELINE         reduce using rule 31 (Conditional -> = IF Comandos ELSE Comandos THEN .)
+    ID              reduce using rule 31 (Conditional -> = IF Comandos ELSE Comandos THEN .)
+    VARIABLE        reduce using rule 31 (Conditional -> = IF Comandos ELSE Comandos THEN .)
+    =               reduce using rule 31 (Conditional -> = IF Comandos ELSE Comandos THEN .)
+    <               reduce using rule 31 (Conditional -> = IF Comandos ELSE Comandos THEN .)
+    >               reduce using rule 31 (Conditional -> = IF Comandos ELSE Comandos THEN .)
+    INFEQ           reduce using rule 31 (Conditional -> = IF Comandos ELSE Comandos THEN .)
+    SUPEQ           reduce using rule 31 (Conditional -> = IF Comandos ELSE Comandos THEN .)
+    NUMBER          reduce using rule 31 (Conditional -> = IF Comandos ELSE Comandos THEN .)
+    $end            reduce using rule 31 (Conditional -> = IF Comandos ELSE Comandos THEN .)
+    COMMENT_END     reduce using rule 31 (Conditional -> = IF Comandos ELSE Comandos THEN .)
+    THEN            reduce using rule 31 (Conditional -> = IF Comandos ELSE Comandos THEN .)
+    ELSE            reduce using rule 31 (Conditional -> = IF Comandos ELSE Comandos THEN .)
+    LOOP            reduce using rule 31 (Conditional -> = IF Comandos ELSE Comandos THEN .)
 
 
 state 73
 
-    (32) Conditional -> > IF Comandos ELSE Comandos THEN .
+    (32) Conditional -> < IF Comandos ELSE Comandos THEN .
 
-    DOT             reduce using rule 32 (Conditional -> > IF Comandos ELSE Comandos THEN .)
-    DOTSTRING       reduce using rule 32 (Conditional -> > IF Comandos ELSE Comandos THEN .)
-    EMIT            reduce using rule 32 (Conditional -> > IF Comandos ELSE Comandos THEN .)
-    COMMENT_START   reduce using rule 32 (Conditional -> > IF Comandos ELSE Comandos THEN .)
-    ID              reduce using rule 32 (Conditional -> > IF Comandos ELSE Comandos THEN .)
-    VARIABLE        reduce using rule 32 (Conditional -> > IF Comandos ELSE Comandos THEN .)
-    =               reduce using rule 32 (Conditional -> > IF Comandos ELSE Comandos THEN .)
-    <               reduce using rule 32 (Conditional -> > IF Comandos ELSE Comandos THEN .)
-    >               reduce using rule 32 (Conditional -> > IF Comandos ELSE Comandos THEN .)
-    INFEQ           reduce using rule 32 (Conditional -> > IF Comandos ELSE Comandos THEN .)
-    SUPEQ           reduce using rule 32 (Conditional -> > IF Comandos ELSE Comandos THEN .)
-    NUMBER          reduce using rule 32 (Conditional -> > IF Comandos ELSE Comandos THEN .)
-    $end            reduce using rule 32 (Conditional -> > IF Comandos ELSE Comandos THEN .)
-    COMMENT_END     reduce using rule 32 (Conditional -> > IF Comandos ELSE Comandos THEN .)
-    THEN            reduce using rule 32 (Conditional -> > IF Comandos ELSE Comandos THEN .)
-    ELSE            reduce using rule 32 (Conditional -> > IF Comandos ELSE Comandos THEN .)
-    LOOP            reduce using rule 32 (Conditional -> > IF Comandos ELSE Comandos THEN .)
+    DOT             reduce using rule 32 (Conditional -> < IF Comandos ELSE Comandos THEN .)
+    DOTSTRING       reduce using rule 32 (Conditional -> < IF Comandos ELSE Comandos THEN .)
+    EMIT            reduce using rule 32 (Conditional -> < IF Comandos ELSE Comandos THEN .)
+    COMMENT_START   reduce using rule 32 (Conditional -> < IF Comandos ELSE Comandos THEN .)
+    ONELINE         reduce using rule 32 (Conditional -> < IF Comandos ELSE Comandos THEN .)
+    ID              reduce using rule 32 (Conditional -> < IF Comandos ELSE Comandos THEN .)
+    VARIABLE        reduce using rule 32 (Conditional -> < IF Comandos ELSE Comandos THEN .)
+    =               reduce using rule 32 (Conditional -> < IF Comandos ELSE Comandos THEN .)
+    <               reduce using rule 32 (Conditional -> < IF Comandos ELSE Comandos THEN .)
+    >               reduce using rule 32 (Conditional -> < IF Comandos ELSE Comandos THEN .)
+    INFEQ           reduce using rule 32 (Conditional -> < IF Comandos ELSE Comandos THEN .)
+    SUPEQ           reduce using rule 32 (Conditional -> < IF Comandos ELSE Comandos THEN .)
+    NUMBER          reduce using rule 32 (Conditional -> < IF Comandos ELSE Comandos THEN .)
+    $end            reduce using rule 32 (Conditional -> < IF Comandos ELSE Comandos THEN .)
+    COMMENT_END     reduce using rule 32 (Conditional -> < IF Comandos ELSE Comandos THEN .)
+    THEN            reduce using rule 32 (Conditional -> < IF Comandos ELSE Comandos THEN .)
+    ELSE            reduce using rule 32 (Conditional -> < IF Comandos ELSE Comandos THEN .)
+    LOOP            reduce using rule 32 (Conditional -> < IF Comandos ELSE Comandos THEN .)
 
 
 state 74
 
-    (33) Conditional -> INFEQ IF Comandos ELSE Comandos THEN .
+    (33) Conditional -> > IF Comandos ELSE Comandos THEN .
 
-    DOT             reduce using rule 33 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
-    DOTSTRING       reduce using rule 33 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
-    EMIT            reduce using rule 33 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
-    COMMENT_START   reduce using rule 33 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
-    ID              reduce using rule 33 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
-    VARIABLE        reduce using rule 33 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
-    =               reduce using rule 33 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
-    <               reduce using rule 33 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
-    >               reduce using rule 33 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
-    INFEQ           reduce using rule 33 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
-    SUPEQ           reduce using rule 33 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
-    NUMBER          reduce using rule 33 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
-    $end            reduce using rule 33 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
-    COMMENT_END     reduce using rule 33 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
-    THEN            reduce using rule 33 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
-    ELSE            reduce using rule 33 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
-    LOOP            reduce using rule 33 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
+    DOT             reduce using rule 33 (Conditional -> > IF Comandos ELSE Comandos THEN .)
+    DOTSTRING       reduce using rule 33 (Conditional -> > IF Comandos ELSE Comandos THEN .)
+    EMIT            reduce using rule 33 (Conditional -> > IF Comandos ELSE Comandos THEN .)
+    COMMENT_START   reduce using rule 33 (Conditional -> > IF Comandos ELSE Comandos THEN .)
+    ONELINE         reduce using rule 33 (Conditional -> > IF Comandos ELSE Comandos THEN .)
+    ID              reduce using rule 33 (Conditional -> > IF Comandos ELSE Comandos THEN .)
+    VARIABLE        reduce using rule 33 (Conditional -> > IF Comandos ELSE Comandos THEN .)
+    =               reduce using rule 33 (Conditional -> > IF Comandos ELSE Comandos THEN .)
+    <               reduce using rule 33 (Conditional -> > IF Comandos ELSE Comandos THEN .)
+    >               reduce using rule 33 (Conditional -> > IF Comandos ELSE Comandos THEN .)
+    INFEQ           reduce using rule 33 (Conditional -> > IF Comandos ELSE Comandos THEN .)
+    SUPEQ           reduce using rule 33 (Conditional -> > IF Comandos ELSE Comandos THEN .)
+    NUMBER          reduce using rule 33 (Conditional -> > IF Comandos ELSE Comandos THEN .)
+    $end            reduce using rule 33 (Conditional -> > IF Comandos ELSE Comandos THEN .)
+    COMMENT_END     reduce using rule 33 (Conditional -> > IF Comandos ELSE Comandos THEN .)
+    THEN            reduce using rule 33 (Conditional -> > IF Comandos ELSE Comandos THEN .)
+    ELSE            reduce using rule 33 (Conditional -> > IF Comandos ELSE Comandos THEN .)
+    LOOP            reduce using rule 33 (Conditional -> > IF Comandos ELSE Comandos THEN .)
 
 
 state 75
 
-    (34) Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .
+    (34) Conditional -> INFEQ IF Comandos ELSE Comandos THEN .
 
-    DOT             reduce using rule 34 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
-    DOTSTRING       reduce using rule 34 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
-    EMIT            reduce using rule 34 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
-    COMMENT_START   reduce using rule 34 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
-    ID              reduce using rule 34 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
-    VARIABLE        reduce using rule 34 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
-    =               reduce using rule 34 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
-    <               reduce using rule 34 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
-    >               reduce using rule 34 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
-    INFEQ           reduce using rule 34 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
-    SUPEQ           reduce using rule 34 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
-    NUMBER          reduce using rule 34 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
-    $end            reduce using rule 34 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
-    COMMENT_END     reduce using rule 34 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
-    THEN            reduce using rule 34 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
-    ELSE            reduce using rule 34 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
-    LOOP            reduce using rule 34 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
+    DOT             reduce using rule 34 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
+    DOTSTRING       reduce using rule 34 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
+    EMIT            reduce using rule 34 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
+    COMMENT_START   reduce using rule 34 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
+    ONELINE         reduce using rule 34 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
+    ID              reduce using rule 34 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
+    VARIABLE        reduce using rule 34 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
+    =               reduce using rule 34 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
+    <               reduce using rule 34 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
+    >               reduce using rule 34 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
+    INFEQ           reduce using rule 34 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
+    SUPEQ           reduce using rule 34 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
+    NUMBER          reduce using rule 34 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
+    $end            reduce using rule 34 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
+    COMMENT_END     reduce using rule 34 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
+    THEN            reduce using rule 34 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
+    ELSE            reduce using rule 34 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
+    LOOP            reduce using rule 34 (Conditional -> INFEQ IF Comandos ELSE Comandos THEN .)
+
+
+state 76
+
+    (35) Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .
+
+    DOT             reduce using rule 35 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
+    DOTSTRING       reduce using rule 35 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
+    EMIT            reduce using rule 35 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
+    COMMENT_START   reduce using rule 35 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
+    ONELINE         reduce using rule 35 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
+    ID              reduce using rule 35 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
+    VARIABLE        reduce using rule 35 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
+    =               reduce using rule 35 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
+    <               reduce using rule 35 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
+    >               reduce using rule 35 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
+    INFEQ           reduce using rule 35 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
+    SUPEQ           reduce using rule 35 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
+    NUMBER          reduce using rule 35 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
+    $end            reduce using rule 35 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
+    COMMENT_END     reduce using rule 35 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
+    THEN            reduce using rule 35 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
+    ELSE            reduce using rule 35 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
+    LOOP            reduce using rule 35 (Conditional -> SUPEQ IF Comandos ELSE Comandos THEN .)
 

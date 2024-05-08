@@ -25,10 +25,15 @@ tokens = (
     'STRING',
     'COMMENT_START',
     'COMMENT_END',
-    'I'
+    'I',
+    'ONELINE'
 )
 
 literals = '+-*/%!@><='
+
+def t_ANY_ONELINE(t):
+    r'\\\s[^\n]*'
+    pass
 
 # Initial state functions
 def t_FUNC_START(t):
@@ -194,6 +199,10 @@ def t_comment_COMMENT_END(t):
     t.lexer.begin('INITIAL')
     return None
 
+def t_comment_oneline(t):
+    r'\\[^\n]*'
+    pass
+
 # Common rules
 t_ANY_ignore = ' \n\r\t'
 
@@ -212,6 +221,7 @@ lexer.begin('INITIAL')
 # Testing the lexer
 exemplo = """
 42 EMIT
+\ \burro
 """
 
 def debug_lexer(exemplo):
