@@ -199,10 +199,6 @@ def t_comment_COMMENT_END(t):
     t.lexer.begin('INITIAL')
     return None
 
-def t_comment_oneline(t):
-    r'\\[^\n]*'
-    pass
-
 # Common rules
 t_ANY_ignore = ' \n\r\t'
 
@@ -219,15 +215,28 @@ lexer = lex.lex()
 lexer.begin('INITIAL')
 
 # Testing the lexer
-exemplo = """
-42 EMIT
-\ \burro
-"""
 
 def debug_lexer(exemplo):
     lexer.input(exemplo)
+    tokens = [] 
 
-    while tok := lexer.token():
-        print(tok)
+    while True:
+        tok = lexer.token()
+        if not tok:
+            break
+        tokens.append(tok) 
 
-debug_lexer(exemplo)
+    return tokens
+
+input_file_path = 'input.txt'
+output_file_path = 'tokenizer.txt'
+
+tokenizer = "Tokens read:\n"
+
+with open(input_file_path, 'r') as file:
+    for line in file:
+        parsed_line = debug_lexer(line.strip())
+        tokenizer += '\n'.join(str(tok) for tok in parsed_line) + '\n' 
+
+with open(output_file_path, 'w') as file:
+    file.write(tokenizer)
