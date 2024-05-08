@@ -211,7 +211,7 @@ lexer.begin('INITIAL')
 
 # Testing the lexer
 exemplo = """
-IF ELSE THEN
+42 EMIT
 """
 
 def debug_lexer(exemplo):

@@ -122,6 +122,12 @@ def p_Expressao_Print2(t):
     "Imprime : DOTSTRING"
     t[0] = f'pushs "{t[1]}"\nwrites\n'
 
+def p_Expressao_Print3(t):
+    "Imprime : EMIT"
+    global contadorA
+    t[0] = f'writechr\n'
+    contadorA -= 1
+
 def p_Comment(t):
     "Comment : COMMENT_START Comandos COMMENT_END"
     t[0] = ""
