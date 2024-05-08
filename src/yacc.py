@@ -230,26 +230,21 @@ def p_error(t):
 
 parser = yacc()
 
-while True:
-    ewvm = parser.parse(input("> "))
-    print(ewvm)
-    print_state()
+input_file_path = 'input.txt'
+output_file_path = 'output.txt'
 
-"""def parse_program():
-    print("Type your code (type 'END' on a new line to finish):")
-    lines = []
-    while True:
-        line = input("> ")
-        if line == 'END':
-            break
-        lines.append(line)
-    code = "\n".join(lines)
-    result = parser.parse(code)
-    print("Generated VM Code:")
-    print(result)
+ewvm_results = 'start\n'
 
-if __name__ == "__main__":
-    try:
-        parse_program()
-    except KeyboardInterrupt:
-        print("\nProgram terminated!")"""
+with open(input_file_path, 'r') as file:
+    for line in file:
+        parsed_line = parser.parse(line.strip())
+        ewvm_results += str(parsed_line)
+    
+    ewvm_results += 'stop'
+
+with open(output_file_path, 'w') as file:
+    file.write(ewvm_results)
+
+
+
+# se calhar no fim da execucao fazer um pushi contador e um popn
