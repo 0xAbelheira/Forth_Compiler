@@ -1,23 +1,24 @@
 start
-pushn 2
-pushi 1
+pushn 3
 pushi 10
-storeg 0
-pushi 2
 storeg 1
+pushi 2
+storeg 2
 WHILE0:
-pushg 0
 pushg 1
+pushg 2
 sup
 jz ENDWHILE0
-pushi 3
+pushg 0
 pushi 2
 add
-writei
+storeg 0
 pushi 1
-pushg 1
+pushg 2
 add
-storeg 1
+storeg 2
 jump WHILE0
 ENDWHILE0:
+pushg 0
+writei
 stop

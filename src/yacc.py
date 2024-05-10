@@ -23,7 +23,7 @@ contador = -1 # para tratar o endereçamento de variáveis
 label_counter = -1 # to generate unique labels for conditionals
 
 def print_state():
-    print(f"Variables: {variable_store}")
+    print(f"s: {variable_store}")
     print()
 
 def generate_label():
@@ -133,7 +133,7 @@ def p_Variavel(t):
     global contador
     contador += 1
     variable_store[t[2]] = contador
-    #t[0] = f'pushi 0\n'
+    t[0] = f''
 
 def p_Conditional1(t):
     "Conditional : '=' IF Comandos THEN"
