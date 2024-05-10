@@ -15,7 +15,6 @@ from ply import lex
 from lexer import tokens
 from ply.yacc import yacc
 
-
 #ter um contador global para os storegs, e guardar num dicionario tipo o da variable store
 
 variable_store = {}
@@ -67,6 +66,10 @@ def p_Comando7(t):
     "Comando : Loop"
     t[0] = t[1]
     
+def p_Comando8(t):
+    "Comando : Func"
+    t[0] = t[1]
+    
 def p_Expressao1(t):
     "Expressao : Expressao '+'"
     t[0] = f'{t[1]}add\n'
@@ -86,6 +89,26 @@ def p_Expressao4(t):
 def p_Expressao5(t):
     "Expressao : Expressao '%'"
     t[0] = f'{t[1]}mod\n'
+    
+def p_Expressao6(t):
+    "Expressao : Expressao '>'"
+    t[0] = f'{t[1]}sup\n'
+    
+def p_Expressao7(t):
+    "Expressao : Expressao SUPEQ"
+    t[0] = f'{t[1]}supeq\n'
+    
+def p_Expressao8(t):
+    "Expressao : Expressao '<'"
+    t[0] = f'{t[1]}inf\n'
+    
+def p_Expressao9(t):
+    "Expressao : Expressao INFEQ"
+    t[0] = f'{t[1]}infeq\n'
+    
+def p_Expressao10(t):
+    "Expressao : Expressao '='"
+    t[0] = f'{t[1]}equal\n'
 
 def p_Expressao6(t):
     "Expressao : Termo"
@@ -112,7 +135,7 @@ def p_Expressao_Print3(t):
     t[0] = f'writechr\n'
 
 def p_Comment(t):
-    "Comment : COMMENT_START Comandos COMMENT_END"
+    "Comment : COMMENT_START COMMENT_END"
     t[0] = ""
 
 def p_Comment2(t):
@@ -136,64 +159,14 @@ def p_Variavel(t):
     t[0] = f''
 
 def p_Conditional1(t):
-    "Conditional : '=' IF Comandos THEN"
+    "Conditional : Expressao IF Comandos THEN"
     label = generate_label()
-    t[0] = f'equal\njz ENDIF{label}\n{t[3]}\njump ENDIF{label}\nENDIF{label}:\n'
+    t[0] = f'jz ENDIF{label}\n{t[3]}\njump ENDIF{label}\nENDIF{label}:\n'
     
 def p_Conditional2(t):
-    "Conditional : '<' IF Comandos THEN"
-    label = generate_label()
-    t[0] = f'inf\njz ENDIF{label}\n{t[3]}\njump ENDIF{label}\nENDIF{label}:\n'
-    
-def p_Conditional3(t):
-    "Conditional : '>' IF Comandos THEN"
-    label = generate_label()
-    t[0] = f'sup\njz ENDIF{label}\n{t[3]}\njump ENDIF{label}\nENDIF{label}:\n'
-    
-def p_Conditional4(t):
-    "Conditional : INFEQ IF Comandos THEN" # mudar nome 
-    label = generate_label()
-    t[0] = f'infeq\njz ENDIF{label}\n{t[3]}\njump ENDIF{label}\nENDIF{label}:\n'
-    
-def p_Conditional5(t):
-    "Conditional : SUPEQ IF Comandos THEN"
-    label = generate_label()
-    t[0] = f'supeq\njz ENDIF{label}\n{t[3]}\njump ENDIF{label}\nENDIF{label}:\n'
-    
-def p_Conditional6(t):
-    "Conditional : '=' IF Comandos ELSE Comandos THEN"
-    label = generate_label()
-    t[0] = f'equal\njz ELSE{label}\n{t[3]}\njump ENDIF{label}\nELSE{label}:\n{t[5]}\njump ENDIF{label}\nENDIF{label}:\n'
-    
-def p_Conditional7(t):
-    "Conditional : '<' IF Comandos ELSE Comandos THEN"
-    label = generate_label()
-    t[0] = f'inf\njz ELSE{label}\n{t[3]}\njump ENDIF{label}\nELSE{label}:\n{t[5]}\njump ENDIF{label}\nENDIF{label}:\n'
-    
-def p_Conditional8(t):
-    "Conditional : '>' IF Comandos ELSE Comandos THEN"
-    label = generate_label()
-    t[0] = f'sup\njz ELSE{label}\n{t[3]}\njump ENDIF{label}\nELSE{label}:\n{t[5]}\njump ENDIF{label}\nENDIF{label}:\n'
-    
-def p_Conditional9(t):
-    "Conditional : INFEQ IF Comandos ELSE Comandos THEN"
-    label = generate_label()
-    t[0] = f'infeq\njz ELSE{label}\n{t[3]}\njump ENDIF{label}\nELSE{label}:\n{t[5]}\njump ENDIF{label}\nENDIF{label}:\n'
-    
-def p_Conditional10(t):
-    "Conditional : SUPEQ IF Comandos ELSE Comandos THEN"
-    label = generate_label()
-    t[0] = f'supeq\njz ELSE{label}\n{t[3]}\njump ENDIF{label}\nELSE{label}:\n{t[5]}\njump ENDIF{label}\nENDIF{label}:\n'
-
-def p_Conditional11(t):
-    "Conditional : Expressao IF Comandos THEN"
-    label = generate_label() 
-    t[0] = f'{t[1]}\npushi 1\nequal\njz ENDIF{label}\n{t[3]}\njump ENDIF{label}\nENDIF{label}:\n'
-    
-def p_Conditional12(t):
     "Conditional : Expressao IF Comandos ELSE Comandos THEN"
     label = generate_label()
-    t[0] = f'{t[1]}\npushi 1\nequal\njz ELSE{label}\n{t[3]}\njump ENDIF{label}\nELSE{label}:\n{t[5]}\njump ENDIF{label}\nENDIF{label}:\n'
+    t[0] = f'{t[1]}jz ELSE{label}\n{t[3]}\njump ENDIF{label}\nELSE{label}:\n{t[5]}\njump ENDIF{label}\nENDIF{label}:\n'
 
 def p_Loop(t):
     "Loop : Expressao DO Comandos LOOP"
@@ -202,15 +175,17 @@ def p_Loop(t):
     t[0] = f'storeg {contador+1}\n{t[1]}storeg {contador+2}\nWHILE{label}:\npushg {contador+1}\npushg {contador+2}\nsup\njz ENDWHILE{label}\n{t[3]}pushi 1\npushg {contador+2}\nadd\nstoreg {contador+2}\njump WHILE{label}\nENDWHILE{label}:\n'
     contador += 2
 
+def p_Func(t):
+    "Func : FUNC_START ID Comandos FUNC_END"
+    t[0] = ""
 
-#estudar como fazer este, os loops permitem a existencia de uma variavel I que fica com o valor da Expressao
-def p_Loop2(t):
-    "Loop : Expressao DO I Comandos LOOP"
-    global contador
-    label = generate_label()
-    t[0] = f'pushi 0\nswap\nstoreg {contador}\npushi 0\n{t[1]}storeg {contador+1}\nWHILE{label}:\npushg {contador}\npushg {contador+1}\nsup\njz ENDWHILE{label}\n{t[3]}pushi 1\npushg {contador+1}\nadd\nstoreg {contador+1}\njump WHILE{label}\nENDWHILE{label}:\n'
-    contador += 2
-    
+# +Loop
+#def p_Loop2(t):
+#    "Loop : +LOOP"
+#    global contador
+#    label = generate_label()
+#    t[0] = ""
+#    contador += 2
 
 def p_error(t):
     print(f"Syntax error: {t.value}, {t.type}, {t}")
