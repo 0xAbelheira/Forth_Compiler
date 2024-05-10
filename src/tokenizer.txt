@@ -1,14 +1,8 @@
 Tokens read:
-
-
-
 LexToken(NUMBER,1,1,0)
-LexToken(NUMBER,1,1,2)
-LexToken(=,'=',1,4)
-LexToken(IF,'IF',1,6)
-LexToken(NUMBER,2,1,9)
-LexToken(NUMBER,3,1,11)
-LexToken(+,'+',1,13)
-LexToken(THEN,'THEN',1,15)
-LexToken(NUMBER,4,1,20)
-LexToken(DOT,'.',1,22)
+LexToken(NUMBER,10,1,2)
+LexToken(NUMBER,2,1,5)
+LexToken(DO,'DO',1,7)
+LexToken(NUMBER,3,1,10)
+LexToken(DOT,'.',1,12)
+LexToken(LOOP,'LOOP',1,14)

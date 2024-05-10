@@ -1,14 +1,24 @@
 start
+pushn 2
 pushi 1
-pushi 1
-equal
-jz ENDIF0
+pushi 10
+pushi 0
+swap
+storeg 0
+pushi 0
 pushi 2
+storeg 1
+WHILE0:
+pushg 0
+pushg 1
+sup
+jz ENDWHILE0
 pushi 3
-add
-
-jump ENDIF0
-ENDIF0:
-pushi 4
 writei
+pushi 1
+pushg 1
+add
+storeg 1
+jump WHILE0
+ENDWHILE0:
 stop

@@ -1,4 +1,1 @@
-\ 4 3 +
-( sou idiota )
-
-1 1 = IF 2 3 + THEN 4 .
+1 10 2 DO 3 . LOOP
