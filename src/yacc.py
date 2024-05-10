@@ -199,7 +199,7 @@ def p_Loop(t):
     "Loop : Expressao DO Comandos LOOP"
     global contador
     label = generate_label()
-    t[0] = f'pushi 0\nswap\nstoreg {contador+1}\npushi 0\n{t[1]}storeg {contador+2}\nWHILE{label}:\npushg {contador+1}\npushg {contador+2}\nsup\njz ENDWHILE{label}\n{t[3]}pushi 1\npushg {contador+2}\nadd\nstoreg {contador+2}\njump WHILE{label}\nENDWHILE{label}:\n'
+    t[0] = f'storeg {contador+1}\n{t[1]}storeg {contador+2}\nWHILE{label}:\npushg {contador+1}\npushg {contador+2}\nsup\njz ENDWHILE{label}\n{t[3]}pushi 1\npushg {contador+2}\nadd\nstoreg {contador+2}\njump WHILE{label}\nENDWHILE{label}:\n'
     contador += 2
 
 

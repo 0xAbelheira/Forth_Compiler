@@ -2,10 +2,7 @@ start
 pushn 2
 pushi 1
 pushi 10
-pushi 0
-swap
 storeg 0
-pushi 0
 pushi 2
 storeg 1
 WHILE0:
@@ -14,6 +11,8 @@ pushg 1
 sup
 jz ENDWHILE0
 pushi 3
+pushi 2
+add
 writei
 pushi 1
 pushg 1
