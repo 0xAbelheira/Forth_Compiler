@@ -45,6 +45,7 @@ Rule 33    Conditional -> Expressao IF Comandos ELSE Comandos THEN
 Rule 34    Loop -> Expressao DO Comandos LOOP
 Rule 35    Loop -> Expressao DO Comandos Expressao MLOOP
 Rule 36    Func -> FUNC_START ID Comandos FUNC_END
+Rule 37    Func -> ID
 
 Terminals, with rules where they appear
 
@@ -68,7 +69,7 @@ EMIT                 : 26
 FUNC_END             : 36
 FUNC_START           : 36
 I                    : 
-ID                   : 29 30 31 36
+ID                   : 29 30 31 36 37
 IF                   : 32 33
 INFEQ                : 19
 LOOP                 : 34
@@ -153,6 +154,7 @@ state 1
     (34) Loop -> . Expressao DO Comandos LOOP
     (35) Loop -> . Expressao DO Comandos Expressao MLOOP
     (36) Func -> . FUNC_START ID Comandos FUNC_END
+    (37) Func -> . ID
     (22) Termo -> . NUMBER
     (23) Termo -> . Unstore
     (30) Unstore -> . ID @
@@ -507,9 +509,24 @@ state 16
 state 17
 
     (29) Store -> ID . !
+    (37) Func -> ID .
     (30) Unstore -> ID . @
 
     !               shift and go to state 35
+    DOT             reduce using rule 37 (Func -> ID .)
+    DOTSTRING       reduce using rule 37 (Func -> ID .)
+    EMIT            reduce using rule 37 (Func -> ID .)
+    COMMENT_START   reduce using rule 37 (Func -> ID .)
+    ONELINE         reduce using rule 37 (Func -> ID .)
+    ID              reduce using rule 37 (Func -> ID .)
+    VARIABLE        reduce using rule 37 (Func -> ID .)
+    FUNC_START      reduce using rule 37 (Func -> ID .)
+    NUMBER          reduce using rule 37 (Func -> ID .)
+    $end            reduce using rule 37 (Func -> ID .)
+    THEN            reduce using rule 37 (Func -> ID .)
+    ELSE            reduce using rule 37 (Func -> ID .)
+    LOOP            reduce using rule 37 (Func -> ID .)
+    FUNC_END        reduce using rule 37 (Func -> ID .)
     @               shift and go to state 36
 
 
@@ -1112,6 +1129,7 @@ state 39
     (34) Loop -> . Expressao DO Comandos LOOP
     (35) Loop -> . Expressao DO Comandos Expressao MLOOP
     (36) Func -> . FUNC_START ID Comandos FUNC_END
+    (37) Func -> . ID
     (22) Termo -> . NUMBER
     (23) Termo -> . Unstore
     (30) Unstore -> . ID @
@@ -1178,6 +1196,7 @@ state 40
     (34) Loop -> . Expressao DO Comandos LOOP
     (35) Loop -> . Expressao DO Comandos Expressao MLOOP
     (36) Func -> . FUNC_START ID Comandos FUNC_END
+    (37) Func -> . ID
     (30) Unstore -> . ID @
 
     LOOP            shift and go to state 45
@@ -1238,6 +1257,7 @@ state 41
     (34) Loop -> . Expressao DO Comandos LOOP
     (35) Loop -> . Expressao DO Comandos Expressao MLOOP
     (36) Func -> . FUNC_START ID Comandos FUNC_END
+    (37) Func -> . ID
     (22) Termo -> . NUMBER
     (23) Termo -> . Unstore
     (30) Unstore -> . ID @
@@ -1423,6 +1443,7 @@ state 47
     (34) Loop -> . Expressao DO Comandos LOOP
     (35) Loop -> . Expressao DO Comandos Expressao MLOOP
     (36) Func -> . FUNC_START ID Comandos FUNC_END
+    (37) Func -> . ID
     (22) Termo -> . NUMBER
     (23) Termo -> . Unstore
     (30) Unstore -> . ID @

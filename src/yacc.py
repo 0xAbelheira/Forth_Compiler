@@ -20,6 +20,8 @@ from ply.yacc import yacc
 variable_store = {}
 contador = -1 # para tratar o endereçamento de variáveis
 label_counter = -1 # to generate unique labels for conditionals
+funcs = ''
+
 
 def print_state():
     print(f"s: {variable_store}")
@@ -184,7 +186,13 @@ def p_Loop2(t):
 
 def p_Func(t):
     "Func : FUNC_START ID Comandos FUNC_END"
-    t[0] = ""
+    global contador, funcs
+    funcs += f'{t[2]}:\npushl -1\n{t[3]}storel -1\nreturn\n'
+    t[0] = ''
+
+def p_Func2(t):
+    "Func : ID"
+    t[0] = f'pusha {t[1]}\ncall\n'
 
 def p_error(t):
     print(f"Syntax error: {t.value}, {t.type}, {t}")
@@ -202,7 +210,7 @@ with open(input_file_path, 'r') as file:
         ewvm_results += str(parsed_line)
 
 
-ewvmFinal = f'start\n' + f'pushn {contador +1}\n'+ ewvm_results + f'stop'
+ewvmFinal = f'pushn {contador +1}\n' + f'start\n' + ewvm_results + f'stop\n' + funcs
 
 with open(output_file_path, 'w') as file:
     file.write(ewvmFinal)

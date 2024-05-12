@@ -1,3 +1,5 @@
 VARIABLE ID
-10 2 DO ID @ 2 + ID ! 2 3 + +LOOP
+10 2 DO ID @ 2 + ID ! LOOP
 ID @ .
+: add1 1 + ;
+2 3 + add1 .

@@ -1,5 +1,5 @@
-start
 pushn 3
+start
 pushi 10
 storeg 1
 pushi 2
@@ -13,9 +13,7 @@ pushg 0
 pushi 2
 add
 storeg 0
-pushi 2
-pushi 3
-add
+pushi 1
 pushg 2
 add
 storeg 2
@@ -23,4 +21,15 @@ jump WHILE0
 ENDWHILE0:
 pushg 0
 writei
+pushi 2
+pushi 3
+add
+pusha add1
+call
+writei
 stop
+add1:
+pushl -1
+pushi 1
+add
+storel -1 return
