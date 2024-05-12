@@ -13,7 +13,9 @@ pushg 0
 pushi 2
 add
 storeg 0
-pushi 1
+pushi 2
+pushi 3
+add
 pushg 2
 add
 storeg 2

@@ -110,7 +110,7 @@ def p_Expressao10(t):
     "Expressao : Expressao '='"
     t[0] = f'{t[1]}equal\n'
 
-def p_Expressao6(t):
+def p_Expressao11(t):
     "Expressao : Termo"
     t[0] = t[1]
 
@@ -175,17 +175,16 @@ def p_Loop(t):
     t[0] = f'storeg {contador+1}\n{t[1]}storeg {contador+2}\nWHILE{label}:\npushg {contador+1}\npushg {contador+2}\nsup\njz ENDWHILE{label}\n{t[3]}pushi 1\npushg {contador+2}\nadd\nstoreg {contador+2}\njump WHILE{label}\nENDWHILE{label}:\n'
     contador += 2
 
+def p_Loop2(t):
+    "Loop : Expressao DO Comandos Expressao MLOOP"
+    global contador
+    label = generate_label()
+    t[0] = f'storeg {contador+1}\n{t[1]}storeg {contador+2}\nWHILE{label}:\npushg {contador+1}\npushg {contador+2}\nsup\njz ENDWHILE{label}\n{t[3]}{t[4]}pushg {contador+2}\nadd\nstoreg {contador+2}\njump WHILE{label}\nENDWHILE{label}:\n'
+    contador += 2
+
 def p_Func(t):
     "Func : FUNC_START ID Comandos FUNC_END"
     t[0] = ""
-
-# +Loop
-#def p_Loop2(t):
-#    "Loop : +LOOP"
-#    global contador
-#    label = generate_label()
-#    t[0] = ""
-#    contador += 2
 
 def p_error(t):
     print(f"Syntax error: {t.value}, {t.type}, {t}")

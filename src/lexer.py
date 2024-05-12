@@ -26,7 +26,8 @@ tokens = (
     'COMMENT_START',
     'COMMENT_END',
     'I',
-    'ONELINE'
+    'ONELINE',
+    'MLOOP',
 )
 
 literals = '+-*/%!@><='
@@ -35,7 +36,10 @@ def t_ANY_ONELINE(t):
     r'\\\s[^\n]*'
     pass
 
-# Initial state functions
+def t_MLOOP(t):
+    r'\+LOOP\b'
+    return t
+
 def t_FUNC_START(t):
     r':'
     t.lexer.begin('function')
