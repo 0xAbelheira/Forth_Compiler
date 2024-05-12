@@ -93,7 +93,7 @@ def p_Expressao4(t):
     t[0] = f'{t[1]}div\n'
 
 def p_Expressao5(t):
-    "Expressao : Expressao '%'"
+    "Expressao : Expressao MOD"
     t[0] = f'{t[1]}mod\n'
     
 def p_Expressao6(t):
@@ -148,7 +148,7 @@ def p_Comment2(t):
     "Comment : ONELINE"
     t[0] = ""
 
-def p_Store(t): # guarda o ultimo valor na stack na variável 'ID'
+def p_Store(t):
     "Store : ID '!'"
     t[0] = f'storeg {variable_store.get(t[1], "Undefined Variable")}\n'
 
@@ -238,7 +238,3 @@ ewvmFinal = f'pushn {contador +1}\n' + f'start\n' + ewvm_results + f'stop\n' + f
 
 with open(output_file_path, 'w') as file:
     file.write(ewvmFinal)
-
-
-
-# se calhar no fim da execucao fazer um pushi contador e um popn

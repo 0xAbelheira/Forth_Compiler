@@ -1,8 +1,7 @@
 pushn 0
 start
-pushi 1
+pushi 10
 pushi 2
-pushi 3
-swap
+mod
 writei
 stop

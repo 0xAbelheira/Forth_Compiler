@@ -31,9 +31,10 @@ tokens = (
     'DROP',
     'DUP',
     'SWAP',
+    'MOD',
 )
 
-literals = '+-*/%!@><='
+literals = '+-*/!@><='
 
 def t_ANY_ONELINE(t):
     r'\\\s[^\n]*'
@@ -105,6 +106,10 @@ def t_DUP(t):
 
 def t_SWAP(t):
     r'\bSWAP\b'
+    return t
+
+def t_MOD(t):
+    r'\bMOD\b'
     return t
 
 def t_ID(t):
