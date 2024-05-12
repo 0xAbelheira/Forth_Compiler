@@ -2,7 +2,6 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    I
     NUMBERF
     STRING
 
@@ -19,83 +18,92 @@ Rule 7     Comando -> Variavel
 Rule 8     Comando -> Conditional
 Rule 9     Comando -> Loop
 Rule 10    Comando -> Func
-Rule 11    Expressao -> Expressao +
-Rule 12    Expressao -> Expressao -
-Rule 13    Expressao -> Expressao *
-Rule 14    Expressao -> Expressao /
-Rule 15    Expressao -> Expressao %
-Rule 16    Expressao -> Expressao >
-Rule 17    Expressao -> Expressao SUPEQ
-Rule 18    Expressao -> Expressao <
-Rule 19    Expressao -> Expressao INFEQ
-Rule 20    Expressao -> Expressao =
-Rule 21    Expressao -> Termo
-Rule 22    Termo -> NUMBER
-Rule 23    Termo -> Unstore
-Rule 24    Imprime -> DOT
-Rule 25    Imprime -> DOTSTRING
-Rule 26    Imprime -> EMIT
-Rule 27    Comment -> COMMENT_START COMMENT_END
-Rule 28    Comment -> ONELINE
-Rule 29    Store -> ID !
-Rule 30    Unstore -> ID @
-Rule 31    Variavel -> VARIABLE ID
-Rule 32    Conditional -> Expressao IF Comandos THEN
-Rule 33    Conditional -> Expressao IF Comandos ELSE Comandos THEN
-Rule 34    Loop -> Expressao DO Comandos LOOP
-Rule 35    Loop -> Expressao DO Comandos Expressao MLOOP
-Rule 36    Func -> FUNC_START ID Comandos FUNC_END
-Rule 37    Func -> ID
+Rule 11    Comando -> FuncP
+Rule 12    Expressao -> Expressao +
+Rule 13    Expressao -> Expressao -
+Rule 14    Expressao -> Expressao *
+Rule 15    Expressao -> Expressao /
+Rule 16    Expressao -> Expressao %
+Rule 17    Expressao -> Expressao >
+Rule 18    Expressao -> Expressao SUPEQ
+Rule 19    Expressao -> Expressao <
+Rule 20    Expressao -> Expressao INFEQ
+Rule 21    Expressao -> Expressao =
+Rule 22    Expressao -> Termo
+Rule 23    Termo -> NUMBER
+Rule 24    Termo -> Unstore
+Rule 25    Imprime -> DOT
+Rule 26    Imprime -> DOTSTRING
+Rule 27    Imprime -> EMIT
+Rule 28    Comment -> COMMENT_START COMMENT_END
+Rule 29    Comment -> ONELINE
+Rule 30    Store -> ID !
+Rule 31    Unstore -> ID @
+Rule 32    Variavel -> VARIABLE ID
+Rule 33    Conditional -> Expressao IF Comandos THEN
+Rule 34    Conditional -> Expressao IF Comandos ELSE Comandos THEN
+Rule 35    Loop -> Expressao DO Comandos LOOP
+Rule 36    Loop -> Expressao DO Comandos Expressao MLOOP
+Rule 37    Func -> FUNC_START ID Comandos FUNC_END
+Rule 38    Func -> ID
+Rule 39    FuncP -> ROT
+Rule 40    FuncP -> DROP
+Rule 41    FuncP -> DUP
+Rule 42    FuncP -> SWAP
 
 Terminals, with rules where they appear
 
-!                    : 29
-%                    : 15
-*                    : 13
-+                    : 11
--                    : 12
-/                    : 14
-<                    : 18
-=                    : 20
->                    : 16
-@                    : 30
-COMMENT_END          : 27
-COMMENT_START        : 27
-DO                   : 34 35
-DOT                  : 24
-DOTSTRING            : 25
-ELSE                 : 33
-EMIT                 : 26
-FUNC_END             : 36
-FUNC_START           : 36
-I                    : 
-ID                   : 29 30 31 36 37
-IF                   : 32 33
-INFEQ                : 19
-LOOP                 : 34
-MLOOP                : 35
-NUMBER               : 22
+!                    : 30
+%                    : 16
+*                    : 14
++                    : 12
+-                    : 13
+/                    : 15
+<                    : 19
+=                    : 21
+>                    : 17
+@                    : 31
+COMMENT_END          : 28
+COMMENT_START        : 28
+DO                   : 35 36
+DOT                  : 25
+DOTSTRING            : 26
+DROP                 : 40
+DUP                  : 41
+ELSE                 : 34
+EMIT                 : 27
+FUNC_END             : 37
+FUNC_START           : 37
+ID                   : 30 31 32 37 38
+IF                   : 33 34
+INFEQ                : 20
+LOOP                 : 35
+MLOOP                : 36
+NUMBER               : 23
 NUMBERF              : 
-ONELINE              : 28
+ONELINE              : 29
+ROT                  : 39
 STRING               : 
-SUPEQ                : 17
-THEN                 : 32 33
-VARIABLE             : 31
+SUPEQ                : 18
+SWAP                 : 42
+THEN                 : 33 34
+VARIABLE             : 32
 error                : 
 
 Nonterminals, with rules where they appear
 
 Comando              : 1
-Comandos             : 1 32 33 33 34 35 36 0
+Comandos             : 1 33 34 34 35 36 37 0
 Comment              : 5
 Conditional          : 8
-Expressao            : 3 11 12 13 14 15 16 17 18 19 20 32 33 34 35 35
+Expressao            : 3 12 13 14 15 16 17 18 19 20 21 33 34 35 36 36
 Func                 : 10
+FuncP                : 11
 Imprime              : 4
 Loop                 : 9
 Store                : 6
-Termo                : 21
-Unstore              : 23
+Termo                : 22
+Unstore              : 24
 Variavel             : 7
 
 Parsing method: LALR
@@ -114,6 +122,10 @@ state 0
     ID              reduce using rule 2 (Comandos -> .)
     VARIABLE        reduce using rule 2 (Comandos -> .)
     FUNC_START      reduce using rule 2 (Comandos -> .)
+    ROT             reduce using rule 2 (Comandos -> .)
+    DROP            reduce using rule 2 (Comandos -> .)
+    DUP             reduce using rule 2 (Comandos -> .)
+    SWAP            reduce using rule 2 (Comandos -> .)
     NUMBER          reduce using rule 2 (Comandos -> .)
     $end            reduce using rule 2 (Comandos -> .)
 
@@ -131,43 +143,52 @@ state 1
     (8) Comando -> . Conditional
     (9) Comando -> . Loop
     (10) Comando -> . Func
-    (11) Expressao -> . Expressao +
-    (12) Expressao -> . Expressao -
-    (13) Expressao -> . Expressao *
-    (14) Expressao -> . Expressao /
-    (15) Expressao -> . Expressao %
-    (16) Expressao -> . Expressao >
-    (17) Expressao -> . Expressao SUPEQ
-    (18) Expressao -> . Expressao <
-    (19) Expressao -> . Expressao INFEQ
-    (20) Expressao -> . Expressao =
-    (21) Expressao -> . Termo
-    (24) Imprime -> . DOT
-    (25) Imprime -> . DOTSTRING
-    (26) Imprime -> . EMIT
-    (27) Comment -> . COMMENT_START COMMENT_END
-    (28) Comment -> . ONELINE
-    (29) Store -> . ID !
-    (31) Variavel -> . VARIABLE ID
-    (32) Conditional -> . Expressao IF Comandos THEN
-    (33) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
-    (34) Loop -> . Expressao DO Comandos LOOP
-    (35) Loop -> . Expressao DO Comandos Expressao MLOOP
-    (36) Func -> . FUNC_START ID Comandos FUNC_END
-    (37) Func -> . ID
-    (22) Termo -> . NUMBER
-    (23) Termo -> . Unstore
-    (30) Unstore -> . ID @
+    (11) Comando -> . FuncP
+    (12) Expressao -> . Expressao +
+    (13) Expressao -> . Expressao -
+    (14) Expressao -> . Expressao *
+    (15) Expressao -> . Expressao /
+    (16) Expressao -> . Expressao %
+    (17) Expressao -> . Expressao >
+    (18) Expressao -> . Expressao SUPEQ
+    (19) Expressao -> . Expressao <
+    (20) Expressao -> . Expressao INFEQ
+    (21) Expressao -> . Expressao =
+    (22) Expressao -> . Termo
+    (25) Imprime -> . DOT
+    (26) Imprime -> . DOTSTRING
+    (27) Imprime -> . EMIT
+    (28) Comment -> . COMMENT_START COMMENT_END
+    (29) Comment -> . ONELINE
+    (30) Store -> . ID !
+    (32) Variavel -> . VARIABLE ID
+    (33) Conditional -> . Expressao IF Comandos THEN
+    (34) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
+    (35) Loop -> . Expressao DO Comandos LOOP
+    (36) Loop -> . Expressao DO Comandos Expressao MLOOP
+    (37) Func -> . FUNC_START ID Comandos FUNC_END
+    (38) Func -> . ID
+    (39) FuncP -> . ROT
+    (40) FuncP -> . DROP
+    (41) FuncP -> . DUP
+    (42) FuncP -> . SWAP
+    (23) Termo -> . NUMBER
+    (24) Termo -> . Unstore
+    (31) Unstore -> . ID @
 
-    DOT             shift and go to state 12
-    DOTSTRING       shift and go to state 13
-    EMIT            shift and go to state 14
-    COMMENT_START   shift and go to state 15
-    ONELINE         shift and go to state 16
-    ID              shift and go to state 17
-    VARIABLE        shift and go to state 18
-    FUNC_START      shift and go to state 19
-    NUMBER          shift and go to state 20
+    DOT             shift and go to state 13
+    DOTSTRING       shift and go to state 14
+    EMIT            shift and go to state 15
+    COMMENT_START   shift and go to state 16
+    ONELINE         shift and go to state 17
+    ID              shift and go to state 18
+    VARIABLE        shift and go to state 19
+    FUNC_START      shift and go to state 20
+    ROT             shift and go to state 21
+    DROP            shift and go to state 22
+    DUP             shift and go to state 23
+    SWAP            shift and go to state 24
+    NUMBER          shift and go to state 25
 
     Comando                        shift and go to state 2
     Expressao                      shift and go to state 3
@@ -178,8 +199,9 @@ state 1
     Conditional                    shift and go to state 8
     Loop                           shift and go to state 9
     Func                           shift and go to state 10
-    Termo                          shift and go to state 11
-    Unstore                        shift and go to state 21
+    FuncP                          shift and go to state 11
+    Termo                          shift and go to state 12
+    Unstore                        shift and go to state 26
 
 state 2
 
@@ -193,6 +215,10 @@ state 2
     ID              reduce using rule 1 (Comandos -> Comandos Comando .)
     VARIABLE        reduce using rule 1 (Comandos -> Comandos Comando .)
     FUNC_START      reduce using rule 1 (Comandos -> Comandos Comando .)
+    ROT             reduce using rule 1 (Comandos -> Comandos Comando .)
+    DROP            reduce using rule 1 (Comandos -> Comandos Comando .)
+    DUP             reduce using rule 1 (Comandos -> Comandos Comando .)
+    SWAP            reduce using rule 1 (Comandos -> Comandos Comando .)
     NUMBER          reduce using rule 1 (Comandos -> Comandos Comando .)
     $end            reduce using rule 1 (Comandos -> Comandos Comando .)
     THEN            reduce using rule 1 (Comandos -> Comandos Comando .)
@@ -204,20 +230,20 @@ state 2
 state 3
 
     (3) Comando -> Expressao .
-    (11) Expressao -> Expressao . +
-    (12) Expressao -> Expressao . -
-    (13) Expressao -> Expressao . *
-    (14) Expressao -> Expressao . /
-    (15) Expressao -> Expressao . %
-    (16) Expressao -> Expressao . >
-    (17) Expressao -> Expressao . SUPEQ
-    (18) Expressao -> Expressao . <
-    (19) Expressao -> Expressao . INFEQ
-    (20) Expressao -> Expressao . =
-    (32) Conditional -> Expressao . IF Comandos THEN
-    (33) Conditional -> Expressao . IF Comandos ELSE Comandos THEN
-    (34) Loop -> Expressao . DO Comandos LOOP
-    (35) Loop -> Expressao . DO Comandos Expressao MLOOP
+    (12) Expressao -> Expressao . +
+    (13) Expressao -> Expressao . -
+    (14) Expressao -> Expressao . *
+    (15) Expressao -> Expressao . /
+    (16) Expressao -> Expressao . %
+    (17) Expressao -> Expressao . >
+    (18) Expressao -> Expressao . SUPEQ
+    (19) Expressao -> Expressao . <
+    (20) Expressao -> Expressao . INFEQ
+    (21) Expressao -> Expressao . =
+    (33) Conditional -> Expressao . IF Comandos THEN
+    (34) Conditional -> Expressao . IF Comandos ELSE Comandos THEN
+    (35) Loop -> Expressao . DO Comandos LOOP
+    (36) Loop -> Expressao . DO Comandos Expressao MLOOP
 
     DOT             reduce using rule 3 (Comando -> Expressao .)
     DOTSTRING       reduce using rule 3 (Comando -> Expressao .)
@@ -227,23 +253,27 @@ state 3
     ID              reduce using rule 3 (Comando -> Expressao .)
     VARIABLE        reduce using rule 3 (Comando -> Expressao .)
     FUNC_START      reduce using rule 3 (Comando -> Expressao .)
+    ROT             reduce using rule 3 (Comando -> Expressao .)
+    DROP            reduce using rule 3 (Comando -> Expressao .)
+    DUP             reduce using rule 3 (Comando -> Expressao .)
+    SWAP            reduce using rule 3 (Comando -> Expressao .)
     NUMBER          reduce using rule 3 (Comando -> Expressao .)
     $end            reduce using rule 3 (Comando -> Expressao .)
     THEN            reduce using rule 3 (Comando -> Expressao .)
     ELSE            reduce using rule 3 (Comando -> Expressao .)
     FUNC_END        reduce using rule 3 (Comando -> Expressao .)
-    +               shift and go to state 22
-    -               shift and go to state 23
-    *               shift and go to state 24
-    /               shift and go to state 25
-    %               shift and go to state 26
-    >               shift and go to state 27
-    SUPEQ           shift and go to state 28
-    <               shift and go to state 29
-    INFEQ           shift and go to state 30
-    =               shift and go to state 31
-    IF              shift and go to state 32
-    DO              shift and go to state 33
+    +               shift and go to state 27
+    -               shift and go to state 28
+    *               shift and go to state 29
+    /               shift and go to state 30
+    %               shift and go to state 31
+    >               shift and go to state 32
+    SUPEQ           shift and go to state 33
+    <               shift and go to state 34
+    INFEQ           shift and go to state 35
+    =               shift and go to state 36
+    IF              shift and go to state 37
+    DO              shift and go to state 38
 
 
 state 4
@@ -258,6 +288,10 @@ state 4
     ID              reduce using rule 4 (Comando -> Imprime .)
     VARIABLE        reduce using rule 4 (Comando -> Imprime .)
     FUNC_START      reduce using rule 4 (Comando -> Imprime .)
+    ROT             reduce using rule 4 (Comando -> Imprime .)
+    DROP            reduce using rule 4 (Comando -> Imprime .)
+    DUP             reduce using rule 4 (Comando -> Imprime .)
+    SWAP            reduce using rule 4 (Comando -> Imprime .)
     NUMBER          reduce using rule 4 (Comando -> Imprime .)
     $end            reduce using rule 4 (Comando -> Imprime .)
     THEN            reduce using rule 4 (Comando -> Imprime .)
@@ -278,6 +312,10 @@ state 5
     ID              reduce using rule 5 (Comando -> Comment .)
     VARIABLE        reduce using rule 5 (Comando -> Comment .)
     FUNC_START      reduce using rule 5 (Comando -> Comment .)
+    ROT             reduce using rule 5 (Comando -> Comment .)
+    DROP            reduce using rule 5 (Comando -> Comment .)
+    DUP             reduce using rule 5 (Comando -> Comment .)
+    SWAP            reduce using rule 5 (Comando -> Comment .)
     NUMBER          reduce using rule 5 (Comando -> Comment .)
     $end            reduce using rule 5 (Comando -> Comment .)
     THEN            reduce using rule 5 (Comando -> Comment .)
@@ -298,6 +336,10 @@ state 6
     ID              reduce using rule 6 (Comando -> Store .)
     VARIABLE        reduce using rule 6 (Comando -> Store .)
     FUNC_START      reduce using rule 6 (Comando -> Store .)
+    ROT             reduce using rule 6 (Comando -> Store .)
+    DROP            reduce using rule 6 (Comando -> Store .)
+    DUP             reduce using rule 6 (Comando -> Store .)
+    SWAP            reduce using rule 6 (Comando -> Store .)
     NUMBER          reduce using rule 6 (Comando -> Store .)
     $end            reduce using rule 6 (Comando -> Store .)
     THEN            reduce using rule 6 (Comando -> Store .)
@@ -318,6 +360,10 @@ state 7
     ID              reduce using rule 7 (Comando -> Variavel .)
     VARIABLE        reduce using rule 7 (Comando -> Variavel .)
     FUNC_START      reduce using rule 7 (Comando -> Variavel .)
+    ROT             reduce using rule 7 (Comando -> Variavel .)
+    DROP            reduce using rule 7 (Comando -> Variavel .)
+    DUP             reduce using rule 7 (Comando -> Variavel .)
+    SWAP            reduce using rule 7 (Comando -> Variavel .)
     NUMBER          reduce using rule 7 (Comando -> Variavel .)
     $end            reduce using rule 7 (Comando -> Variavel .)
     THEN            reduce using rule 7 (Comando -> Variavel .)
@@ -338,6 +384,10 @@ state 8
     ID              reduce using rule 8 (Comando -> Conditional .)
     VARIABLE        reduce using rule 8 (Comando -> Conditional .)
     FUNC_START      reduce using rule 8 (Comando -> Conditional .)
+    ROT             reduce using rule 8 (Comando -> Conditional .)
+    DROP            reduce using rule 8 (Comando -> Conditional .)
+    DUP             reduce using rule 8 (Comando -> Conditional .)
+    SWAP            reduce using rule 8 (Comando -> Conditional .)
     NUMBER          reduce using rule 8 (Comando -> Conditional .)
     $end            reduce using rule 8 (Comando -> Conditional .)
     THEN            reduce using rule 8 (Comando -> Conditional .)
@@ -358,6 +408,10 @@ state 9
     ID              reduce using rule 9 (Comando -> Loop .)
     VARIABLE        reduce using rule 9 (Comando -> Loop .)
     FUNC_START      reduce using rule 9 (Comando -> Loop .)
+    ROT             reduce using rule 9 (Comando -> Loop .)
+    DROP            reduce using rule 9 (Comando -> Loop .)
+    DUP             reduce using rule 9 (Comando -> Loop .)
+    SWAP            reduce using rule 9 (Comando -> Loop .)
     NUMBER          reduce using rule 9 (Comando -> Loop .)
     $end            reduce using rule 9 (Comando -> Loop .)
     THEN            reduce using rule 9 (Comando -> Loop .)
@@ -378,6 +432,10 @@ state 10
     ID              reduce using rule 10 (Comando -> Func .)
     VARIABLE        reduce using rule 10 (Comando -> Func .)
     FUNC_START      reduce using rule 10 (Comando -> Func .)
+    ROT             reduce using rule 10 (Comando -> Func .)
+    DROP            reduce using rule 10 (Comando -> Func .)
+    DUP             reduce using rule 10 (Comando -> Func .)
+    SWAP            reduce using rule 10 (Comando -> Func .)
     NUMBER          reduce using rule 10 (Comando -> Func .)
     $end            reduce using rule 10 (Comando -> Func .)
     THEN            reduce using rule 10 (Comando -> Func .)
@@ -388,562 +446,754 @@ state 10
 
 state 11
 
-    (21) Expressao -> Termo .
+    (11) Comando -> FuncP .
 
-    +               reduce using rule 21 (Expressao -> Termo .)
-    -               reduce using rule 21 (Expressao -> Termo .)
-    *               reduce using rule 21 (Expressao -> Termo .)
-    /               reduce using rule 21 (Expressao -> Termo .)
-    %               reduce using rule 21 (Expressao -> Termo .)
-    >               reduce using rule 21 (Expressao -> Termo .)
-    SUPEQ           reduce using rule 21 (Expressao -> Termo .)
-    <               reduce using rule 21 (Expressao -> Termo .)
-    INFEQ           reduce using rule 21 (Expressao -> Termo .)
-    =               reduce using rule 21 (Expressao -> Termo .)
-    IF              reduce using rule 21 (Expressao -> Termo .)
-    DO              reduce using rule 21 (Expressao -> Termo .)
-    DOT             reduce using rule 21 (Expressao -> Termo .)
-    DOTSTRING       reduce using rule 21 (Expressao -> Termo .)
-    EMIT            reduce using rule 21 (Expressao -> Termo .)
-    COMMENT_START   reduce using rule 21 (Expressao -> Termo .)
-    ONELINE         reduce using rule 21 (Expressao -> Termo .)
-    ID              reduce using rule 21 (Expressao -> Termo .)
-    VARIABLE        reduce using rule 21 (Expressao -> Termo .)
-    FUNC_START      reduce using rule 21 (Expressao -> Termo .)
-    NUMBER          reduce using rule 21 (Expressao -> Termo .)
-    $end            reduce using rule 21 (Expressao -> Termo .)
-    THEN            reduce using rule 21 (Expressao -> Termo .)
-    ELSE            reduce using rule 21 (Expressao -> Termo .)
-    MLOOP           reduce using rule 21 (Expressao -> Termo .)
-    LOOP            reduce using rule 21 (Expressao -> Termo .)
-    FUNC_END        reduce using rule 21 (Expressao -> Termo .)
+    DOT             reduce using rule 11 (Comando -> FuncP .)
+    DOTSTRING       reduce using rule 11 (Comando -> FuncP .)
+    EMIT            reduce using rule 11 (Comando -> FuncP .)
+    COMMENT_START   reduce using rule 11 (Comando -> FuncP .)
+    ONELINE         reduce using rule 11 (Comando -> FuncP .)
+    ID              reduce using rule 11 (Comando -> FuncP .)
+    VARIABLE        reduce using rule 11 (Comando -> FuncP .)
+    FUNC_START      reduce using rule 11 (Comando -> FuncP .)
+    ROT             reduce using rule 11 (Comando -> FuncP .)
+    DROP            reduce using rule 11 (Comando -> FuncP .)
+    DUP             reduce using rule 11 (Comando -> FuncP .)
+    SWAP            reduce using rule 11 (Comando -> FuncP .)
+    NUMBER          reduce using rule 11 (Comando -> FuncP .)
+    $end            reduce using rule 11 (Comando -> FuncP .)
+    THEN            reduce using rule 11 (Comando -> FuncP .)
+    ELSE            reduce using rule 11 (Comando -> FuncP .)
+    LOOP            reduce using rule 11 (Comando -> FuncP .)
+    FUNC_END        reduce using rule 11 (Comando -> FuncP .)
 
 
 state 12
 
-    (24) Imprime -> DOT .
+    (22) Expressao -> Termo .
 
-    DOT             reduce using rule 24 (Imprime -> DOT .)
-    DOTSTRING       reduce using rule 24 (Imprime -> DOT .)
-    EMIT            reduce using rule 24 (Imprime -> DOT .)
-    COMMENT_START   reduce using rule 24 (Imprime -> DOT .)
-    ONELINE         reduce using rule 24 (Imprime -> DOT .)
-    ID              reduce using rule 24 (Imprime -> DOT .)
-    VARIABLE        reduce using rule 24 (Imprime -> DOT .)
-    FUNC_START      reduce using rule 24 (Imprime -> DOT .)
-    NUMBER          reduce using rule 24 (Imprime -> DOT .)
-    $end            reduce using rule 24 (Imprime -> DOT .)
-    THEN            reduce using rule 24 (Imprime -> DOT .)
-    ELSE            reduce using rule 24 (Imprime -> DOT .)
-    LOOP            reduce using rule 24 (Imprime -> DOT .)
-    FUNC_END        reduce using rule 24 (Imprime -> DOT .)
+    +               reduce using rule 22 (Expressao -> Termo .)
+    -               reduce using rule 22 (Expressao -> Termo .)
+    *               reduce using rule 22 (Expressao -> Termo .)
+    /               reduce using rule 22 (Expressao -> Termo .)
+    %               reduce using rule 22 (Expressao -> Termo .)
+    >               reduce using rule 22 (Expressao -> Termo .)
+    SUPEQ           reduce using rule 22 (Expressao -> Termo .)
+    <               reduce using rule 22 (Expressao -> Termo .)
+    INFEQ           reduce using rule 22 (Expressao -> Termo .)
+    =               reduce using rule 22 (Expressao -> Termo .)
+    IF              reduce using rule 22 (Expressao -> Termo .)
+    DO              reduce using rule 22 (Expressao -> Termo .)
+    DOT             reduce using rule 22 (Expressao -> Termo .)
+    DOTSTRING       reduce using rule 22 (Expressao -> Termo .)
+    EMIT            reduce using rule 22 (Expressao -> Termo .)
+    COMMENT_START   reduce using rule 22 (Expressao -> Termo .)
+    ONELINE         reduce using rule 22 (Expressao -> Termo .)
+    ID              reduce using rule 22 (Expressao -> Termo .)
+    VARIABLE        reduce using rule 22 (Expressao -> Termo .)
+    FUNC_START      reduce using rule 22 (Expressao -> Termo .)
+    ROT             reduce using rule 22 (Expressao -> Termo .)
+    DROP            reduce using rule 22 (Expressao -> Termo .)
+    DUP             reduce using rule 22 (Expressao -> Termo .)
+    SWAP            reduce using rule 22 (Expressao -> Termo .)
+    NUMBER          reduce using rule 22 (Expressao -> Termo .)
+    $end            reduce using rule 22 (Expressao -> Termo .)
+    THEN            reduce using rule 22 (Expressao -> Termo .)
+    ELSE            reduce using rule 22 (Expressao -> Termo .)
+    MLOOP           reduce using rule 22 (Expressao -> Termo .)
+    LOOP            reduce using rule 22 (Expressao -> Termo .)
+    FUNC_END        reduce using rule 22 (Expressao -> Termo .)
 
 
 state 13
 
-    (25) Imprime -> DOTSTRING .
+    (25) Imprime -> DOT .
 
-    DOT             reduce using rule 25 (Imprime -> DOTSTRING .)
-    DOTSTRING       reduce using rule 25 (Imprime -> DOTSTRING .)
-    EMIT            reduce using rule 25 (Imprime -> DOTSTRING .)
-    COMMENT_START   reduce using rule 25 (Imprime -> DOTSTRING .)
-    ONELINE         reduce using rule 25 (Imprime -> DOTSTRING .)
-    ID              reduce using rule 25 (Imprime -> DOTSTRING .)
-    VARIABLE        reduce using rule 25 (Imprime -> DOTSTRING .)
-    FUNC_START      reduce using rule 25 (Imprime -> DOTSTRING .)
-    NUMBER          reduce using rule 25 (Imprime -> DOTSTRING .)
-    $end            reduce using rule 25 (Imprime -> DOTSTRING .)
-    THEN            reduce using rule 25 (Imprime -> DOTSTRING .)
-    ELSE            reduce using rule 25 (Imprime -> DOTSTRING .)
-    LOOP            reduce using rule 25 (Imprime -> DOTSTRING .)
-    FUNC_END        reduce using rule 25 (Imprime -> DOTSTRING .)
+    DOT             reduce using rule 25 (Imprime -> DOT .)
+    DOTSTRING       reduce using rule 25 (Imprime -> DOT .)
+    EMIT            reduce using rule 25 (Imprime -> DOT .)
+    COMMENT_START   reduce using rule 25 (Imprime -> DOT .)
+    ONELINE         reduce using rule 25 (Imprime -> DOT .)
+    ID              reduce using rule 25 (Imprime -> DOT .)
+    VARIABLE        reduce using rule 25 (Imprime -> DOT .)
+    FUNC_START      reduce using rule 25 (Imprime -> DOT .)
+    ROT             reduce using rule 25 (Imprime -> DOT .)
+    DROP            reduce using rule 25 (Imprime -> DOT .)
+    DUP             reduce using rule 25 (Imprime -> DOT .)
+    SWAP            reduce using rule 25 (Imprime -> DOT .)
+    NUMBER          reduce using rule 25 (Imprime -> DOT .)
+    $end            reduce using rule 25 (Imprime -> DOT .)
+    THEN            reduce using rule 25 (Imprime -> DOT .)
+    ELSE            reduce using rule 25 (Imprime -> DOT .)
+    LOOP            reduce using rule 25 (Imprime -> DOT .)
+    FUNC_END        reduce using rule 25 (Imprime -> DOT .)
 
 
 state 14
 
-    (26) Imprime -> EMIT .
+    (26) Imprime -> DOTSTRING .
 
-    DOT             reduce using rule 26 (Imprime -> EMIT .)
-    DOTSTRING       reduce using rule 26 (Imprime -> EMIT .)
-    EMIT            reduce using rule 26 (Imprime -> EMIT .)
-    COMMENT_START   reduce using rule 26 (Imprime -> EMIT .)
-    ONELINE         reduce using rule 26 (Imprime -> EMIT .)
-    ID              reduce using rule 26 (Imprime -> EMIT .)
-    VARIABLE        reduce using rule 26 (Imprime -> EMIT .)
-    FUNC_START      reduce using rule 26 (Imprime -> EMIT .)
-    NUMBER          reduce using rule 26 (Imprime -> EMIT .)
-    $end            reduce using rule 26 (Imprime -> EMIT .)
-    THEN            reduce using rule 26 (Imprime -> EMIT .)
-    ELSE            reduce using rule 26 (Imprime -> EMIT .)
-    LOOP            reduce using rule 26 (Imprime -> EMIT .)
-    FUNC_END        reduce using rule 26 (Imprime -> EMIT .)
+    DOT             reduce using rule 26 (Imprime -> DOTSTRING .)
+    DOTSTRING       reduce using rule 26 (Imprime -> DOTSTRING .)
+    EMIT            reduce using rule 26 (Imprime -> DOTSTRING .)
+    COMMENT_START   reduce using rule 26 (Imprime -> DOTSTRING .)
+    ONELINE         reduce using rule 26 (Imprime -> DOTSTRING .)
+    ID              reduce using rule 26 (Imprime -> DOTSTRING .)
+    VARIABLE        reduce using rule 26 (Imprime -> DOTSTRING .)
+    FUNC_START      reduce using rule 26 (Imprime -> DOTSTRING .)
+    ROT             reduce using rule 26 (Imprime -> DOTSTRING .)
+    DROP            reduce using rule 26 (Imprime -> DOTSTRING .)
+    DUP             reduce using rule 26 (Imprime -> DOTSTRING .)
+    SWAP            reduce using rule 26 (Imprime -> DOTSTRING .)
+    NUMBER          reduce using rule 26 (Imprime -> DOTSTRING .)
+    $end            reduce using rule 26 (Imprime -> DOTSTRING .)
+    THEN            reduce using rule 26 (Imprime -> DOTSTRING .)
+    ELSE            reduce using rule 26 (Imprime -> DOTSTRING .)
+    LOOP            reduce using rule 26 (Imprime -> DOTSTRING .)
+    FUNC_END        reduce using rule 26 (Imprime -> DOTSTRING .)
 
 
 state 15
 
-    (27) Comment -> COMMENT_START . COMMENT_END
+    (27) Imprime -> EMIT .
 
-    COMMENT_END     shift and go to state 34
+    DOT             reduce using rule 27 (Imprime -> EMIT .)
+    DOTSTRING       reduce using rule 27 (Imprime -> EMIT .)
+    EMIT            reduce using rule 27 (Imprime -> EMIT .)
+    COMMENT_START   reduce using rule 27 (Imprime -> EMIT .)
+    ONELINE         reduce using rule 27 (Imprime -> EMIT .)
+    ID              reduce using rule 27 (Imprime -> EMIT .)
+    VARIABLE        reduce using rule 27 (Imprime -> EMIT .)
+    FUNC_START      reduce using rule 27 (Imprime -> EMIT .)
+    ROT             reduce using rule 27 (Imprime -> EMIT .)
+    DROP            reduce using rule 27 (Imprime -> EMIT .)
+    DUP             reduce using rule 27 (Imprime -> EMIT .)
+    SWAP            reduce using rule 27 (Imprime -> EMIT .)
+    NUMBER          reduce using rule 27 (Imprime -> EMIT .)
+    $end            reduce using rule 27 (Imprime -> EMIT .)
+    THEN            reduce using rule 27 (Imprime -> EMIT .)
+    ELSE            reduce using rule 27 (Imprime -> EMIT .)
+    LOOP            reduce using rule 27 (Imprime -> EMIT .)
+    FUNC_END        reduce using rule 27 (Imprime -> EMIT .)
 
 
 state 16
 
-    (28) Comment -> ONELINE .
+    (28) Comment -> COMMENT_START . COMMENT_END
 
-    DOT             reduce using rule 28 (Comment -> ONELINE .)
-    DOTSTRING       reduce using rule 28 (Comment -> ONELINE .)
-    EMIT            reduce using rule 28 (Comment -> ONELINE .)
-    COMMENT_START   reduce using rule 28 (Comment -> ONELINE .)
-    ONELINE         reduce using rule 28 (Comment -> ONELINE .)
-    ID              reduce using rule 28 (Comment -> ONELINE .)
-    VARIABLE        reduce using rule 28 (Comment -> ONELINE .)
-    FUNC_START      reduce using rule 28 (Comment -> ONELINE .)
-    NUMBER          reduce using rule 28 (Comment -> ONELINE .)
-    $end            reduce using rule 28 (Comment -> ONELINE .)
-    THEN            reduce using rule 28 (Comment -> ONELINE .)
-    ELSE            reduce using rule 28 (Comment -> ONELINE .)
-    LOOP            reduce using rule 28 (Comment -> ONELINE .)
-    FUNC_END        reduce using rule 28 (Comment -> ONELINE .)
+    COMMENT_END     shift and go to state 39
 
 
 state 17
 
-    (29) Store -> ID . !
-    (37) Func -> ID .
-    (30) Unstore -> ID . @
+    (29) Comment -> ONELINE .
 
-    !               shift and go to state 35
-    DOT             reduce using rule 37 (Func -> ID .)
-    DOTSTRING       reduce using rule 37 (Func -> ID .)
-    EMIT            reduce using rule 37 (Func -> ID .)
-    COMMENT_START   reduce using rule 37 (Func -> ID .)
-    ONELINE         reduce using rule 37 (Func -> ID .)
-    ID              reduce using rule 37 (Func -> ID .)
-    VARIABLE        reduce using rule 37 (Func -> ID .)
-    FUNC_START      reduce using rule 37 (Func -> ID .)
-    NUMBER          reduce using rule 37 (Func -> ID .)
-    $end            reduce using rule 37 (Func -> ID .)
-    THEN            reduce using rule 37 (Func -> ID .)
-    ELSE            reduce using rule 37 (Func -> ID .)
-    LOOP            reduce using rule 37 (Func -> ID .)
-    FUNC_END        reduce using rule 37 (Func -> ID .)
-    @               shift and go to state 36
+    DOT             reduce using rule 29 (Comment -> ONELINE .)
+    DOTSTRING       reduce using rule 29 (Comment -> ONELINE .)
+    EMIT            reduce using rule 29 (Comment -> ONELINE .)
+    COMMENT_START   reduce using rule 29 (Comment -> ONELINE .)
+    ONELINE         reduce using rule 29 (Comment -> ONELINE .)
+    ID              reduce using rule 29 (Comment -> ONELINE .)
+    VARIABLE        reduce using rule 29 (Comment -> ONELINE .)
+    FUNC_START      reduce using rule 29 (Comment -> ONELINE .)
+    ROT             reduce using rule 29 (Comment -> ONELINE .)
+    DROP            reduce using rule 29 (Comment -> ONELINE .)
+    DUP             reduce using rule 29 (Comment -> ONELINE .)
+    SWAP            reduce using rule 29 (Comment -> ONELINE .)
+    NUMBER          reduce using rule 29 (Comment -> ONELINE .)
+    $end            reduce using rule 29 (Comment -> ONELINE .)
+    THEN            reduce using rule 29 (Comment -> ONELINE .)
+    ELSE            reduce using rule 29 (Comment -> ONELINE .)
+    LOOP            reduce using rule 29 (Comment -> ONELINE .)
+    FUNC_END        reduce using rule 29 (Comment -> ONELINE .)
 
 
 state 18
 
-    (31) Variavel -> VARIABLE . ID
+    (30) Store -> ID . !
+    (38) Func -> ID .
+    (31) Unstore -> ID . @
 
-    ID              shift and go to state 37
+    !               shift and go to state 40
+    DOT             reduce using rule 38 (Func -> ID .)
+    DOTSTRING       reduce using rule 38 (Func -> ID .)
+    EMIT            reduce using rule 38 (Func -> ID .)
+    COMMENT_START   reduce using rule 38 (Func -> ID .)
+    ONELINE         reduce using rule 38 (Func -> ID .)
+    ID              reduce using rule 38 (Func -> ID .)
+    VARIABLE        reduce using rule 38 (Func -> ID .)
+    FUNC_START      reduce using rule 38 (Func -> ID .)
+    ROT             reduce using rule 38 (Func -> ID .)
+    DROP            reduce using rule 38 (Func -> ID .)
+    DUP             reduce using rule 38 (Func -> ID .)
+    SWAP            reduce using rule 38 (Func -> ID .)
+    NUMBER          reduce using rule 38 (Func -> ID .)
+    $end            reduce using rule 38 (Func -> ID .)
+    THEN            reduce using rule 38 (Func -> ID .)
+    ELSE            reduce using rule 38 (Func -> ID .)
+    LOOP            reduce using rule 38 (Func -> ID .)
+    FUNC_END        reduce using rule 38 (Func -> ID .)
+    @               shift and go to state 41
 
 
 state 19
 
-    (36) Func -> FUNC_START . ID Comandos FUNC_END
+    (32) Variavel -> VARIABLE . ID
 
-    ID              shift and go to state 38
+    ID              shift and go to state 42
 
 
 state 20
 
-    (22) Termo -> NUMBER .
+    (37) Func -> FUNC_START . ID Comandos FUNC_END
 
-    +               reduce using rule 22 (Termo -> NUMBER .)
-    -               reduce using rule 22 (Termo -> NUMBER .)
-    *               reduce using rule 22 (Termo -> NUMBER .)
-    /               reduce using rule 22 (Termo -> NUMBER .)
-    %               reduce using rule 22 (Termo -> NUMBER .)
-    >               reduce using rule 22 (Termo -> NUMBER .)
-    SUPEQ           reduce using rule 22 (Termo -> NUMBER .)
-    <               reduce using rule 22 (Termo -> NUMBER .)
-    INFEQ           reduce using rule 22 (Termo -> NUMBER .)
-    =               reduce using rule 22 (Termo -> NUMBER .)
-    IF              reduce using rule 22 (Termo -> NUMBER .)
-    DO              reduce using rule 22 (Termo -> NUMBER .)
-    DOT             reduce using rule 22 (Termo -> NUMBER .)
-    DOTSTRING       reduce using rule 22 (Termo -> NUMBER .)
-    EMIT            reduce using rule 22 (Termo -> NUMBER .)
-    COMMENT_START   reduce using rule 22 (Termo -> NUMBER .)
-    ONELINE         reduce using rule 22 (Termo -> NUMBER .)
-    ID              reduce using rule 22 (Termo -> NUMBER .)
-    VARIABLE        reduce using rule 22 (Termo -> NUMBER .)
-    FUNC_START      reduce using rule 22 (Termo -> NUMBER .)
-    NUMBER          reduce using rule 22 (Termo -> NUMBER .)
-    $end            reduce using rule 22 (Termo -> NUMBER .)
-    THEN            reduce using rule 22 (Termo -> NUMBER .)
-    ELSE            reduce using rule 22 (Termo -> NUMBER .)
-    MLOOP           reduce using rule 22 (Termo -> NUMBER .)
-    LOOP            reduce using rule 22 (Termo -> NUMBER .)
-    FUNC_END        reduce using rule 22 (Termo -> NUMBER .)
+    ID              shift and go to state 43
 
 
 state 21
 
-    (23) Termo -> Unstore .
+    (39) FuncP -> ROT .
 
-    +               reduce using rule 23 (Termo -> Unstore .)
-    -               reduce using rule 23 (Termo -> Unstore .)
-    *               reduce using rule 23 (Termo -> Unstore .)
-    /               reduce using rule 23 (Termo -> Unstore .)
-    %               reduce using rule 23 (Termo -> Unstore .)
-    >               reduce using rule 23 (Termo -> Unstore .)
-    SUPEQ           reduce using rule 23 (Termo -> Unstore .)
-    <               reduce using rule 23 (Termo -> Unstore .)
-    INFEQ           reduce using rule 23 (Termo -> Unstore .)
-    =               reduce using rule 23 (Termo -> Unstore .)
-    IF              reduce using rule 23 (Termo -> Unstore .)
-    DO              reduce using rule 23 (Termo -> Unstore .)
-    DOT             reduce using rule 23 (Termo -> Unstore .)
-    DOTSTRING       reduce using rule 23 (Termo -> Unstore .)
-    EMIT            reduce using rule 23 (Termo -> Unstore .)
-    COMMENT_START   reduce using rule 23 (Termo -> Unstore .)
-    ONELINE         reduce using rule 23 (Termo -> Unstore .)
-    ID              reduce using rule 23 (Termo -> Unstore .)
-    VARIABLE        reduce using rule 23 (Termo -> Unstore .)
-    FUNC_START      reduce using rule 23 (Termo -> Unstore .)
-    NUMBER          reduce using rule 23 (Termo -> Unstore .)
-    $end            reduce using rule 23 (Termo -> Unstore .)
-    THEN            reduce using rule 23 (Termo -> Unstore .)
-    ELSE            reduce using rule 23 (Termo -> Unstore .)
-    MLOOP           reduce using rule 23 (Termo -> Unstore .)
-    LOOP            reduce using rule 23 (Termo -> Unstore .)
-    FUNC_END        reduce using rule 23 (Termo -> Unstore .)
+    DOT             reduce using rule 39 (FuncP -> ROT .)
+    DOTSTRING       reduce using rule 39 (FuncP -> ROT .)
+    EMIT            reduce using rule 39 (FuncP -> ROT .)
+    COMMENT_START   reduce using rule 39 (FuncP -> ROT .)
+    ONELINE         reduce using rule 39 (FuncP -> ROT .)
+    ID              reduce using rule 39 (FuncP -> ROT .)
+    VARIABLE        reduce using rule 39 (FuncP -> ROT .)
+    FUNC_START      reduce using rule 39 (FuncP -> ROT .)
+    ROT             reduce using rule 39 (FuncP -> ROT .)
+    DROP            reduce using rule 39 (FuncP -> ROT .)
+    DUP             reduce using rule 39 (FuncP -> ROT .)
+    SWAP            reduce using rule 39 (FuncP -> ROT .)
+    NUMBER          reduce using rule 39 (FuncP -> ROT .)
+    $end            reduce using rule 39 (FuncP -> ROT .)
+    THEN            reduce using rule 39 (FuncP -> ROT .)
+    ELSE            reduce using rule 39 (FuncP -> ROT .)
+    LOOP            reduce using rule 39 (FuncP -> ROT .)
+    FUNC_END        reduce using rule 39 (FuncP -> ROT .)
 
 
 state 22
 
-    (11) Expressao -> Expressao + .
+    (40) FuncP -> DROP .
 
-    +               reduce using rule 11 (Expressao -> Expressao + .)
-    -               reduce using rule 11 (Expressao -> Expressao + .)
-    *               reduce using rule 11 (Expressao -> Expressao + .)
-    /               reduce using rule 11 (Expressao -> Expressao + .)
-    %               reduce using rule 11 (Expressao -> Expressao + .)
-    >               reduce using rule 11 (Expressao -> Expressao + .)
-    SUPEQ           reduce using rule 11 (Expressao -> Expressao + .)
-    <               reduce using rule 11 (Expressao -> Expressao + .)
-    INFEQ           reduce using rule 11 (Expressao -> Expressao + .)
-    =               reduce using rule 11 (Expressao -> Expressao + .)
-    IF              reduce using rule 11 (Expressao -> Expressao + .)
-    DO              reduce using rule 11 (Expressao -> Expressao + .)
-    DOT             reduce using rule 11 (Expressao -> Expressao + .)
-    DOTSTRING       reduce using rule 11 (Expressao -> Expressao + .)
-    EMIT            reduce using rule 11 (Expressao -> Expressao + .)
-    COMMENT_START   reduce using rule 11 (Expressao -> Expressao + .)
-    ONELINE         reduce using rule 11 (Expressao -> Expressao + .)
-    ID              reduce using rule 11 (Expressao -> Expressao + .)
-    VARIABLE        reduce using rule 11 (Expressao -> Expressao + .)
-    FUNC_START      reduce using rule 11 (Expressao -> Expressao + .)
-    NUMBER          reduce using rule 11 (Expressao -> Expressao + .)
-    $end            reduce using rule 11 (Expressao -> Expressao + .)
-    THEN            reduce using rule 11 (Expressao -> Expressao + .)
-    ELSE            reduce using rule 11 (Expressao -> Expressao + .)
-    MLOOP           reduce using rule 11 (Expressao -> Expressao + .)
-    LOOP            reduce using rule 11 (Expressao -> Expressao + .)
-    FUNC_END        reduce using rule 11 (Expressao -> Expressao + .)
+    DOT             reduce using rule 40 (FuncP -> DROP .)
+    DOTSTRING       reduce using rule 40 (FuncP -> DROP .)
+    EMIT            reduce using rule 40 (FuncP -> DROP .)
+    COMMENT_START   reduce using rule 40 (FuncP -> DROP .)
+    ONELINE         reduce using rule 40 (FuncP -> DROP .)
+    ID              reduce using rule 40 (FuncP -> DROP .)
+    VARIABLE        reduce using rule 40 (FuncP -> DROP .)
+    FUNC_START      reduce using rule 40 (FuncP -> DROP .)
+    ROT             reduce using rule 40 (FuncP -> DROP .)
+    DROP            reduce using rule 40 (FuncP -> DROP .)
+    DUP             reduce using rule 40 (FuncP -> DROP .)
+    SWAP            reduce using rule 40 (FuncP -> DROP .)
+    NUMBER          reduce using rule 40 (FuncP -> DROP .)
+    $end            reduce using rule 40 (FuncP -> DROP .)
+    THEN            reduce using rule 40 (FuncP -> DROP .)
+    ELSE            reduce using rule 40 (FuncP -> DROP .)
+    LOOP            reduce using rule 40 (FuncP -> DROP .)
+    FUNC_END        reduce using rule 40 (FuncP -> DROP .)
 
 
 state 23
 
-    (12) Expressao -> Expressao - .
+    (41) FuncP -> DUP .
 
-    +               reduce using rule 12 (Expressao -> Expressao - .)
-    -               reduce using rule 12 (Expressao -> Expressao - .)
-    *               reduce using rule 12 (Expressao -> Expressao - .)
-    /               reduce using rule 12 (Expressao -> Expressao - .)
-    %               reduce using rule 12 (Expressao -> Expressao - .)
-    >               reduce using rule 12 (Expressao -> Expressao - .)
-    SUPEQ           reduce using rule 12 (Expressao -> Expressao - .)
-    <               reduce using rule 12 (Expressao -> Expressao - .)
-    INFEQ           reduce using rule 12 (Expressao -> Expressao - .)
-    =               reduce using rule 12 (Expressao -> Expressao - .)
-    IF              reduce using rule 12 (Expressao -> Expressao - .)
-    DO              reduce using rule 12 (Expressao -> Expressao - .)
-    DOT             reduce using rule 12 (Expressao -> Expressao - .)
-    DOTSTRING       reduce using rule 12 (Expressao -> Expressao - .)
-    EMIT            reduce using rule 12 (Expressao -> Expressao - .)
-    COMMENT_START   reduce using rule 12 (Expressao -> Expressao - .)
-    ONELINE         reduce using rule 12 (Expressao -> Expressao - .)
-    ID              reduce using rule 12 (Expressao -> Expressao - .)
-    VARIABLE        reduce using rule 12 (Expressao -> Expressao - .)
-    FUNC_START      reduce using rule 12 (Expressao -> Expressao - .)
-    NUMBER          reduce using rule 12 (Expressao -> Expressao - .)
-    $end            reduce using rule 12 (Expressao -> Expressao - .)
-    THEN            reduce using rule 12 (Expressao -> Expressao - .)
-    ELSE            reduce using rule 12 (Expressao -> Expressao - .)
-    MLOOP           reduce using rule 12 (Expressao -> Expressao - .)
-    LOOP            reduce using rule 12 (Expressao -> Expressao - .)
-    FUNC_END        reduce using rule 12 (Expressao -> Expressao - .)
+    DOT             reduce using rule 41 (FuncP -> DUP .)
+    DOTSTRING       reduce using rule 41 (FuncP -> DUP .)
+    EMIT            reduce using rule 41 (FuncP -> DUP .)
+    COMMENT_START   reduce using rule 41 (FuncP -> DUP .)
+    ONELINE         reduce using rule 41 (FuncP -> DUP .)
+    ID              reduce using rule 41 (FuncP -> DUP .)
+    VARIABLE        reduce using rule 41 (FuncP -> DUP .)
+    FUNC_START      reduce using rule 41 (FuncP -> DUP .)
+    ROT             reduce using rule 41 (FuncP -> DUP .)
+    DROP            reduce using rule 41 (FuncP -> DUP .)
+    DUP             reduce using rule 41 (FuncP -> DUP .)
+    SWAP            reduce using rule 41 (FuncP -> DUP .)
+    NUMBER          reduce using rule 41 (FuncP -> DUP .)
+    $end            reduce using rule 41 (FuncP -> DUP .)
+    THEN            reduce using rule 41 (FuncP -> DUP .)
+    ELSE            reduce using rule 41 (FuncP -> DUP .)
+    LOOP            reduce using rule 41 (FuncP -> DUP .)
+    FUNC_END        reduce using rule 41 (FuncP -> DUP .)
 
 
 state 24
 
-    (13) Expressao -> Expressao * .
+    (42) FuncP -> SWAP .
 
-    +               reduce using rule 13 (Expressao -> Expressao * .)
-    -               reduce using rule 13 (Expressao -> Expressao * .)
-    *               reduce using rule 13 (Expressao -> Expressao * .)
-    /               reduce using rule 13 (Expressao -> Expressao * .)
-    %               reduce using rule 13 (Expressao -> Expressao * .)
-    >               reduce using rule 13 (Expressao -> Expressao * .)
-    SUPEQ           reduce using rule 13 (Expressao -> Expressao * .)
-    <               reduce using rule 13 (Expressao -> Expressao * .)
-    INFEQ           reduce using rule 13 (Expressao -> Expressao * .)
-    =               reduce using rule 13 (Expressao -> Expressao * .)
-    IF              reduce using rule 13 (Expressao -> Expressao * .)
-    DO              reduce using rule 13 (Expressao -> Expressao * .)
-    DOT             reduce using rule 13 (Expressao -> Expressao * .)
-    DOTSTRING       reduce using rule 13 (Expressao -> Expressao * .)
-    EMIT            reduce using rule 13 (Expressao -> Expressao * .)
-    COMMENT_START   reduce using rule 13 (Expressao -> Expressao * .)
-    ONELINE         reduce using rule 13 (Expressao -> Expressao * .)
-    ID              reduce using rule 13 (Expressao -> Expressao * .)
-    VARIABLE        reduce using rule 13 (Expressao -> Expressao * .)
-    FUNC_START      reduce using rule 13 (Expressao -> Expressao * .)
-    NUMBER          reduce using rule 13 (Expressao -> Expressao * .)
-    $end            reduce using rule 13 (Expressao -> Expressao * .)
-    THEN            reduce using rule 13 (Expressao -> Expressao * .)
-    ELSE            reduce using rule 13 (Expressao -> Expressao * .)
-    MLOOP           reduce using rule 13 (Expressao -> Expressao * .)
-    LOOP            reduce using rule 13 (Expressao -> Expressao * .)
-    FUNC_END        reduce using rule 13 (Expressao -> Expressao * .)
+    DOT             reduce using rule 42 (FuncP -> SWAP .)
+    DOTSTRING       reduce using rule 42 (FuncP -> SWAP .)
+    EMIT            reduce using rule 42 (FuncP -> SWAP .)
+    COMMENT_START   reduce using rule 42 (FuncP -> SWAP .)
+    ONELINE         reduce using rule 42 (FuncP -> SWAP .)
+    ID              reduce using rule 42 (FuncP -> SWAP .)
+    VARIABLE        reduce using rule 42 (FuncP -> SWAP .)
+    FUNC_START      reduce using rule 42 (FuncP -> SWAP .)
+    ROT             reduce using rule 42 (FuncP -> SWAP .)
+    DROP            reduce using rule 42 (FuncP -> SWAP .)
+    DUP             reduce using rule 42 (FuncP -> SWAP .)
+    SWAP            reduce using rule 42 (FuncP -> SWAP .)
+    NUMBER          reduce using rule 42 (FuncP -> SWAP .)
+    $end            reduce using rule 42 (FuncP -> SWAP .)
+    THEN            reduce using rule 42 (FuncP -> SWAP .)
+    ELSE            reduce using rule 42 (FuncP -> SWAP .)
+    LOOP            reduce using rule 42 (FuncP -> SWAP .)
+    FUNC_END        reduce using rule 42 (FuncP -> SWAP .)
 
 
 state 25
 
-    (14) Expressao -> Expressao / .
+    (23) Termo -> NUMBER .
 
-    +               reduce using rule 14 (Expressao -> Expressao / .)
-    -               reduce using rule 14 (Expressao -> Expressao / .)
-    *               reduce using rule 14 (Expressao -> Expressao / .)
-    /               reduce using rule 14 (Expressao -> Expressao / .)
-    %               reduce using rule 14 (Expressao -> Expressao / .)
-    >               reduce using rule 14 (Expressao -> Expressao / .)
-    SUPEQ           reduce using rule 14 (Expressao -> Expressao / .)
-    <               reduce using rule 14 (Expressao -> Expressao / .)
-    INFEQ           reduce using rule 14 (Expressao -> Expressao / .)
-    =               reduce using rule 14 (Expressao -> Expressao / .)
-    IF              reduce using rule 14 (Expressao -> Expressao / .)
-    DO              reduce using rule 14 (Expressao -> Expressao / .)
-    DOT             reduce using rule 14 (Expressao -> Expressao / .)
-    DOTSTRING       reduce using rule 14 (Expressao -> Expressao / .)
-    EMIT            reduce using rule 14 (Expressao -> Expressao / .)
-    COMMENT_START   reduce using rule 14 (Expressao -> Expressao / .)
-    ONELINE         reduce using rule 14 (Expressao -> Expressao / .)
-    ID              reduce using rule 14 (Expressao -> Expressao / .)
-    VARIABLE        reduce using rule 14 (Expressao -> Expressao / .)
-    FUNC_START      reduce using rule 14 (Expressao -> Expressao / .)
-    NUMBER          reduce using rule 14 (Expressao -> Expressao / .)
-    $end            reduce using rule 14 (Expressao -> Expressao / .)
-    THEN            reduce using rule 14 (Expressao -> Expressao / .)
-    ELSE            reduce using rule 14 (Expressao -> Expressao / .)
-    MLOOP           reduce using rule 14 (Expressao -> Expressao / .)
-    LOOP            reduce using rule 14 (Expressao -> Expressao / .)
-    FUNC_END        reduce using rule 14 (Expressao -> Expressao / .)
+    +               reduce using rule 23 (Termo -> NUMBER .)
+    -               reduce using rule 23 (Termo -> NUMBER .)
+    *               reduce using rule 23 (Termo -> NUMBER .)
+    /               reduce using rule 23 (Termo -> NUMBER .)
+    %               reduce using rule 23 (Termo -> NUMBER .)
+    >               reduce using rule 23 (Termo -> NUMBER .)
+    SUPEQ           reduce using rule 23 (Termo -> NUMBER .)
+    <               reduce using rule 23 (Termo -> NUMBER .)
+    INFEQ           reduce using rule 23 (Termo -> NUMBER .)
+    =               reduce using rule 23 (Termo -> NUMBER .)
+    IF              reduce using rule 23 (Termo -> NUMBER .)
+    DO              reduce using rule 23 (Termo -> NUMBER .)
+    DOT             reduce using rule 23 (Termo -> NUMBER .)
+    DOTSTRING       reduce using rule 23 (Termo -> NUMBER .)
+    EMIT            reduce using rule 23 (Termo -> NUMBER .)
+    COMMENT_START   reduce using rule 23 (Termo -> NUMBER .)
+    ONELINE         reduce using rule 23 (Termo -> NUMBER .)
+    ID              reduce using rule 23 (Termo -> NUMBER .)
+    VARIABLE        reduce using rule 23 (Termo -> NUMBER .)
+    FUNC_START      reduce using rule 23 (Termo -> NUMBER .)
+    ROT             reduce using rule 23 (Termo -> NUMBER .)
+    DROP            reduce using rule 23 (Termo -> NUMBER .)
+    DUP             reduce using rule 23 (Termo -> NUMBER .)
+    SWAP            reduce using rule 23 (Termo -> NUMBER .)
+    NUMBER          reduce using rule 23 (Termo -> NUMBER .)
+    $end            reduce using rule 23 (Termo -> NUMBER .)
+    THEN            reduce using rule 23 (Termo -> NUMBER .)
+    ELSE            reduce using rule 23 (Termo -> NUMBER .)
+    MLOOP           reduce using rule 23 (Termo -> NUMBER .)
+    LOOP            reduce using rule 23 (Termo -> NUMBER .)
+    FUNC_END        reduce using rule 23 (Termo -> NUMBER .)
 
 
 state 26
 
-    (15) Expressao -> Expressao % .
+    (24) Termo -> Unstore .
 
-    +               reduce using rule 15 (Expressao -> Expressao % .)
-    -               reduce using rule 15 (Expressao -> Expressao % .)
-    *               reduce using rule 15 (Expressao -> Expressao % .)
-    /               reduce using rule 15 (Expressao -> Expressao % .)
-    %               reduce using rule 15 (Expressao -> Expressao % .)
-    >               reduce using rule 15 (Expressao -> Expressao % .)
-    SUPEQ           reduce using rule 15 (Expressao -> Expressao % .)
-    <               reduce using rule 15 (Expressao -> Expressao % .)
-    INFEQ           reduce using rule 15 (Expressao -> Expressao % .)
-    =               reduce using rule 15 (Expressao -> Expressao % .)
-    IF              reduce using rule 15 (Expressao -> Expressao % .)
-    DO              reduce using rule 15 (Expressao -> Expressao % .)
-    DOT             reduce using rule 15 (Expressao -> Expressao % .)
-    DOTSTRING       reduce using rule 15 (Expressao -> Expressao % .)
-    EMIT            reduce using rule 15 (Expressao -> Expressao % .)
-    COMMENT_START   reduce using rule 15 (Expressao -> Expressao % .)
-    ONELINE         reduce using rule 15 (Expressao -> Expressao % .)
-    ID              reduce using rule 15 (Expressao -> Expressao % .)
-    VARIABLE        reduce using rule 15 (Expressao -> Expressao % .)
-    FUNC_START      reduce using rule 15 (Expressao -> Expressao % .)
-    NUMBER          reduce using rule 15 (Expressao -> Expressao % .)
-    $end            reduce using rule 15 (Expressao -> Expressao % .)
-    THEN            reduce using rule 15 (Expressao -> Expressao % .)
-    ELSE            reduce using rule 15 (Expressao -> Expressao % .)
-    MLOOP           reduce using rule 15 (Expressao -> Expressao % .)
-    LOOP            reduce using rule 15 (Expressao -> Expressao % .)
-    FUNC_END        reduce using rule 15 (Expressao -> Expressao % .)
+    +               reduce using rule 24 (Termo -> Unstore .)
+    -               reduce using rule 24 (Termo -> Unstore .)
+    *               reduce using rule 24 (Termo -> Unstore .)
+    /               reduce using rule 24 (Termo -> Unstore .)
+    %               reduce using rule 24 (Termo -> Unstore .)
+    >               reduce using rule 24 (Termo -> Unstore .)
+    SUPEQ           reduce using rule 24 (Termo -> Unstore .)
+    <               reduce using rule 24 (Termo -> Unstore .)
+    INFEQ           reduce using rule 24 (Termo -> Unstore .)
+    =               reduce using rule 24 (Termo -> Unstore .)
+    IF              reduce using rule 24 (Termo -> Unstore .)
+    DO              reduce using rule 24 (Termo -> Unstore .)
+    DOT             reduce using rule 24 (Termo -> Unstore .)
+    DOTSTRING       reduce using rule 24 (Termo -> Unstore .)
+    EMIT            reduce using rule 24 (Termo -> Unstore .)
+    COMMENT_START   reduce using rule 24 (Termo -> Unstore .)
+    ONELINE         reduce using rule 24 (Termo -> Unstore .)
+    ID              reduce using rule 24 (Termo -> Unstore .)
+    VARIABLE        reduce using rule 24 (Termo -> Unstore .)
+    FUNC_START      reduce using rule 24 (Termo -> Unstore .)
+    ROT             reduce using rule 24 (Termo -> Unstore .)
+    DROP            reduce using rule 24 (Termo -> Unstore .)
+    DUP             reduce using rule 24 (Termo -> Unstore .)
+    SWAP            reduce using rule 24 (Termo -> Unstore .)
+    NUMBER          reduce using rule 24 (Termo -> Unstore .)
+    $end            reduce using rule 24 (Termo -> Unstore .)
+    THEN            reduce using rule 24 (Termo -> Unstore .)
+    ELSE            reduce using rule 24 (Termo -> Unstore .)
+    MLOOP           reduce using rule 24 (Termo -> Unstore .)
+    LOOP            reduce using rule 24 (Termo -> Unstore .)
+    FUNC_END        reduce using rule 24 (Termo -> Unstore .)
 
 
 state 27
 
-    (16) Expressao -> Expressao > .
+    (12) Expressao -> Expressao + .
 
-    +               reduce using rule 16 (Expressao -> Expressao > .)
-    -               reduce using rule 16 (Expressao -> Expressao > .)
-    *               reduce using rule 16 (Expressao -> Expressao > .)
-    /               reduce using rule 16 (Expressao -> Expressao > .)
-    %               reduce using rule 16 (Expressao -> Expressao > .)
-    >               reduce using rule 16 (Expressao -> Expressao > .)
-    SUPEQ           reduce using rule 16 (Expressao -> Expressao > .)
-    <               reduce using rule 16 (Expressao -> Expressao > .)
-    INFEQ           reduce using rule 16 (Expressao -> Expressao > .)
-    =               reduce using rule 16 (Expressao -> Expressao > .)
-    IF              reduce using rule 16 (Expressao -> Expressao > .)
-    DO              reduce using rule 16 (Expressao -> Expressao > .)
-    DOT             reduce using rule 16 (Expressao -> Expressao > .)
-    DOTSTRING       reduce using rule 16 (Expressao -> Expressao > .)
-    EMIT            reduce using rule 16 (Expressao -> Expressao > .)
-    COMMENT_START   reduce using rule 16 (Expressao -> Expressao > .)
-    ONELINE         reduce using rule 16 (Expressao -> Expressao > .)
-    ID              reduce using rule 16 (Expressao -> Expressao > .)
-    VARIABLE        reduce using rule 16 (Expressao -> Expressao > .)
-    FUNC_START      reduce using rule 16 (Expressao -> Expressao > .)
-    NUMBER          reduce using rule 16 (Expressao -> Expressao > .)
-    $end            reduce using rule 16 (Expressao -> Expressao > .)
-    THEN            reduce using rule 16 (Expressao -> Expressao > .)
-    ELSE            reduce using rule 16 (Expressao -> Expressao > .)
-    MLOOP           reduce using rule 16 (Expressao -> Expressao > .)
-    LOOP            reduce using rule 16 (Expressao -> Expressao > .)
-    FUNC_END        reduce using rule 16 (Expressao -> Expressao > .)
+    +               reduce using rule 12 (Expressao -> Expressao + .)
+    -               reduce using rule 12 (Expressao -> Expressao + .)
+    *               reduce using rule 12 (Expressao -> Expressao + .)
+    /               reduce using rule 12 (Expressao -> Expressao + .)
+    %               reduce using rule 12 (Expressao -> Expressao + .)
+    >               reduce using rule 12 (Expressao -> Expressao + .)
+    SUPEQ           reduce using rule 12 (Expressao -> Expressao + .)
+    <               reduce using rule 12 (Expressao -> Expressao + .)
+    INFEQ           reduce using rule 12 (Expressao -> Expressao + .)
+    =               reduce using rule 12 (Expressao -> Expressao + .)
+    IF              reduce using rule 12 (Expressao -> Expressao + .)
+    DO              reduce using rule 12 (Expressao -> Expressao + .)
+    DOT             reduce using rule 12 (Expressao -> Expressao + .)
+    DOTSTRING       reduce using rule 12 (Expressao -> Expressao + .)
+    EMIT            reduce using rule 12 (Expressao -> Expressao + .)
+    COMMENT_START   reduce using rule 12 (Expressao -> Expressao + .)
+    ONELINE         reduce using rule 12 (Expressao -> Expressao + .)
+    ID              reduce using rule 12 (Expressao -> Expressao + .)
+    VARIABLE        reduce using rule 12 (Expressao -> Expressao + .)
+    FUNC_START      reduce using rule 12 (Expressao -> Expressao + .)
+    ROT             reduce using rule 12 (Expressao -> Expressao + .)
+    DROP            reduce using rule 12 (Expressao -> Expressao + .)
+    DUP             reduce using rule 12 (Expressao -> Expressao + .)
+    SWAP            reduce using rule 12 (Expressao -> Expressao + .)
+    NUMBER          reduce using rule 12 (Expressao -> Expressao + .)
+    $end            reduce using rule 12 (Expressao -> Expressao + .)
+    THEN            reduce using rule 12 (Expressao -> Expressao + .)
+    ELSE            reduce using rule 12 (Expressao -> Expressao + .)
+    MLOOP           reduce using rule 12 (Expressao -> Expressao + .)
+    LOOP            reduce using rule 12 (Expressao -> Expressao + .)
+    FUNC_END        reduce using rule 12 (Expressao -> Expressao + .)
 
 
 state 28
 
-    (17) Expressao -> Expressao SUPEQ .
+    (13) Expressao -> Expressao - .
 
-    +               reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    -               reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    *               reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    /               reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    %               reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    >               reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    SUPEQ           reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    <               reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    INFEQ           reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    =               reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    IF              reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    DO              reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    DOT             reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    DOTSTRING       reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    EMIT            reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    COMMENT_START   reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    ONELINE         reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    ID              reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    VARIABLE        reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    FUNC_START      reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    NUMBER          reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    $end            reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    THEN            reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    ELSE            reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    MLOOP           reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    LOOP            reduce using rule 17 (Expressao -> Expressao SUPEQ .)
-    FUNC_END        reduce using rule 17 (Expressao -> Expressao SUPEQ .)
+    +               reduce using rule 13 (Expressao -> Expressao - .)
+    -               reduce using rule 13 (Expressao -> Expressao - .)
+    *               reduce using rule 13 (Expressao -> Expressao - .)
+    /               reduce using rule 13 (Expressao -> Expressao - .)
+    %               reduce using rule 13 (Expressao -> Expressao - .)
+    >               reduce using rule 13 (Expressao -> Expressao - .)
+    SUPEQ           reduce using rule 13 (Expressao -> Expressao - .)
+    <               reduce using rule 13 (Expressao -> Expressao - .)
+    INFEQ           reduce using rule 13 (Expressao -> Expressao - .)
+    =               reduce using rule 13 (Expressao -> Expressao - .)
+    IF              reduce using rule 13 (Expressao -> Expressao - .)
+    DO              reduce using rule 13 (Expressao -> Expressao - .)
+    DOT             reduce using rule 13 (Expressao -> Expressao - .)
+    DOTSTRING       reduce using rule 13 (Expressao -> Expressao - .)
+    EMIT            reduce using rule 13 (Expressao -> Expressao - .)
+    COMMENT_START   reduce using rule 13 (Expressao -> Expressao - .)
+    ONELINE         reduce using rule 13 (Expressao -> Expressao - .)
+    ID              reduce using rule 13 (Expressao -> Expressao - .)
+    VARIABLE        reduce using rule 13 (Expressao -> Expressao - .)
+    FUNC_START      reduce using rule 13 (Expressao -> Expressao - .)
+    ROT             reduce using rule 13 (Expressao -> Expressao - .)
+    DROP            reduce using rule 13 (Expressao -> Expressao - .)
+    DUP             reduce using rule 13 (Expressao -> Expressao - .)
+    SWAP            reduce using rule 13 (Expressao -> Expressao - .)
+    NUMBER          reduce using rule 13 (Expressao -> Expressao - .)
+    $end            reduce using rule 13 (Expressao -> Expressao - .)
+    THEN            reduce using rule 13 (Expressao -> Expressao - .)
+    ELSE            reduce using rule 13 (Expressao -> Expressao - .)
+    MLOOP           reduce using rule 13 (Expressao -> Expressao - .)
+    LOOP            reduce using rule 13 (Expressao -> Expressao - .)
+    FUNC_END        reduce using rule 13 (Expressao -> Expressao - .)
 
 
 state 29
 
-    (18) Expressao -> Expressao < .
+    (14) Expressao -> Expressao * .
 
-    +               reduce using rule 18 (Expressao -> Expressao < .)
-    -               reduce using rule 18 (Expressao -> Expressao < .)
-    *               reduce using rule 18 (Expressao -> Expressao < .)
-    /               reduce using rule 18 (Expressao -> Expressao < .)
-    %               reduce using rule 18 (Expressao -> Expressao < .)
-    >               reduce using rule 18 (Expressao -> Expressao < .)
-    SUPEQ           reduce using rule 18 (Expressao -> Expressao < .)
-    <               reduce using rule 18 (Expressao -> Expressao < .)
-    INFEQ           reduce using rule 18 (Expressao -> Expressao < .)
-    =               reduce using rule 18 (Expressao -> Expressao < .)
-    IF              reduce using rule 18 (Expressao -> Expressao < .)
-    DO              reduce using rule 18 (Expressao -> Expressao < .)
-    DOT             reduce using rule 18 (Expressao -> Expressao < .)
-    DOTSTRING       reduce using rule 18 (Expressao -> Expressao < .)
-    EMIT            reduce using rule 18 (Expressao -> Expressao < .)
-    COMMENT_START   reduce using rule 18 (Expressao -> Expressao < .)
-    ONELINE         reduce using rule 18 (Expressao -> Expressao < .)
-    ID              reduce using rule 18 (Expressao -> Expressao < .)
-    VARIABLE        reduce using rule 18 (Expressao -> Expressao < .)
-    FUNC_START      reduce using rule 18 (Expressao -> Expressao < .)
-    NUMBER          reduce using rule 18 (Expressao -> Expressao < .)
-    $end            reduce using rule 18 (Expressao -> Expressao < .)
-    THEN            reduce using rule 18 (Expressao -> Expressao < .)
-    ELSE            reduce using rule 18 (Expressao -> Expressao < .)
-    MLOOP           reduce using rule 18 (Expressao -> Expressao < .)
-    LOOP            reduce using rule 18 (Expressao -> Expressao < .)
-    FUNC_END        reduce using rule 18 (Expressao -> Expressao < .)
+    +               reduce using rule 14 (Expressao -> Expressao * .)
+    -               reduce using rule 14 (Expressao -> Expressao * .)
+    *               reduce using rule 14 (Expressao -> Expressao * .)
+    /               reduce using rule 14 (Expressao -> Expressao * .)
+    %               reduce using rule 14 (Expressao -> Expressao * .)
+    >               reduce using rule 14 (Expressao -> Expressao * .)
+    SUPEQ           reduce using rule 14 (Expressao -> Expressao * .)
+    <               reduce using rule 14 (Expressao -> Expressao * .)
+    INFEQ           reduce using rule 14 (Expressao -> Expressao * .)
+    =               reduce using rule 14 (Expressao -> Expressao * .)
+    IF              reduce using rule 14 (Expressao -> Expressao * .)
+    DO              reduce using rule 14 (Expressao -> Expressao * .)
+    DOT             reduce using rule 14 (Expressao -> Expressao * .)
+    DOTSTRING       reduce using rule 14 (Expressao -> Expressao * .)
+    EMIT            reduce using rule 14 (Expressao -> Expressao * .)
+    COMMENT_START   reduce using rule 14 (Expressao -> Expressao * .)
+    ONELINE         reduce using rule 14 (Expressao -> Expressao * .)
+    ID              reduce using rule 14 (Expressao -> Expressao * .)
+    VARIABLE        reduce using rule 14 (Expressao -> Expressao * .)
+    FUNC_START      reduce using rule 14 (Expressao -> Expressao * .)
+    ROT             reduce using rule 14 (Expressao -> Expressao * .)
+    DROP            reduce using rule 14 (Expressao -> Expressao * .)
+    DUP             reduce using rule 14 (Expressao -> Expressao * .)
+    SWAP            reduce using rule 14 (Expressao -> Expressao * .)
+    NUMBER          reduce using rule 14 (Expressao -> Expressao * .)
+    $end            reduce using rule 14 (Expressao -> Expressao * .)
+    THEN            reduce using rule 14 (Expressao -> Expressao * .)
+    ELSE            reduce using rule 14 (Expressao -> Expressao * .)
+    MLOOP           reduce using rule 14 (Expressao -> Expressao * .)
+    LOOP            reduce using rule 14 (Expressao -> Expressao * .)
+    FUNC_END        reduce using rule 14 (Expressao -> Expressao * .)
 
 
 state 30
 
-    (19) Expressao -> Expressao INFEQ .
+    (15) Expressao -> Expressao / .
 
-    +               reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    -               reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    *               reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    /               reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    %               reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    >               reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    SUPEQ           reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    <               reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    INFEQ           reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    =               reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    IF              reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    DO              reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    DOT             reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    DOTSTRING       reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    EMIT            reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    COMMENT_START   reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    ONELINE         reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    ID              reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    VARIABLE        reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    FUNC_START      reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    NUMBER          reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    $end            reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    THEN            reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    ELSE            reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    MLOOP           reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    LOOP            reduce using rule 19 (Expressao -> Expressao INFEQ .)
-    FUNC_END        reduce using rule 19 (Expressao -> Expressao INFEQ .)
+    +               reduce using rule 15 (Expressao -> Expressao / .)
+    -               reduce using rule 15 (Expressao -> Expressao / .)
+    *               reduce using rule 15 (Expressao -> Expressao / .)
+    /               reduce using rule 15 (Expressao -> Expressao / .)
+    %               reduce using rule 15 (Expressao -> Expressao / .)
+    >               reduce using rule 15 (Expressao -> Expressao / .)
+    SUPEQ           reduce using rule 15 (Expressao -> Expressao / .)
+    <               reduce using rule 15 (Expressao -> Expressao / .)
+    INFEQ           reduce using rule 15 (Expressao -> Expressao / .)
+    =               reduce using rule 15 (Expressao -> Expressao / .)
+    IF              reduce using rule 15 (Expressao -> Expressao / .)
+    DO              reduce using rule 15 (Expressao -> Expressao / .)
+    DOT             reduce using rule 15 (Expressao -> Expressao / .)
+    DOTSTRING       reduce using rule 15 (Expressao -> Expressao / .)
+    EMIT            reduce using rule 15 (Expressao -> Expressao / .)
+    COMMENT_START   reduce using rule 15 (Expressao -> Expressao / .)
+    ONELINE         reduce using rule 15 (Expressao -> Expressao / .)
+    ID              reduce using rule 15 (Expressao -> Expressao / .)
+    VARIABLE        reduce using rule 15 (Expressao -> Expressao / .)
+    FUNC_START      reduce using rule 15 (Expressao -> Expressao / .)
+    ROT             reduce using rule 15 (Expressao -> Expressao / .)
+    DROP            reduce using rule 15 (Expressao -> Expressao / .)
+    DUP             reduce using rule 15 (Expressao -> Expressao / .)
+    SWAP            reduce using rule 15 (Expressao -> Expressao / .)
+    NUMBER          reduce using rule 15 (Expressao -> Expressao / .)
+    $end            reduce using rule 15 (Expressao -> Expressao / .)
+    THEN            reduce using rule 15 (Expressao -> Expressao / .)
+    ELSE            reduce using rule 15 (Expressao -> Expressao / .)
+    MLOOP           reduce using rule 15 (Expressao -> Expressao / .)
+    LOOP            reduce using rule 15 (Expressao -> Expressao / .)
+    FUNC_END        reduce using rule 15 (Expressao -> Expressao / .)
 
 
 state 31
 
-    (20) Expressao -> Expressao = .
+    (16) Expressao -> Expressao % .
 
-    +               reduce using rule 20 (Expressao -> Expressao = .)
-    -               reduce using rule 20 (Expressao -> Expressao = .)
-    *               reduce using rule 20 (Expressao -> Expressao = .)
-    /               reduce using rule 20 (Expressao -> Expressao = .)
-    %               reduce using rule 20 (Expressao -> Expressao = .)
-    >               reduce using rule 20 (Expressao -> Expressao = .)
-    SUPEQ           reduce using rule 20 (Expressao -> Expressao = .)
-    <               reduce using rule 20 (Expressao -> Expressao = .)
-    INFEQ           reduce using rule 20 (Expressao -> Expressao = .)
-    =               reduce using rule 20 (Expressao -> Expressao = .)
-    IF              reduce using rule 20 (Expressao -> Expressao = .)
-    DO              reduce using rule 20 (Expressao -> Expressao = .)
-    DOT             reduce using rule 20 (Expressao -> Expressao = .)
-    DOTSTRING       reduce using rule 20 (Expressao -> Expressao = .)
-    EMIT            reduce using rule 20 (Expressao -> Expressao = .)
-    COMMENT_START   reduce using rule 20 (Expressao -> Expressao = .)
-    ONELINE         reduce using rule 20 (Expressao -> Expressao = .)
-    ID              reduce using rule 20 (Expressao -> Expressao = .)
-    VARIABLE        reduce using rule 20 (Expressao -> Expressao = .)
-    FUNC_START      reduce using rule 20 (Expressao -> Expressao = .)
-    NUMBER          reduce using rule 20 (Expressao -> Expressao = .)
-    $end            reduce using rule 20 (Expressao -> Expressao = .)
-    THEN            reduce using rule 20 (Expressao -> Expressao = .)
-    ELSE            reduce using rule 20 (Expressao -> Expressao = .)
-    MLOOP           reduce using rule 20 (Expressao -> Expressao = .)
-    LOOP            reduce using rule 20 (Expressao -> Expressao = .)
-    FUNC_END        reduce using rule 20 (Expressao -> Expressao = .)
+    +               reduce using rule 16 (Expressao -> Expressao % .)
+    -               reduce using rule 16 (Expressao -> Expressao % .)
+    *               reduce using rule 16 (Expressao -> Expressao % .)
+    /               reduce using rule 16 (Expressao -> Expressao % .)
+    %               reduce using rule 16 (Expressao -> Expressao % .)
+    >               reduce using rule 16 (Expressao -> Expressao % .)
+    SUPEQ           reduce using rule 16 (Expressao -> Expressao % .)
+    <               reduce using rule 16 (Expressao -> Expressao % .)
+    INFEQ           reduce using rule 16 (Expressao -> Expressao % .)
+    =               reduce using rule 16 (Expressao -> Expressao % .)
+    IF              reduce using rule 16 (Expressao -> Expressao % .)
+    DO              reduce using rule 16 (Expressao -> Expressao % .)
+    DOT             reduce using rule 16 (Expressao -> Expressao % .)
+    DOTSTRING       reduce using rule 16 (Expressao -> Expressao % .)
+    EMIT            reduce using rule 16 (Expressao -> Expressao % .)
+    COMMENT_START   reduce using rule 16 (Expressao -> Expressao % .)
+    ONELINE         reduce using rule 16 (Expressao -> Expressao % .)
+    ID              reduce using rule 16 (Expressao -> Expressao % .)
+    VARIABLE        reduce using rule 16 (Expressao -> Expressao % .)
+    FUNC_START      reduce using rule 16 (Expressao -> Expressao % .)
+    ROT             reduce using rule 16 (Expressao -> Expressao % .)
+    DROP            reduce using rule 16 (Expressao -> Expressao % .)
+    DUP             reduce using rule 16 (Expressao -> Expressao % .)
+    SWAP            reduce using rule 16 (Expressao -> Expressao % .)
+    NUMBER          reduce using rule 16 (Expressao -> Expressao % .)
+    $end            reduce using rule 16 (Expressao -> Expressao % .)
+    THEN            reduce using rule 16 (Expressao -> Expressao % .)
+    ELSE            reduce using rule 16 (Expressao -> Expressao % .)
+    MLOOP           reduce using rule 16 (Expressao -> Expressao % .)
+    LOOP            reduce using rule 16 (Expressao -> Expressao % .)
+    FUNC_END        reduce using rule 16 (Expressao -> Expressao % .)
 
 
 state 32
 
-    (32) Conditional -> Expressao IF . Comandos THEN
-    (33) Conditional -> Expressao IF . Comandos ELSE Comandos THEN
+    (17) Expressao -> Expressao > .
+
+    +               reduce using rule 17 (Expressao -> Expressao > .)
+    -               reduce using rule 17 (Expressao -> Expressao > .)
+    *               reduce using rule 17 (Expressao -> Expressao > .)
+    /               reduce using rule 17 (Expressao -> Expressao > .)
+    %               reduce using rule 17 (Expressao -> Expressao > .)
+    >               reduce using rule 17 (Expressao -> Expressao > .)
+    SUPEQ           reduce using rule 17 (Expressao -> Expressao > .)
+    <               reduce using rule 17 (Expressao -> Expressao > .)
+    INFEQ           reduce using rule 17 (Expressao -> Expressao > .)
+    =               reduce using rule 17 (Expressao -> Expressao > .)
+    IF              reduce using rule 17 (Expressao -> Expressao > .)
+    DO              reduce using rule 17 (Expressao -> Expressao > .)
+    DOT             reduce using rule 17 (Expressao -> Expressao > .)
+    DOTSTRING       reduce using rule 17 (Expressao -> Expressao > .)
+    EMIT            reduce using rule 17 (Expressao -> Expressao > .)
+    COMMENT_START   reduce using rule 17 (Expressao -> Expressao > .)
+    ONELINE         reduce using rule 17 (Expressao -> Expressao > .)
+    ID              reduce using rule 17 (Expressao -> Expressao > .)
+    VARIABLE        reduce using rule 17 (Expressao -> Expressao > .)
+    FUNC_START      reduce using rule 17 (Expressao -> Expressao > .)
+    ROT             reduce using rule 17 (Expressao -> Expressao > .)
+    DROP            reduce using rule 17 (Expressao -> Expressao > .)
+    DUP             reduce using rule 17 (Expressao -> Expressao > .)
+    SWAP            reduce using rule 17 (Expressao -> Expressao > .)
+    NUMBER          reduce using rule 17 (Expressao -> Expressao > .)
+    $end            reduce using rule 17 (Expressao -> Expressao > .)
+    THEN            reduce using rule 17 (Expressao -> Expressao > .)
+    ELSE            reduce using rule 17 (Expressao -> Expressao > .)
+    MLOOP           reduce using rule 17 (Expressao -> Expressao > .)
+    LOOP            reduce using rule 17 (Expressao -> Expressao > .)
+    FUNC_END        reduce using rule 17 (Expressao -> Expressao > .)
+
+
+state 33
+
+    (18) Expressao -> Expressao SUPEQ .
+
+    +               reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    -               reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    *               reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    /               reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    %               reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    >               reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    SUPEQ           reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    <               reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    INFEQ           reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    =               reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    IF              reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    DO              reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    DOT             reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    DOTSTRING       reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    EMIT            reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    COMMENT_START   reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    ONELINE         reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    ID              reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    VARIABLE        reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    FUNC_START      reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    ROT             reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    DROP            reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    DUP             reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    SWAP            reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    NUMBER          reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    $end            reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    THEN            reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    ELSE            reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    MLOOP           reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    LOOP            reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+    FUNC_END        reduce using rule 18 (Expressao -> Expressao SUPEQ .)
+
+
+state 34
+
+    (19) Expressao -> Expressao < .
+
+    +               reduce using rule 19 (Expressao -> Expressao < .)
+    -               reduce using rule 19 (Expressao -> Expressao < .)
+    *               reduce using rule 19 (Expressao -> Expressao < .)
+    /               reduce using rule 19 (Expressao -> Expressao < .)
+    %               reduce using rule 19 (Expressao -> Expressao < .)
+    >               reduce using rule 19 (Expressao -> Expressao < .)
+    SUPEQ           reduce using rule 19 (Expressao -> Expressao < .)
+    <               reduce using rule 19 (Expressao -> Expressao < .)
+    INFEQ           reduce using rule 19 (Expressao -> Expressao < .)
+    =               reduce using rule 19 (Expressao -> Expressao < .)
+    IF              reduce using rule 19 (Expressao -> Expressao < .)
+    DO              reduce using rule 19 (Expressao -> Expressao < .)
+    DOT             reduce using rule 19 (Expressao -> Expressao < .)
+    DOTSTRING       reduce using rule 19 (Expressao -> Expressao < .)
+    EMIT            reduce using rule 19 (Expressao -> Expressao < .)
+    COMMENT_START   reduce using rule 19 (Expressao -> Expressao < .)
+    ONELINE         reduce using rule 19 (Expressao -> Expressao < .)
+    ID              reduce using rule 19 (Expressao -> Expressao < .)
+    VARIABLE        reduce using rule 19 (Expressao -> Expressao < .)
+    FUNC_START      reduce using rule 19 (Expressao -> Expressao < .)
+    ROT             reduce using rule 19 (Expressao -> Expressao < .)
+    DROP            reduce using rule 19 (Expressao -> Expressao < .)
+    DUP             reduce using rule 19 (Expressao -> Expressao < .)
+    SWAP            reduce using rule 19 (Expressao -> Expressao < .)
+    NUMBER          reduce using rule 19 (Expressao -> Expressao < .)
+    $end            reduce using rule 19 (Expressao -> Expressao < .)
+    THEN            reduce using rule 19 (Expressao -> Expressao < .)
+    ELSE            reduce using rule 19 (Expressao -> Expressao < .)
+    MLOOP           reduce using rule 19 (Expressao -> Expressao < .)
+    LOOP            reduce using rule 19 (Expressao -> Expressao < .)
+    FUNC_END        reduce using rule 19 (Expressao -> Expressao < .)
+
+
+state 35
+
+    (20) Expressao -> Expressao INFEQ .
+
+    +               reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    -               reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    *               reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    /               reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    %               reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    >               reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    SUPEQ           reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    <               reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    INFEQ           reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    =               reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    IF              reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    DO              reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    DOT             reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    DOTSTRING       reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    EMIT            reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    COMMENT_START   reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    ONELINE         reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    ID              reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    VARIABLE        reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    FUNC_START      reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    ROT             reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    DROP            reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    DUP             reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    SWAP            reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    NUMBER          reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    $end            reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    THEN            reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    ELSE            reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    MLOOP           reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    LOOP            reduce using rule 20 (Expressao -> Expressao INFEQ .)
+    FUNC_END        reduce using rule 20 (Expressao -> Expressao INFEQ .)
+
+
+state 36
+
+    (21) Expressao -> Expressao = .
+
+    +               reduce using rule 21 (Expressao -> Expressao = .)
+    -               reduce using rule 21 (Expressao -> Expressao = .)
+    *               reduce using rule 21 (Expressao -> Expressao = .)
+    /               reduce using rule 21 (Expressao -> Expressao = .)
+    %               reduce using rule 21 (Expressao -> Expressao = .)
+    >               reduce using rule 21 (Expressao -> Expressao = .)
+    SUPEQ           reduce using rule 21 (Expressao -> Expressao = .)
+    <               reduce using rule 21 (Expressao -> Expressao = .)
+    INFEQ           reduce using rule 21 (Expressao -> Expressao = .)
+    =               reduce using rule 21 (Expressao -> Expressao = .)
+    IF              reduce using rule 21 (Expressao -> Expressao = .)
+    DO              reduce using rule 21 (Expressao -> Expressao = .)
+    DOT             reduce using rule 21 (Expressao -> Expressao = .)
+    DOTSTRING       reduce using rule 21 (Expressao -> Expressao = .)
+    EMIT            reduce using rule 21 (Expressao -> Expressao = .)
+    COMMENT_START   reduce using rule 21 (Expressao -> Expressao = .)
+    ONELINE         reduce using rule 21 (Expressao -> Expressao = .)
+    ID              reduce using rule 21 (Expressao -> Expressao = .)
+    VARIABLE        reduce using rule 21 (Expressao -> Expressao = .)
+    FUNC_START      reduce using rule 21 (Expressao -> Expressao = .)
+    ROT             reduce using rule 21 (Expressao -> Expressao = .)
+    DROP            reduce using rule 21 (Expressao -> Expressao = .)
+    DUP             reduce using rule 21 (Expressao -> Expressao = .)
+    SWAP            reduce using rule 21 (Expressao -> Expressao = .)
+    NUMBER          reduce using rule 21 (Expressao -> Expressao = .)
+    $end            reduce using rule 21 (Expressao -> Expressao = .)
+    THEN            reduce using rule 21 (Expressao -> Expressao = .)
+    ELSE            reduce using rule 21 (Expressao -> Expressao = .)
+    MLOOP           reduce using rule 21 (Expressao -> Expressao = .)
+    LOOP            reduce using rule 21 (Expressao -> Expressao = .)
+    FUNC_END        reduce using rule 21 (Expressao -> Expressao = .)
+
+
+state 37
+
+    (33) Conditional -> Expressao IF . Comandos THEN
+    (34) Conditional -> Expressao IF . Comandos ELSE Comandos THEN
     (1) Comandos -> . Comandos Comando
     (2) Comandos -> .
 
@@ -957,14 +1207,18 @@ state 32
     ID              reduce using rule 2 (Comandos -> .)
     VARIABLE        reduce using rule 2 (Comandos -> .)
     FUNC_START      reduce using rule 2 (Comandos -> .)
+    ROT             reduce using rule 2 (Comandos -> .)
+    DROP            reduce using rule 2 (Comandos -> .)
+    DUP             reduce using rule 2 (Comandos -> .)
+    SWAP            reduce using rule 2 (Comandos -> .)
     NUMBER          reduce using rule 2 (Comandos -> .)
 
-    Comandos                       shift and go to state 39
+    Comandos                       shift and go to state 44
 
-state 33
+state 38
 
-    (34) Loop -> Expressao DO . Comandos LOOP
-    (35) Loop -> Expressao DO . Comandos Expressao MLOOP
+    (35) Loop -> Expressao DO . Comandos LOOP
+    (36) Loop -> Expressao DO . Comandos Expressao MLOOP
     (1) Comandos -> . Comandos Comando
     (2) Comandos -> .
 
@@ -978,105 +1232,125 @@ state 33
     ID              reduce using rule 2 (Comandos -> .)
     VARIABLE        reduce using rule 2 (Comandos -> .)
     FUNC_START      reduce using rule 2 (Comandos -> .)
+    ROT             reduce using rule 2 (Comandos -> .)
+    DROP            reduce using rule 2 (Comandos -> .)
+    DUP             reduce using rule 2 (Comandos -> .)
+    SWAP            reduce using rule 2 (Comandos -> .)
 
-    Comandos                       shift and go to state 40
+    Comandos                       shift and go to state 45
 
-state 34
+state 39
 
-    (27) Comment -> COMMENT_START COMMENT_END .
+    (28) Comment -> COMMENT_START COMMENT_END .
 
-    DOT             reduce using rule 27 (Comment -> COMMENT_START COMMENT_END .)
-    DOTSTRING       reduce using rule 27 (Comment -> COMMENT_START COMMENT_END .)
-    EMIT            reduce using rule 27 (Comment -> COMMENT_START COMMENT_END .)
-    COMMENT_START   reduce using rule 27 (Comment -> COMMENT_START COMMENT_END .)
-    ONELINE         reduce using rule 27 (Comment -> COMMENT_START COMMENT_END .)
-    ID              reduce using rule 27 (Comment -> COMMENT_START COMMENT_END .)
-    VARIABLE        reduce using rule 27 (Comment -> COMMENT_START COMMENT_END .)
-    FUNC_START      reduce using rule 27 (Comment -> COMMENT_START COMMENT_END .)
-    NUMBER          reduce using rule 27 (Comment -> COMMENT_START COMMENT_END .)
-    $end            reduce using rule 27 (Comment -> COMMENT_START COMMENT_END .)
-    THEN            reduce using rule 27 (Comment -> COMMENT_START COMMENT_END .)
-    ELSE            reduce using rule 27 (Comment -> COMMENT_START COMMENT_END .)
-    LOOP            reduce using rule 27 (Comment -> COMMENT_START COMMENT_END .)
-    FUNC_END        reduce using rule 27 (Comment -> COMMENT_START COMMENT_END .)
-
-
-state 35
-
-    (29) Store -> ID ! .
-
-    DOT             reduce using rule 29 (Store -> ID ! .)
-    DOTSTRING       reduce using rule 29 (Store -> ID ! .)
-    EMIT            reduce using rule 29 (Store -> ID ! .)
-    COMMENT_START   reduce using rule 29 (Store -> ID ! .)
-    ONELINE         reduce using rule 29 (Store -> ID ! .)
-    ID              reduce using rule 29 (Store -> ID ! .)
-    VARIABLE        reduce using rule 29 (Store -> ID ! .)
-    FUNC_START      reduce using rule 29 (Store -> ID ! .)
-    NUMBER          reduce using rule 29 (Store -> ID ! .)
-    $end            reduce using rule 29 (Store -> ID ! .)
-    THEN            reduce using rule 29 (Store -> ID ! .)
-    ELSE            reduce using rule 29 (Store -> ID ! .)
-    LOOP            reduce using rule 29 (Store -> ID ! .)
-    FUNC_END        reduce using rule 29 (Store -> ID ! .)
+    DOT             reduce using rule 28 (Comment -> COMMENT_START COMMENT_END .)
+    DOTSTRING       reduce using rule 28 (Comment -> COMMENT_START COMMENT_END .)
+    EMIT            reduce using rule 28 (Comment -> COMMENT_START COMMENT_END .)
+    COMMENT_START   reduce using rule 28 (Comment -> COMMENT_START COMMENT_END .)
+    ONELINE         reduce using rule 28 (Comment -> COMMENT_START COMMENT_END .)
+    ID              reduce using rule 28 (Comment -> COMMENT_START COMMENT_END .)
+    VARIABLE        reduce using rule 28 (Comment -> COMMENT_START COMMENT_END .)
+    FUNC_START      reduce using rule 28 (Comment -> COMMENT_START COMMENT_END .)
+    ROT             reduce using rule 28 (Comment -> COMMENT_START COMMENT_END .)
+    DROP            reduce using rule 28 (Comment -> COMMENT_START COMMENT_END .)
+    DUP             reduce using rule 28 (Comment -> COMMENT_START COMMENT_END .)
+    SWAP            reduce using rule 28 (Comment -> COMMENT_START COMMENT_END .)
+    NUMBER          reduce using rule 28 (Comment -> COMMENT_START COMMENT_END .)
+    $end            reduce using rule 28 (Comment -> COMMENT_START COMMENT_END .)
+    THEN            reduce using rule 28 (Comment -> COMMENT_START COMMENT_END .)
+    ELSE            reduce using rule 28 (Comment -> COMMENT_START COMMENT_END .)
+    LOOP            reduce using rule 28 (Comment -> COMMENT_START COMMENT_END .)
+    FUNC_END        reduce using rule 28 (Comment -> COMMENT_START COMMENT_END .)
 
 
-state 36
+state 40
 
-    (30) Unstore -> ID @ .
+    (30) Store -> ID ! .
 
-    +               reduce using rule 30 (Unstore -> ID @ .)
-    -               reduce using rule 30 (Unstore -> ID @ .)
-    *               reduce using rule 30 (Unstore -> ID @ .)
-    /               reduce using rule 30 (Unstore -> ID @ .)
-    %               reduce using rule 30 (Unstore -> ID @ .)
-    >               reduce using rule 30 (Unstore -> ID @ .)
-    SUPEQ           reduce using rule 30 (Unstore -> ID @ .)
-    <               reduce using rule 30 (Unstore -> ID @ .)
-    INFEQ           reduce using rule 30 (Unstore -> ID @ .)
-    =               reduce using rule 30 (Unstore -> ID @ .)
-    IF              reduce using rule 30 (Unstore -> ID @ .)
-    DO              reduce using rule 30 (Unstore -> ID @ .)
-    DOT             reduce using rule 30 (Unstore -> ID @ .)
-    DOTSTRING       reduce using rule 30 (Unstore -> ID @ .)
-    EMIT            reduce using rule 30 (Unstore -> ID @ .)
-    COMMENT_START   reduce using rule 30 (Unstore -> ID @ .)
-    ONELINE         reduce using rule 30 (Unstore -> ID @ .)
-    ID              reduce using rule 30 (Unstore -> ID @ .)
-    VARIABLE        reduce using rule 30 (Unstore -> ID @ .)
-    FUNC_START      reduce using rule 30 (Unstore -> ID @ .)
-    NUMBER          reduce using rule 30 (Unstore -> ID @ .)
-    $end            reduce using rule 30 (Unstore -> ID @ .)
-    THEN            reduce using rule 30 (Unstore -> ID @ .)
-    ELSE            reduce using rule 30 (Unstore -> ID @ .)
-    MLOOP           reduce using rule 30 (Unstore -> ID @ .)
-    LOOP            reduce using rule 30 (Unstore -> ID @ .)
-    FUNC_END        reduce using rule 30 (Unstore -> ID @ .)
+    DOT             reduce using rule 30 (Store -> ID ! .)
+    DOTSTRING       reduce using rule 30 (Store -> ID ! .)
+    EMIT            reduce using rule 30 (Store -> ID ! .)
+    COMMENT_START   reduce using rule 30 (Store -> ID ! .)
+    ONELINE         reduce using rule 30 (Store -> ID ! .)
+    ID              reduce using rule 30 (Store -> ID ! .)
+    VARIABLE        reduce using rule 30 (Store -> ID ! .)
+    FUNC_START      reduce using rule 30 (Store -> ID ! .)
+    ROT             reduce using rule 30 (Store -> ID ! .)
+    DROP            reduce using rule 30 (Store -> ID ! .)
+    DUP             reduce using rule 30 (Store -> ID ! .)
+    SWAP            reduce using rule 30 (Store -> ID ! .)
+    NUMBER          reduce using rule 30 (Store -> ID ! .)
+    $end            reduce using rule 30 (Store -> ID ! .)
+    THEN            reduce using rule 30 (Store -> ID ! .)
+    ELSE            reduce using rule 30 (Store -> ID ! .)
+    LOOP            reduce using rule 30 (Store -> ID ! .)
+    FUNC_END        reduce using rule 30 (Store -> ID ! .)
 
 
-state 37
+state 41
 
-    (31) Variavel -> VARIABLE ID .
+    (31) Unstore -> ID @ .
 
-    DOT             reduce using rule 31 (Variavel -> VARIABLE ID .)
-    DOTSTRING       reduce using rule 31 (Variavel -> VARIABLE ID .)
-    EMIT            reduce using rule 31 (Variavel -> VARIABLE ID .)
-    COMMENT_START   reduce using rule 31 (Variavel -> VARIABLE ID .)
-    ONELINE         reduce using rule 31 (Variavel -> VARIABLE ID .)
-    ID              reduce using rule 31 (Variavel -> VARIABLE ID .)
-    VARIABLE        reduce using rule 31 (Variavel -> VARIABLE ID .)
-    FUNC_START      reduce using rule 31 (Variavel -> VARIABLE ID .)
-    NUMBER          reduce using rule 31 (Variavel -> VARIABLE ID .)
-    $end            reduce using rule 31 (Variavel -> VARIABLE ID .)
-    THEN            reduce using rule 31 (Variavel -> VARIABLE ID .)
-    ELSE            reduce using rule 31 (Variavel -> VARIABLE ID .)
-    LOOP            reduce using rule 31 (Variavel -> VARIABLE ID .)
-    FUNC_END        reduce using rule 31 (Variavel -> VARIABLE ID .)
+    +               reduce using rule 31 (Unstore -> ID @ .)
+    -               reduce using rule 31 (Unstore -> ID @ .)
+    *               reduce using rule 31 (Unstore -> ID @ .)
+    /               reduce using rule 31 (Unstore -> ID @ .)
+    %               reduce using rule 31 (Unstore -> ID @ .)
+    >               reduce using rule 31 (Unstore -> ID @ .)
+    SUPEQ           reduce using rule 31 (Unstore -> ID @ .)
+    <               reduce using rule 31 (Unstore -> ID @ .)
+    INFEQ           reduce using rule 31 (Unstore -> ID @ .)
+    =               reduce using rule 31 (Unstore -> ID @ .)
+    IF              reduce using rule 31 (Unstore -> ID @ .)
+    DO              reduce using rule 31 (Unstore -> ID @ .)
+    DOT             reduce using rule 31 (Unstore -> ID @ .)
+    DOTSTRING       reduce using rule 31 (Unstore -> ID @ .)
+    EMIT            reduce using rule 31 (Unstore -> ID @ .)
+    COMMENT_START   reduce using rule 31 (Unstore -> ID @ .)
+    ONELINE         reduce using rule 31 (Unstore -> ID @ .)
+    ID              reduce using rule 31 (Unstore -> ID @ .)
+    VARIABLE        reduce using rule 31 (Unstore -> ID @ .)
+    FUNC_START      reduce using rule 31 (Unstore -> ID @ .)
+    ROT             reduce using rule 31 (Unstore -> ID @ .)
+    DROP            reduce using rule 31 (Unstore -> ID @ .)
+    DUP             reduce using rule 31 (Unstore -> ID @ .)
+    SWAP            reduce using rule 31 (Unstore -> ID @ .)
+    NUMBER          reduce using rule 31 (Unstore -> ID @ .)
+    $end            reduce using rule 31 (Unstore -> ID @ .)
+    THEN            reduce using rule 31 (Unstore -> ID @ .)
+    ELSE            reduce using rule 31 (Unstore -> ID @ .)
+    MLOOP           reduce using rule 31 (Unstore -> ID @ .)
+    LOOP            reduce using rule 31 (Unstore -> ID @ .)
+    FUNC_END        reduce using rule 31 (Unstore -> ID @ .)
 
 
-state 38
+state 42
 
-    (36) Func -> FUNC_START ID . Comandos FUNC_END
+    (32) Variavel -> VARIABLE ID .
+
+    DOT             reduce using rule 32 (Variavel -> VARIABLE ID .)
+    DOTSTRING       reduce using rule 32 (Variavel -> VARIABLE ID .)
+    EMIT            reduce using rule 32 (Variavel -> VARIABLE ID .)
+    COMMENT_START   reduce using rule 32 (Variavel -> VARIABLE ID .)
+    ONELINE         reduce using rule 32 (Variavel -> VARIABLE ID .)
+    ID              reduce using rule 32 (Variavel -> VARIABLE ID .)
+    VARIABLE        reduce using rule 32 (Variavel -> VARIABLE ID .)
+    FUNC_START      reduce using rule 32 (Variavel -> VARIABLE ID .)
+    ROT             reduce using rule 32 (Variavel -> VARIABLE ID .)
+    DROP            reduce using rule 32 (Variavel -> VARIABLE ID .)
+    DUP             reduce using rule 32 (Variavel -> VARIABLE ID .)
+    SWAP            reduce using rule 32 (Variavel -> VARIABLE ID .)
+    NUMBER          reduce using rule 32 (Variavel -> VARIABLE ID .)
+    $end            reduce using rule 32 (Variavel -> VARIABLE ID .)
+    THEN            reduce using rule 32 (Variavel -> VARIABLE ID .)
+    ELSE            reduce using rule 32 (Variavel -> VARIABLE ID .)
+    LOOP            reduce using rule 32 (Variavel -> VARIABLE ID .)
+    FUNC_END        reduce using rule 32 (Variavel -> VARIABLE ID .)
+
+
+state 43
+
+    (37) Func -> FUNC_START ID . Comandos FUNC_END
     (1) Comandos -> . Comandos Comando
     (2) Comandos -> .
 
@@ -1089,14 +1363,18 @@ state 38
     ID              reduce using rule 2 (Comandos -> .)
     VARIABLE        reduce using rule 2 (Comandos -> .)
     FUNC_START      reduce using rule 2 (Comandos -> .)
+    ROT             reduce using rule 2 (Comandos -> .)
+    DROP            reduce using rule 2 (Comandos -> .)
+    DUP             reduce using rule 2 (Comandos -> .)
+    SWAP            reduce using rule 2 (Comandos -> .)
     NUMBER          reduce using rule 2 (Comandos -> .)
 
-    Comandos                       shift and go to state 41
+    Comandos                       shift and go to state 46
 
-state 39
+state 44
 
-    (32) Conditional -> Expressao IF Comandos . THEN
-    (33) Conditional -> Expressao IF Comandos . ELSE Comandos THEN
+    (33) Conditional -> Expressao IF Comandos . THEN
+    (34) Conditional -> Expressao IF Comandos . ELSE Comandos THEN
     (1) Comandos -> Comandos . Comando
     (3) Comando -> . Expressao
     (4) Comando -> . Imprime
@@ -1106,45 +1384,54 @@ state 39
     (8) Comando -> . Conditional
     (9) Comando -> . Loop
     (10) Comando -> . Func
-    (11) Expressao -> . Expressao +
-    (12) Expressao -> . Expressao -
-    (13) Expressao -> . Expressao *
-    (14) Expressao -> . Expressao /
-    (15) Expressao -> . Expressao %
-    (16) Expressao -> . Expressao >
-    (17) Expressao -> . Expressao SUPEQ
-    (18) Expressao -> . Expressao <
-    (19) Expressao -> . Expressao INFEQ
-    (20) Expressao -> . Expressao =
-    (21) Expressao -> . Termo
-    (24) Imprime -> . DOT
-    (25) Imprime -> . DOTSTRING
-    (26) Imprime -> . EMIT
-    (27) Comment -> . COMMENT_START COMMENT_END
-    (28) Comment -> . ONELINE
-    (29) Store -> . ID !
-    (31) Variavel -> . VARIABLE ID
-    (32) Conditional -> . Expressao IF Comandos THEN
-    (33) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
-    (34) Loop -> . Expressao DO Comandos LOOP
-    (35) Loop -> . Expressao DO Comandos Expressao MLOOP
-    (36) Func -> . FUNC_START ID Comandos FUNC_END
-    (37) Func -> . ID
-    (22) Termo -> . NUMBER
-    (23) Termo -> . Unstore
-    (30) Unstore -> . ID @
+    (11) Comando -> . FuncP
+    (12) Expressao -> . Expressao +
+    (13) Expressao -> . Expressao -
+    (14) Expressao -> . Expressao *
+    (15) Expressao -> . Expressao /
+    (16) Expressao -> . Expressao %
+    (17) Expressao -> . Expressao >
+    (18) Expressao -> . Expressao SUPEQ
+    (19) Expressao -> . Expressao <
+    (20) Expressao -> . Expressao INFEQ
+    (21) Expressao -> . Expressao =
+    (22) Expressao -> . Termo
+    (25) Imprime -> . DOT
+    (26) Imprime -> . DOTSTRING
+    (27) Imprime -> . EMIT
+    (28) Comment -> . COMMENT_START COMMENT_END
+    (29) Comment -> . ONELINE
+    (30) Store -> . ID !
+    (32) Variavel -> . VARIABLE ID
+    (33) Conditional -> . Expressao IF Comandos THEN
+    (34) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
+    (35) Loop -> . Expressao DO Comandos LOOP
+    (36) Loop -> . Expressao DO Comandos Expressao MLOOP
+    (37) Func -> . FUNC_START ID Comandos FUNC_END
+    (38) Func -> . ID
+    (39) FuncP -> . ROT
+    (40) FuncP -> . DROP
+    (41) FuncP -> . DUP
+    (42) FuncP -> . SWAP
+    (23) Termo -> . NUMBER
+    (24) Termo -> . Unstore
+    (31) Unstore -> . ID @
 
-    THEN            shift and go to state 42
-    ELSE            shift and go to state 43
-    DOT             shift and go to state 12
-    DOTSTRING       shift and go to state 13
-    EMIT            shift and go to state 14
-    COMMENT_START   shift and go to state 15
-    ONELINE         shift and go to state 16
-    ID              shift and go to state 17
-    VARIABLE        shift and go to state 18
-    FUNC_START      shift and go to state 19
-    NUMBER          shift and go to state 20
+    THEN            shift and go to state 47
+    ELSE            shift and go to state 48
+    DOT             shift and go to state 13
+    DOTSTRING       shift and go to state 14
+    EMIT            shift and go to state 15
+    COMMENT_START   shift and go to state 16
+    ONELINE         shift and go to state 17
+    ID              shift and go to state 18
+    VARIABLE        shift and go to state 19
+    FUNC_START      shift and go to state 20
+    ROT             shift and go to state 21
+    DROP            shift and go to state 22
+    DUP             shift and go to state 23
+    SWAP            shift and go to state 24
+    NUMBER          shift and go to state 25
 
     Expressao                      shift and go to state 3
     Comando                        shift and go to state 2
@@ -1155,25 +1442,26 @@ state 39
     Conditional                    shift and go to state 8
     Loop                           shift and go to state 9
     Func                           shift and go to state 10
-    Termo                          shift and go to state 11
-    Unstore                        shift and go to state 21
+    FuncP                          shift and go to state 11
+    Termo                          shift and go to state 12
+    Unstore                        shift and go to state 26
 
-state 40
+state 45
 
-    (34) Loop -> Expressao DO Comandos . LOOP
-    (35) Loop -> Expressao DO Comandos . Expressao MLOOP
+    (35) Loop -> Expressao DO Comandos . LOOP
+    (36) Loop -> Expressao DO Comandos . Expressao MLOOP
     (1) Comandos -> Comandos . Comando
-    (11) Expressao -> . Expressao +
-    (12) Expressao -> . Expressao -
-    (13) Expressao -> . Expressao *
-    (14) Expressao -> . Expressao /
-    (15) Expressao -> . Expressao %
-    (16) Expressao -> . Expressao >
-    (17) Expressao -> . Expressao SUPEQ
-    (18) Expressao -> . Expressao <
-    (19) Expressao -> . Expressao INFEQ
-    (20) Expressao -> . Expressao =
-    (21) Expressao -> . Termo
+    (12) Expressao -> . Expressao +
+    (13) Expressao -> . Expressao -
+    (14) Expressao -> . Expressao *
+    (15) Expressao -> . Expressao /
+    (16) Expressao -> . Expressao %
+    (17) Expressao -> . Expressao >
+    (18) Expressao -> . Expressao SUPEQ
+    (19) Expressao -> . Expressao <
+    (20) Expressao -> . Expressao INFEQ
+    (21) Expressao -> . Expressao =
+    (22) Expressao -> . Termo
     (3) Comando -> . Expressao
     (4) Comando -> . Imprime
     (5) Comando -> . Comment
@@ -1182,37 +1470,46 @@ state 40
     (8) Comando -> . Conditional
     (9) Comando -> . Loop
     (10) Comando -> . Func
-    (22) Termo -> . NUMBER
-    (23) Termo -> . Unstore
-    (24) Imprime -> . DOT
-    (25) Imprime -> . DOTSTRING
-    (26) Imprime -> . EMIT
-    (27) Comment -> . COMMENT_START COMMENT_END
-    (28) Comment -> . ONELINE
-    (29) Store -> . ID !
-    (31) Variavel -> . VARIABLE ID
-    (32) Conditional -> . Expressao IF Comandos THEN
-    (33) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
-    (34) Loop -> . Expressao DO Comandos LOOP
-    (35) Loop -> . Expressao DO Comandos Expressao MLOOP
-    (36) Func -> . FUNC_START ID Comandos FUNC_END
-    (37) Func -> . ID
-    (30) Unstore -> . ID @
+    (11) Comando -> . FuncP
+    (23) Termo -> . NUMBER
+    (24) Termo -> . Unstore
+    (25) Imprime -> . DOT
+    (26) Imprime -> . DOTSTRING
+    (27) Imprime -> . EMIT
+    (28) Comment -> . COMMENT_START COMMENT_END
+    (29) Comment -> . ONELINE
+    (30) Store -> . ID !
+    (32) Variavel -> . VARIABLE ID
+    (33) Conditional -> . Expressao IF Comandos THEN
+    (34) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
+    (35) Loop -> . Expressao DO Comandos LOOP
+    (36) Loop -> . Expressao DO Comandos Expressao MLOOP
+    (37) Func -> . FUNC_START ID Comandos FUNC_END
+    (38) Func -> . ID
+    (39) FuncP -> . ROT
+    (40) FuncP -> . DROP
+    (41) FuncP -> . DUP
+    (42) FuncP -> . SWAP
+    (31) Unstore -> . ID @
 
-    LOOP            shift and go to state 45
-    NUMBER          shift and go to state 20
-    DOT             shift and go to state 12
-    DOTSTRING       shift and go to state 13
-    EMIT            shift and go to state 14
-    COMMENT_START   shift and go to state 15
-    ONELINE         shift and go to state 16
-    ID              shift and go to state 17
-    VARIABLE        shift and go to state 18
-    FUNC_START      shift and go to state 19
+    LOOP            shift and go to state 50
+    NUMBER          shift and go to state 25
+    DOT             shift and go to state 13
+    DOTSTRING       shift and go to state 14
+    EMIT            shift and go to state 15
+    COMMENT_START   shift and go to state 16
+    ONELINE         shift and go to state 17
+    ID              shift and go to state 18
+    VARIABLE        shift and go to state 19
+    FUNC_START      shift and go to state 20
+    ROT             shift and go to state 21
+    DROP            shift and go to state 22
+    DUP             shift and go to state 23
+    SWAP            shift and go to state 24
 
-    Expressao                      shift and go to state 44
+    Expressao                      shift and go to state 49
     Comando                        shift and go to state 2
-    Termo                          shift and go to state 11
+    Termo                          shift and go to state 12
     Imprime                        shift and go to state 4
     Comment                        shift and go to state 5
     Store                          shift and go to state 6
@@ -1220,11 +1517,12 @@ state 40
     Conditional                    shift and go to state 8
     Loop                           shift and go to state 9
     Func                           shift and go to state 10
-    Unstore                        shift and go to state 21
+    FuncP                          shift and go to state 11
+    Unstore                        shift and go to state 26
 
-state 41
+state 46
 
-    (36) Func -> FUNC_START ID Comandos . FUNC_END
+    (37) Func -> FUNC_START ID Comandos . FUNC_END
     (1) Comandos -> Comandos . Comando
     (3) Comando -> . Expressao
     (4) Comando -> . Imprime
@@ -1234,44 +1532,53 @@ state 41
     (8) Comando -> . Conditional
     (9) Comando -> . Loop
     (10) Comando -> . Func
-    (11) Expressao -> . Expressao +
-    (12) Expressao -> . Expressao -
-    (13) Expressao -> . Expressao *
-    (14) Expressao -> . Expressao /
-    (15) Expressao -> . Expressao %
-    (16) Expressao -> . Expressao >
-    (17) Expressao -> . Expressao SUPEQ
-    (18) Expressao -> . Expressao <
-    (19) Expressao -> . Expressao INFEQ
-    (20) Expressao -> . Expressao =
-    (21) Expressao -> . Termo
-    (24) Imprime -> . DOT
-    (25) Imprime -> . DOTSTRING
-    (26) Imprime -> . EMIT
-    (27) Comment -> . COMMENT_START COMMENT_END
-    (28) Comment -> . ONELINE
-    (29) Store -> . ID !
-    (31) Variavel -> . VARIABLE ID
-    (32) Conditional -> . Expressao IF Comandos THEN
-    (33) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
-    (34) Loop -> . Expressao DO Comandos LOOP
-    (35) Loop -> . Expressao DO Comandos Expressao MLOOP
-    (36) Func -> . FUNC_START ID Comandos FUNC_END
-    (37) Func -> . ID
-    (22) Termo -> . NUMBER
-    (23) Termo -> . Unstore
-    (30) Unstore -> . ID @
+    (11) Comando -> . FuncP
+    (12) Expressao -> . Expressao +
+    (13) Expressao -> . Expressao -
+    (14) Expressao -> . Expressao *
+    (15) Expressao -> . Expressao /
+    (16) Expressao -> . Expressao %
+    (17) Expressao -> . Expressao >
+    (18) Expressao -> . Expressao SUPEQ
+    (19) Expressao -> . Expressao <
+    (20) Expressao -> . Expressao INFEQ
+    (21) Expressao -> . Expressao =
+    (22) Expressao -> . Termo
+    (25) Imprime -> . DOT
+    (26) Imprime -> . DOTSTRING
+    (27) Imprime -> . EMIT
+    (28) Comment -> . COMMENT_START COMMENT_END
+    (29) Comment -> . ONELINE
+    (30) Store -> . ID !
+    (32) Variavel -> . VARIABLE ID
+    (33) Conditional -> . Expressao IF Comandos THEN
+    (34) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
+    (35) Loop -> . Expressao DO Comandos LOOP
+    (36) Loop -> . Expressao DO Comandos Expressao MLOOP
+    (37) Func -> . FUNC_START ID Comandos FUNC_END
+    (38) Func -> . ID
+    (39) FuncP -> . ROT
+    (40) FuncP -> . DROP
+    (41) FuncP -> . DUP
+    (42) FuncP -> . SWAP
+    (23) Termo -> . NUMBER
+    (24) Termo -> . Unstore
+    (31) Unstore -> . ID @
 
-    FUNC_END        shift and go to state 46
-    DOT             shift and go to state 12
-    DOTSTRING       shift and go to state 13
-    EMIT            shift and go to state 14
-    COMMENT_START   shift and go to state 15
-    ONELINE         shift and go to state 16
-    ID              shift and go to state 17
-    VARIABLE        shift and go to state 18
-    FUNC_START      shift and go to state 19
-    NUMBER          shift and go to state 20
+    FUNC_END        shift and go to state 51
+    DOT             shift and go to state 13
+    DOTSTRING       shift and go to state 14
+    EMIT            shift and go to state 15
+    COMMENT_START   shift and go to state 16
+    ONELINE         shift and go to state 17
+    ID              shift and go to state 18
+    VARIABLE        shift and go to state 19
+    FUNC_START      shift and go to state 20
+    ROT             shift and go to state 21
+    DROP            shift and go to state 22
+    DUP             shift and go to state 23
+    SWAP            shift and go to state 24
+    NUMBER          shift and go to state 25
 
     Comando                        shift and go to state 2
     Expressao                      shift and go to state 3
@@ -1282,32 +1589,37 @@ state 41
     Conditional                    shift and go to state 8
     Loop                           shift and go to state 9
     Func                           shift and go to state 10
-    Termo                          shift and go to state 11
-    Unstore                        shift and go to state 21
+    FuncP                          shift and go to state 11
+    Termo                          shift and go to state 12
+    Unstore                        shift and go to state 26
 
-state 42
+state 47
 
-    (32) Conditional -> Expressao IF Comandos THEN .
+    (33) Conditional -> Expressao IF Comandos THEN .
 
-    DOT             reduce using rule 32 (Conditional -> Expressao IF Comandos THEN .)
-    DOTSTRING       reduce using rule 32 (Conditional -> Expressao IF Comandos THEN .)
-    EMIT            reduce using rule 32 (Conditional -> Expressao IF Comandos THEN .)
-    COMMENT_START   reduce using rule 32 (Conditional -> Expressao IF Comandos THEN .)
-    ONELINE         reduce using rule 32 (Conditional -> Expressao IF Comandos THEN .)
-    ID              reduce using rule 32 (Conditional -> Expressao IF Comandos THEN .)
-    VARIABLE        reduce using rule 32 (Conditional -> Expressao IF Comandos THEN .)
-    FUNC_START      reduce using rule 32 (Conditional -> Expressao IF Comandos THEN .)
-    NUMBER          reduce using rule 32 (Conditional -> Expressao IF Comandos THEN .)
-    $end            reduce using rule 32 (Conditional -> Expressao IF Comandos THEN .)
-    THEN            reduce using rule 32 (Conditional -> Expressao IF Comandos THEN .)
-    ELSE            reduce using rule 32 (Conditional -> Expressao IF Comandos THEN .)
-    LOOP            reduce using rule 32 (Conditional -> Expressao IF Comandos THEN .)
-    FUNC_END        reduce using rule 32 (Conditional -> Expressao IF Comandos THEN .)
+    DOT             reduce using rule 33 (Conditional -> Expressao IF Comandos THEN .)
+    DOTSTRING       reduce using rule 33 (Conditional -> Expressao IF Comandos THEN .)
+    EMIT            reduce using rule 33 (Conditional -> Expressao IF Comandos THEN .)
+    COMMENT_START   reduce using rule 33 (Conditional -> Expressao IF Comandos THEN .)
+    ONELINE         reduce using rule 33 (Conditional -> Expressao IF Comandos THEN .)
+    ID              reduce using rule 33 (Conditional -> Expressao IF Comandos THEN .)
+    VARIABLE        reduce using rule 33 (Conditional -> Expressao IF Comandos THEN .)
+    FUNC_START      reduce using rule 33 (Conditional -> Expressao IF Comandos THEN .)
+    ROT             reduce using rule 33 (Conditional -> Expressao IF Comandos THEN .)
+    DROP            reduce using rule 33 (Conditional -> Expressao IF Comandos THEN .)
+    DUP             reduce using rule 33 (Conditional -> Expressao IF Comandos THEN .)
+    SWAP            reduce using rule 33 (Conditional -> Expressao IF Comandos THEN .)
+    NUMBER          reduce using rule 33 (Conditional -> Expressao IF Comandos THEN .)
+    $end            reduce using rule 33 (Conditional -> Expressao IF Comandos THEN .)
+    THEN            reduce using rule 33 (Conditional -> Expressao IF Comandos THEN .)
+    ELSE            reduce using rule 33 (Conditional -> Expressao IF Comandos THEN .)
+    LOOP            reduce using rule 33 (Conditional -> Expressao IF Comandos THEN .)
+    FUNC_END        reduce using rule 33 (Conditional -> Expressao IF Comandos THEN .)
 
 
-state 43
+state 48
 
-    (33) Conditional -> Expressao IF Comandos ELSE . Comandos THEN
+    (34) Conditional -> Expressao IF Comandos ELSE . Comandos THEN
     (1) Comandos -> . Comandos Comando
     (2) Comandos -> .
 
@@ -1320,40 +1632,44 @@ state 43
     ID              reduce using rule 2 (Comandos -> .)
     VARIABLE        reduce using rule 2 (Comandos -> .)
     FUNC_START      reduce using rule 2 (Comandos -> .)
+    ROT             reduce using rule 2 (Comandos -> .)
+    DROP            reduce using rule 2 (Comandos -> .)
+    DUP             reduce using rule 2 (Comandos -> .)
+    SWAP            reduce using rule 2 (Comandos -> .)
     NUMBER          reduce using rule 2 (Comandos -> .)
 
-    Comandos                       shift and go to state 47
+    Comandos                       shift and go to state 52
 
-state 44
+state 49
 
-    (35) Loop -> Expressao DO Comandos Expressao . MLOOP
-    (11) Expressao -> Expressao . +
-    (12) Expressao -> Expressao . -
-    (13) Expressao -> Expressao . *
-    (14) Expressao -> Expressao . /
-    (15) Expressao -> Expressao . %
-    (16) Expressao -> Expressao . >
-    (17) Expressao -> Expressao . SUPEQ
-    (18) Expressao -> Expressao . <
-    (19) Expressao -> Expressao . INFEQ
-    (20) Expressao -> Expressao . =
+    (36) Loop -> Expressao DO Comandos Expressao . MLOOP
+    (12) Expressao -> Expressao . +
+    (13) Expressao -> Expressao . -
+    (14) Expressao -> Expressao . *
+    (15) Expressao -> Expressao . /
+    (16) Expressao -> Expressao . %
+    (17) Expressao -> Expressao . >
+    (18) Expressao -> Expressao . SUPEQ
+    (19) Expressao -> Expressao . <
+    (20) Expressao -> Expressao . INFEQ
+    (21) Expressao -> Expressao . =
     (3) Comando -> Expressao .
-    (32) Conditional -> Expressao . IF Comandos THEN
-    (33) Conditional -> Expressao . IF Comandos ELSE Comandos THEN
-    (34) Loop -> Expressao . DO Comandos LOOP
-    (35) Loop -> Expressao . DO Comandos Expressao MLOOP
+    (33) Conditional -> Expressao . IF Comandos THEN
+    (34) Conditional -> Expressao . IF Comandos ELSE Comandos THEN
+    (35) Loop -> Expressao . DO Comandos LOOP
+    (36) Loop -> Expressao . DO Comandos Expressao MLOOP
 
-    MLOOP           shift and go to state 48
-    +               shift and go to state 22
-    -               shift and go to state 23
-    *               shift and go to state 24
-    /               shift and go to state 25
-    %               shift and go to state 26
-    >               shift and go to state 27
-    SUPEQ           shift and go to state 28
-    <               shift and go to state 29
-    INFEQ           shift and go to state 30
-    =               shift and go to state 31
+    MLOOP           shift and go to state 53
+    +               shift and go to state 27
+    -               shift and go to state 28
+    *               shift and go to state 29
+    /               shift and go to state 30
+    %               shift and go to state 31
+    >               shift and go to state 32
+    SUPEQ           shift and go to state 33
+    <               shift and go to state 34
+    INFEQ           shift and go to state 35
+    =               shift and go to state 36
     LOOP            reduce using rule 3 (Comando -> Expressao .)
     NUMBER          reduce using rule 3 (Comando -> Expressao .)
     DOT             reduce using rule 3 (Comando -> Expressao .)
@@ -1364,53 +1680,65 @@ state 44
     ID              reduce using rule 3 (Comando -> Expressao .)
     VARIABLE        reduce using rule 3 (Comando -> Expressao .)
     FUNC_START      reduce using rule 3 (Comando -> Expressao .)
-    IF              shift and go to state 32
-    DO              shift and go to state 33
+    ROT             reduce using rule 3 (Comando -> Expressao .)
+    DROP            reduce using rule 3 (Comando -> Expressao .)
+    DUP             reduce using rule 3 (Comando -> Expressao .)
+    SWAP            reduce using rule 3 (Comando -> Expressao .)
+    IF              shift and go to state 37
+    DO              shift and go to state 38
 
 
-state 45
+state 50
 
-    (34) Loop -> Expressao DO Comandos LOOP .
+    (35) Loop -> Expressao DO Comandos LOOP .
 
-    DOT             reduce using rule 34 (Loop -> Expressao DO Comandos LOOP .)
-    DOTSTRING       reduce using rule 34 (Loop -> Expressao DO Comandos LOOP .)
-    EMIT            reduce using rule 34 (Loop -> Expressao DO Comandos LOOP .)
-    COMMENT_START   reduce using rule 34 (Loop -> Expressao DO Comandos LOOP .)
-    ONELINE         reduce using rule 34 (Loop -> Expressao DO Comandos LOOP .)
-    ID              reduce using rule 34 (Loop -> Expressao DO Comandos LOOP .)
-    VARIABLE        reduce using rule 34 (Loop -> Expressao DO Comandos LOOP .)
-    FUNC_START      reduce using rule 34 (Loop -> Expressao DO Comandos LOOP .)
-    NUMBER          reduce using rule 34 (Loop -> Expressao DO Comandos LOOP .)
-    $end            reduce using rule 34 (Loop -> Expressao DO Comandos LOOP .)
-    THEN            reduce using rule 34 (Loop -> Expressao DO Comandos LOOP .)
-    ELSE            reduce using rule 34 (Loop -> Expressao DO Comandos LOOP .)
-    LOOP            reduce using rule 34 (Loop -> Expressao DO Comandos LOOP .)
-    FUNC_END        reduce using rule 34 (Loop -> Expressao DO Comandos LOOP .)
-
-
-state 46
-
-    (36) Func -> FUNC_START ID Comandos FUNC_END .
-
-    DOT             reduce using rule 36 (Func -> FUNC_START ID Comandos FUNC_END .)
-    DOTSTRING       reduce using rule 36 (Func -> FUNC_START ID Comandos FUNC_END .)
-    EMIT            reduce using rule 36 (Func -> FUNC_START ID Comandos FUNC_END .)
-    COMMENT_START   reduce using rule 36 (Func -> FUNC_START ID Comandos FUNC_END .)
-    ONELINE         reduce using rule 36 (Func -> FUNC_START ID Comandos FUNC_END .)
-    ID              reduce using rule 36 (Func -> FUNC_START ID Comandos FUNC_END .)
-    VARIABLE        reduce using rule 36 (Func -> FUNC_START ID Comandos FUNC_END .)
-    FUNC_START      reduce using rule 36 (Func -> FUNC_START ID Comandos FUNC_END .)
-    NUMBER          reduce using rule 36 (Func -> FUNC_START ID Comandos FUNC_END .)
-    $end            reduce using rule 36 (Func -> FUNC_START ID Comandos FUNC_END .)
-    THEN            reduce using rule 36 (Func -> FUNC_START ID Comandos FUNC_END .)
-    ELSE            reduce using rule 36 (Func -> FUNC_START ID Comandos FUNC_END .)
-    LOOP            reduce using rule 36 (Func -> FUNC_START ID Comandos FUNC_END .)
-    FUNC_END        reduce using rule 36 (Func -> FUNC_START ID Comandos FUNC_END .)
+    DOT             reduce using rule 35 (Loop -> Expressao DO Comandos LOOP .)
+    DOTSTRING       reduce using rule 35 (Loop -> Expressao DO Comandos LOOP .)
+    EMIT            reduce using rule 35 (Loop -> Expressao DO Comandos LOOP .)
+    COMMENT_START   reduce using rule 35 (Loop -> Expressao DO Comandos LOOP .)
+    ONELINE         reduce using rule 35 (Loop -> Expressao DO Comandos LOOP .)
+    ID              reduce using rule 35 (Loop -> Expressao DO Comandos LOOP .)
+    VARIABLE        reduce using rule 35 (Loop -> Expressao DO Comandos LOOP .)
+    FUNC_START      reduce using rule 35 (Loop -> Expressao DO Comandos LOOP .)
+    ROT             reduce using rule 35 (Loop -> Expressao DO Comandos LOOP .)
+    DROP            reduce using rule 35 (Loop -> Expressao DO Comandos LOOP .)
+    DUP             reduce using rule 35 (Loop -> Expressao DO Comandos LOOP .)
+    SWAP            reduce using rule 35 (Loop -> Expressao DO Comandos LOOP .)
+    NUMBER          reduce using rule 35 (Loop -> Expressao DO Comandos LOOP .)
+    $end            reduce using rule 35 (Loop -> Expressao DO Comandos LOOP .)
+    THEN            reduce using rule 35 (Loop -> Expressao DO Comandos LOOP .)
+    ELSE            reduce using rule 35 (Loop -> Expressao DO Comandos LOOP .)
+    LOOP            reduce using rule 35 (Loop -> Expressao DO Comandos LOOP .)
+    FUNC_END        reduce using rule 35 (Loop -> Expressao DO Comandos LOOP .)
 
 
-state 47
+state 51
 
-    (33) Conditional -> Expressao IF Comandos ELSE Comandos . THEN
+    (37) Func -> FUNC_START ID Comandos FUNC_END .
+
+    DOT             reduce using rule 37 (Func -> FUNC_START ID Comandos FUNC_END .)
+    DOTSTRING       reduce using rule 37 (Func -> FUNC_START ID Comandos FUNC_END .)
+    EMIT            reduce using rule 37 (Func -> FUNC_START ID Comandos FUNC_END .)
+    COMMENT_START   reduce using rule 37 (Func -> FUNC_START ID Comandos FUNC_END .)
+    ONELINE         reduce using rule 37 (Func -> FUNC_START ID Comandos FUNC_END .)
+    ID              reduce using rule 37 (Func -> FUNC_START ID Comandos FUNC_END .)
+    VARIABLE        reduce using rule 37 (Func -> FUNC_START ID Comandos FUNC_END .)
+    FUNC_START      reduce using rule 37 (Func -> FUNC_START ID Comandos FUNC_END .)
+    ROT             reduce using rule 37 (Func -> FUNC_START ID Comandos FUNC_END .)
+    DROP            reduce using rule 37 (Func -> FUNC_START ID Comandos FUNC_END .)
+    DUP             reduce using rule 37 (Func -> FUNC_START ID Comandos FUNC_END .)
+    SWAP            reduce using rule 37 (Func -> FUNC_START ID Comandos FUNC_END .)
+    NUMBER          reduce using rule 37 (Func -> FUNC_START ID Comandos FUNC_END .)
+    $end            reduce using rule 37 (Func -> FUNC_START ID Comandos FUNC_END .)
+    THEN            reduce using rule 37 (Func -> FUNC_START ID Comandos FUNC_END .)
+    ELSE            reduce using rule 37 (Func -> FUNC_START ID Comandos FUNC_END .)
+    LOOP            reduce using rule 37 (Func -> FUNC_START ID Comandos FUNC_END .)
+    FUNC_END        reduce using rule 37 (Func -> FUNC_START ID Comandos FUNC_END .)
+
+
+state 52
+
+    (34) Conditional -> Expressao IF Comandos ELSE Comandos . THEN
     (1) Comandos -> Comandos . Comando
     (3) Comando -> . Expressao
     (4) Comando -> . Imprime
@@ -1420,44 +1748,53 @@ state 47
     (8) Comando -> . Conditional
     (9) Comando -> . Loop
     (10) Comando -> . Func
-    (11) Expressao -> . Expressao +
-    (12) Expressao -> . Expressao -
-    (13) Expressao -> . Expressao *
-    (14) Expressao -> . Expressao /
-    (15) Expressao -> . Expressao %
-    (16) Expressao -> . Expressao >
-    (17) Expressao -> . Expressao SUPEQ
-    (18) Expressao -> . Expressao <
-    (19) Expressao -> . Expressao INFEQ
-    (20) Expressao -> . Expressao =
-    (21) Expressao -> . Termo
-    (24) Imprime -> . DOT
-    (25) Imprime -> . DOTSTRING
-    (26) Imprime -> . EMIT
-    (27) Comment -> . COMMENT_START COMMENT_END
-    (28) Comment -> . ONELINE
-    (29) Store -> . ID !
-    (31) Variavel -> . VARIABLE ID
-    (32) Conditional -> . Expressao IF Comandos THEN
-    (33) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
-    (34) Loop -> . Expressao DO Comandos LOOP
-    (35) Loop -> . Expressao DO Comandos Expressao MLOOP
-    (36) Func -> . FUNC_START ID Comandos FUNC_END
-    (37) Func -> . ID
-    (22) Termo -> . NUMBER
-    (23) Termo -> . Unstore
-    (30) Unstore -> . ID @
+    (11) Comando -> . FuncP
+    (12) Expressao -> . Expressao +
+    (13) Expressao -> . Expressao -
+    (14) Expressao -> . Expressao *
+    (15) Expressao -> . Expressao /
+    (16) Expressao -> . Expressao %
+    (17) Expressao -> . Expressao >
+    (18) Expressao -> . Expressao SUPEQ
+    (19) Expressao -> . Expressao <
+    (20) Expressao -> . Expressao INFEQ
+    (21) Expressao -> . Expressao =
+    (22) Expressao -> . Termo
+    (25) Imprime -> . DOT
+    (26) Imprime -> . DOTSTRING
+    (27) Imprime -> . EMIT
+    (28) Comment -> . COMMENT_START COMMENT_END
+    (29) Comment -> . ONELINE
+    (30) Store -> . ID !
+    (32) Variavel -> . VARIABLE ID
+    (33) Conditional -> . Expressao IF Comandos THEN
+    (34) Conditional -> . Expressao IF Comandos ELSE Comandos THEN
+    (35) Loop -> . Expressao DO Comandos LOOP
+    (36) Loop -> . Expressao DO Comandos Expressao MLOOP
+    (37) Func -> . FUNC_START ID Comandos FUNC_END
+    (38) Func -> . ID
+    (39) FuncP -> . ROT
+    (40) FuncP -> . DROP
+    (41) FuncP -> . DUP
+    (42) FuncP -> . SWAP
+    (23) Termo -> . NUMBER
+    (24) Termo -> . Unstore
+    (31) Unstore -> . ID @
 
-    THEN            shift and go to state 49
-    DOT             shift and go to state 12
-    DOTSTRING       shift and go to state 13
-    EMIT            shift and go to state 14
-    COMMENT_START   shift and go to state 15
-    ONELINE         shift and go to state 16
-    ID              shift and go to state 17
-    VARIABLE        shift and go to state 18
-    FUNC_START      shift and go to state 19
-    NUMBER          shift and go to state 20
+    THEN            shift and go to state 54
+    DOT             shift and go to state 13
+    DOTSTRING       shift and go to state 14
+    EMIT            shift and go to state 15
+    COMMENT_START   shift and go to state 16
+    ONELINE         shift and go to state 17
+    ID              shift and go to state 18
+    VARIABLE        shift and go to state 19
+    FUNC_START      shift and go to state 20
+    ROT             shift and go to state 21
+    DROP            shift and go to state 22
+    DUP             shift and go to state 23
+    SWAP            shift and go to state 24
+    NUMBER          shift and go to state 25
 
     Expressao                      shift and go to state 3
     Comando                        shift and go to state 2
@@ -1468,45 +1805,54 @@ state 47
     Conditional                    shift and go to state 8
     Loop                           shift and go to state 9
     Func                           shift and go to state 10
-    Termo                          shift and go to state 11
-    Unstore                        shift and go to state 21
+    FuncP                          shift and go to state 11
+    Termo                          shift and go to state 12
+    Unstore                        shift and go to state 26
 
-state 48
+state 53
 
-    (35) Loop -> Expressao DO Comandos Expressao MLOOP .
+    (36) Loop -> Expressao DO Comandos Expressao MLOOP .
 
-    DOT             reduce using rule 35 (Loop -> Expressao DO Comandos Expressao MLOOP .)
-    DOTSTRING       reduce using rule 35 (Loop -> Expressao DO Comandos Expressao MLOOP .)
-    EMIT            reduce using rule 35 (Loop -> Expressao DO Comandos Expressao MLOOP .)
-    COMMENT_START   reduce using rule 35 (Loop -> Expressao DO Comandos Expressao MLOOP .)
-    ONELINE         reduce using rule 35 (Loop -> Expressao DO Comandos Expressao MLOOP .)
-    ID              reduce using rule 35 (Loop -> Expressao DO Comandos Expressao MLOOP .)
-    VARIABLE        reduce using rule 35 (Loop -> Expressao DO Comandos Expressao MLOOP .)
-    FUNC_START      reduce using rule 35 (Loop -> Expressao DO Comandos Expressao MLOOP .)
-    NUMBER          reduce using rule 35 (Loop -> Expressao DO Comandos Expressao MLOOP .)
-    $end            reduce using rule 35 (Loop -> Expressao DO Comandos Expressao MLOOP .)
-    THEN            reduce using rule 35 (Loop -> Expressao DO Comandos Expressao MLOOP .)
-    ELSE            reduce using rule 35 (Loop -> Expressao DO Comandos Expressao MLOOP .)
-    LOOP            reduce using rule 35 (Loop -> Expressao DO Comandos Expressao MLOOP .)
-    FUNC_END        reduce using rule 35 (Loop -> Expressao DO Comandos Expressao MLOOP .)
+    DOT             reduce using rule 36 (Loop -> Expressao DO Comandos Expressao MLOOP .)
+    DOTSTRING       reduce using rule 36 (Loop -> Expressao DO Comandos Expressao MLOOP .)
+    EMIT            reduce using rule 36 (Loop -> Expressao DO Comandos Expressao MLOOP .)
+    COMMENT_START   reduce using rule 36 (Loop -> Expressao DO Comandos Expressao MLOOP .)
+    ONELINE         reduce using rule 36 (Loop -> Expressao DO Comandos Expressao MLOOP .)
+    ID              reduce using rule 36 (Loop -> Expressao DO Comandos Expressao MLOOP .)
+    VARIABLE        reduce using rule 36 (Loop -> Expressao DO Comandos Expressao MLOOP .)
+    FUNC_START      reduce using rule 36 (Loop -> Expressao DO Comandos Expressao MLOOP .)
+    ROT             reduce using rule 36 (Loop -> Expressao DO Comandos Expressao MLOOP .)
+    DROP            reduce using rule 36 (Loop -> Expressao DO Comandos Expressao MLOOP .)
+    DUP             reduce using rule 36 (Loop -> Expressao DO Comandos Expressao MLOOP .)
+    SWAP            reduce using rule 36 (Loop -> Expressao DO Comandos Expressao MLOOP .)
+    NUMBER          reduce using rule 36 (Loop -> Expressao DO Comandos Expressao MLOOP .)
+    $end            reduce using rule 36 (Loop -> Expressao DO Comandos Expressao MLOOP .)
+    THEN            reduce using rule 36 (Loop -> Expressao DO Comandos Expressao MLOOP .)
+    ELSE            reduce using rule 36 (Loop -> Expressao DO Comandos Expressao MLOOP .)
+    LOOP            reduce using rule 36 (Loop -> Expressao DO Comandos Expressao MLOOP .)
+    FUNC_END        reduce using rule 36 (Loop -> Expressao DO Comandos Expressao MLOOP .)
 
 
-state 49
+state 54
 
-    (33) Conditional -> Expressao IF Comandos ELSE Comandos THEN .
+    (34) Conditional -> Expressao IF Comandos ELSE Comandos THEN .
 
-    DOT             reduce using rule 33 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    DOTSTRING       reduce using rule 33 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    EMIT            reduce using rule 33 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    COMMENT_START   reduce using rule 33 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    ONELINE         reduce using rule 33 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    ID              reduce using rule 33 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    VARIABLE        reduce using rule 33 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    FUNC_START      reduce using rule 33 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    NUMBER          reduce using rule 33 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    $end            reduce using rule 33 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    THEN            reduce using rule 33 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    ELSE            reduce using rule 33 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    LOOP            reduce using rule 33 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
-    FUNC_END        reduce using rule 33 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    DOT             reduce using rule 34 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    DOTSTRING       reduce using rule 34 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    EMIT            reduce using rule 34 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    COMMENT_START   reduce using rule 34 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    ONELINE         reduce using rule 34 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    ID              reduce using rule 34 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    VARIABLE        reduce using rule 34 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    FUNC_START      reduce using rule 34 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    ROT             reduce using rule 34 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    DROP            reduce using rule 34 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    DUP             reduce using rule 34 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    SWAP            reduce using rule 34 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    NUMBER          reduce using rule 34 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    $end            reduce using rule 34 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    THEN            reduce using rule 34 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    ELSE            reduce using rule 34 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    LOOP            reduce using rule 34 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
+    FUNC_END        reduce using rule 34 (Conditional -> Expressao IF Comandos ELSE Comandos THEN .)
 

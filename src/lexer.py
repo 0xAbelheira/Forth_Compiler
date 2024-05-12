@@ -25,9 +25,12 @@ tokens = (
     'STRING',
     'COMMENT_START',
     'COMMENT_END',
-    'I',
     'ONELINE',
     'MLOOP',
+    'ROT',
+    'DROP',
+    'DUP',
+    'SWAP',
 )
 
 literals = '+-*/%!@><='
@@ -88,8 +91,20 @@ def t_LOOP(t):
     r'\bLOOP\b'
     return t
 
-def t_I(t):
-    r'\bI\b'
+def t_ROT(t):
+    r'\bROT\b'
+    return t
+
+def t_DROP(t):
+    r'\bDROP\b'
+    return t
+
+def t_DUP(t):
+    r'\bDUP\b'
+    return t
+
+def t_SWAP(t):
+    r'\bSWAP\b'
     return t
 
 def t_ID(t):

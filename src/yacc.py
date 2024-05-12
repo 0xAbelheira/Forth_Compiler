@@ -71,6 +71,10 @@ def p_Comando7(t):
 def p_Comando8(t):
     "Comando : Func"
     t[0] = t[1]
+
+def p_Comando9(t):
+    "Comando : FuncP"
+    t[0] = t[1]
     
 def p_Expressao1(t):
     "Expressao : Expressao '+'"
@@ -163,7 +167,7 @@ def p_Variavel(t):
 def p_Conditional1(t):
     "Conditional : Expressao IF Comandos THEN"
     label = generate_label()
-    t[0] = f'jz ENDIF{label}\n{t[3]}\njump ENDIF{label}\nENDIF{label}:\n'
+    t[0] = f'{t[1]}jz ENDIF{label}\n{t[3]}\njump ENDIF{label}\nENDIF{label}:\n'
     
 def p_Conditional2(t):
     "Conditional : Expressao IF Comandos ELSE Comandos THEN"
@@ -193,6 +197,26 @@ def p_Func(t):
 def p_Func2(t):
     "Func : ID"
     t[0] = f'pusha {t[1]}\ncall\n'
+
+def p_FuncP(t):
+    "FuncP : ROT"
+    global contador
+    t[0] = f'storeg {contador+1}\nswap\npushg {contador+1}\nswap\n'
+    contador += 1
+
+def p_FuncP2(t):
+    "FuncP : DROP"
+    global contador
+    t[0] = f'pop 1\n'
+    contador += 1
+
+def p_FuncP3(t):
+    "FuncP : DUP"
+    t[0] = f'dup 1\n'
+
+def p_FuncP4(t):
+    "FuncP : SWAP"
+    t[0] = f'swap\n'
 
 def p_error(t):
     print(f"Syntax error: {t.value}, {t.type}, {t}")

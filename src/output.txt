@@ -1,35 +1,8 @@
-pushn 3
+pushn 0
 start
-pushi 10
-storeg 1
-pushi 2
-storeg 2
-WHILE0:
-pushg 1
-pushg 2
-sup
-jz ENDWHILE0
-pushg 0
-pushi 2
-add
-storeg 0
 pushi 1
-pushg 2
-add
-storeg 2
-jump WHILE0
-ENDWHILE0:
-pushg 0
-writei
 pushi 2
 pushi 3
-add
-pusha add1
-call
+swap
 writei
 stop
-add1:
-pushl -1
-pushi 1
-add
-storel -1 return
