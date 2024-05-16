@@ -14,7 +14,7 @@
 from ply import lex
 from lexer import tokens
 from ply.yacc import yacc
-
+import sys
 #ter um contador global para os storegs, e guardar num dicionario tipo o da variable store
 
 variable_store = {}
@@ -223,7 +223,7 @@ def p_error(t):
 
 parser = yacc()
 
-input_file_path = 'input.txt'
+input_file_path = sys.argv[1] if len(sys.argv) == 2 else 'input.txt'
 output_file_path = 'output.txt'
 
 ewvm_results = ''
@@ -234,7 +234,13 @@ with open(input_file_path, 'r') as file:
         ewvm_results += str(parsed_line)
 
 
-ewvmFinal = f'pushn {contador +1}\n' + f'start\n' + ewvm_results + f'stop\n' + funcs
+ewvmFinal = f"""
+    pushn {contador +1} 
+    start
+    {ewvm_results}
+    stop
+    {funcs}
+"""
 
 with open(output_file_path, 'w') as file:
     file.write(ewvmFinal)

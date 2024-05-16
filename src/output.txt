@@ -1,7 +1,36 @@
-pushn 0
-start
+
+    pushn 1 
+    start
+    pushi 10
+pusha Func1
+call
+pushi 40
+pusha Func1
+call
 pushi 10
-pushi 2
-mod
+storeg 0
+pushg 0
+pushg 0
+add
 writei
-stop
+
+    stop
+    Func1:
+pushl -1
+pushi 37
+sup
+jz ELSE0
+pushs " Tem febre! "
+writes
+
+jump ENDIF0
+ELSE0:
+pushs " Saudavel! "
+writes
+
+jump ENDIF0
+ENDIF0:
+pushi 34
+storel -1
+return
+

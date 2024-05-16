@@ -214,17 +214,15 @@ def t_function_STRING(t):
 
 def t_function_COMMENT_START(t):
     r'\('
-    t.lexer.begin('comment')
-    return t
-
-def t_function_COMMENT_END(t):
-    r'\)'
-    return t
+    #t.lexer.begin('comment')
+    t.lexer.push_state('comment')
+    pass
 
 def t_COMMENT_START(t):
     r'\('
-    t.lexer.begin('comment')
-    return None
+    #t.lexer.begin('comment')
+    t.lexer.push_state('comment')
+    pass
 
 # Comment state functions
 def t_comment_TEXT(t):
@@ -233,8 +231,9 @@ def t_comment_TEXT(t):
 
 def t_comment_COMMENT_END(t):
     r'\)'
-    t.lexer.begin('INITIAL')
-    return None
+    #t.lexer.begin('INITIAL')
+    t.lexer.pop_state()
+    pass
 
 # Common rules
 t_ANY_ignore = ' \n\r\t'

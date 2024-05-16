@@ -1,1 +1,6 @@
-10 2 MOD .
+: Func1 37 > IF ." Tem febre! " ELSE ." Saudavel! " THEN 34 ; 
+10 Func1 
+40 Func1
+VARIABLE ID
+10 ID !
+ID @ ID @ + .
